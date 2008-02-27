@@ -22,37 +22,42 @@ data GameAttribute = Score Int
 type PongObject = GameObject ()
 type PongAction a = IOGame GameAttribute () () () a
 
+width = 400
+height = 400
+w = fromIntegral width :: Double
+h = fromIntegral height :: Double
+
 main :: IO ()
 main = do
-        let winConfig = ((0,0),(250,250),"A brief example!")
+        let winConfig = ((100,20),(width,height),"A brief example!")
 	    bmpList = [("tex.bmp",Nothing)]
-	    gameMap = textureMap 0 50 50 250.0 250.0
+	    gameMap = textureMap 0 30 30 w h
             bar    = objectGroup "barGroup"  [createBar]
             ball   = objectGroup "ballGroup" [createBall]
             initScore = Score 0
             input = [(SpecialKey KeyRight, StillDown, moveBarToRight),
                      (SpecialKey KeyLeft,  StillDown, moveBarToLeft)]
 
-        funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 40) bmpList
+        funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 30) bmpList
 
 createBall :: PongObject
-createBall = let ballPic = Basic (Circle 3.0 0.0 1.0 0.0 Filled)
-	     in object "ball" ballPic False (125,125) (-5,5) ()
+createBall = let ballPic = Basic (Circle 6.0 0.0 1.0 0.0 Filled)
+	     in object "ball" ballPic False (w/2,h/2) (-8,8) ()
 
 
 createBar :: PongObject
 createBar = let barBound = [(-25,-6),(25,-6),(25,6),(-25,6)]
-                barPic = Basic (Polyg barBound 1.0 1.0 1.0 Unfilled)
-            in object "bar" barPic False (125,30) (0,0) ()
+                barPic = Basic (Polyg barBound 1.0 1.0 1.0 Filled)
+            in object "bar" barPic False (w/2,30) (0,0) ()
 
 moveBarToRight :: PongAction ()
 moveBarToRight = do
         obj <- findObject "bar" "barGroup"
         (pX,pY) <- getObjectPosition obj
         (sX,_)  <- getObjectSize obj
-        if (pX + (sX/2) + 5 <= 250)
+        if (pX + (sX/2) + 5 <= w)
         	then (setObjectPosition ((pX + 5),pY) obj)
-        	else (setObjectPosition ((250 - (sX/2)),pY) obj)
+        	else (setObjectPosition ((w - (sX/2)),pY) obj)
 
 moveBarToLeft :: PongAction ()
 moveBarToLeft = do
@@ -75,14 +80,12 @@ gameCycle = do
         col3 <- objectTopMapCollision ball
         when col3 (reverseYSpeed ball)
         col4 <- objectBottomMapCollision ball
-        when col4 (funExit)
+        when col4 (do reverseYSpeed ball) -- (funExit)
 
         bar <- findObject "bar" "barGroup"
         col5 <- objectsCollision ball bar
-        when col5
-        	(do reverseYSpeed ball
-        	    setGameAttribute (Score (n + 10)))
-	showFPS TimesRoman24 (30,0) 1.0 0.0 0.0
-
-
+        let (_,vy) = getGameObjectSpeed ball
+        when (and [col5, vy < 0])  (do reverseYSpeed ball
+        	                       setGameAttribute (Score (n + 10)))
+	showFPS TimesRoman24 (w-40,0) 1.0 0.0 0.0
 

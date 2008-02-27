@@ -15,9 +15,10 @@ In order to use the Makefile, set the HC, FG (FunGEn dir) and TOP variables corr
 
 module Main where
 
+import Text.Printf
 import FunGEn
 
-data GameAttribute = GA Int Int Int (Double,Double)
+data GameAttribute = GA Int Int Int (Double,Double) Int
 data ObjectAttribute = NoObjectAttribute | Tail Int
 data GameState = LevelStart Int | Level Int | GameOver
 data TileAttribute = NoTileAttribute
@@ -74,13 +75,13 @@ free3   = 16
 
 main :: IO ()
 main = do
-        let winConfig = ((0,0),(780,600),"WORMS - by Andre Furtado")
+        let winConfig = ((100,50),(780,600),"WORMS - by Andre Furtado")
 
             gameMap = multiMap [(tileMap map1 tileSize tileSize),
                                 (tileMap map2 tileSize tileSize),
                                 (tileMap map3 tileSize tileSize)] 0
 
-            gameAttribute = GA defaultTimer maxFood initTailSize initPos
+            gameAttribute = GA defaultTimer maxFood initTailSize initPos 0
 
             groups = [(objectGroup "messages"  createMsgs ),
                       (objectGroup "head"     [createHead]),
@@ -151,7 +152,7 @@ turnDown = do
 
 gameCycle :: WormsAction ()
 gameCycle = do
-    (GA timer remainingFood tailSize previousHeadPos) <- getGameAttribute
+    (GA timer remainingFood tailSize previousHeadPos score) <- getGameAttribute
     gState <- getGameState
     case gState of
         LevelStart n -> case n of
@@ -160,7 +161,7 @@ gameCycle = do
                                 drawObject congratulations
                                 if (timer == 0)
                                     then funExit
-                                    else (setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos))
+                                    else (setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos score))
                             _ -> do
                                 disableGameFlags
                                 level <- findObject ("level" ++ (show n)) "messages"
@@ -173,29 +174,29 @@ gameCycle = do
                                   	     setObjectPosition initPos snakeHead
                                   	     setObjectSpeed (0.0,speedMod) snakeHead
                                   	     setObjectCurrentPicture 5 snakeHead
-                                             setGameAttribute (GA defaultTimer remainingFood tailSize previousHeadPos)
+                                             setGameAttribute (GA defaultTimer remainingFood tailSize previousHeadPos score)
                                              destroyObject level
                                              setNewMap n)
-                                    else setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos)
+                                    else setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos score)
         Level n -> do
                     if (remainingFood == 0) -- advance level!
                         then  (do setGameState (LevelStart (n + 1))
                                   resetTails
                                   disableGameFlags
-                                  setGameAttribute (GA timer maxFood initTailSize initPos))
+                                  setGameAttribute (GA timer maxFood initTailSize initPos score))
                         else if (timer == 0) -- put a new food in the map
                                then (do food <- findObject "food" "food"
                                         newPos <- createNewFoodPosition
                                         setObjectPosition newPos food
                                         newFood <- findObject "food" "food"
                                         setObjectAsleep False newFood
-                                        setGameAttribute (GA (-1) remainingFood tailSize previousHeadPos)
+                                        setGameAttribute (GA (-1) remainingFood tailSize previousHeadPos score)
                                         snakeHead <- findObject "head" "head"
                                         checkSnakeCollision snakeHead
                                         snakeHeadPosition <- getObjectPosition snakeHead
                                         moveTail snakeHeadPosition)
                                else if (timer > 0) -- there is no food in the map, so decrease the food timer
-                                     then (do setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos)
+                                     then (do setGameAttribute (GA (timer - 1) remainingFood tailSize previousHeadPos score)
                                               snakeHead <- findObject "head" "head"
                                               checkSnakeCollision snakeHead
                                               snakeHeadPosition <- getObjectPosition snakeHead
@@ -206,12 +207,14 @@ gameCycle = do
                                         col <- objectsCollision snakeHead food
                                         if col
                                             then (do snakeHeadPosition <- getObjectPosition snakeHead
-                                            	     setGameAttribute (GA defaultTimer (remainingFood-1) (tailSize + 1) snakeHeadPosition)
+                                            	     setGameAttribute (GA defaultTimer (remainingFood-1) (tailSize + 1) snakeHeadPosition (score + 1))
                                                      addTail previousHeadPos
                                                      setObjectAsleep True food)
                                             else (do checkSnakeCollision snakeHead
                                             	     snakeHeadPosition <- getObjectPosition snakeHead
                                                      moveTail snakeHeadPosition))
+                    showScore
+
         GameOver -> do
                         disableMapDrawing
                         gameover <- findObject "gameover" "messages"
@@ -219,7 +222,13 @@ gameCycle = do
                         drawObject gameover
                         if (timer == 0)
                                 then funExit
-                                else (setGameAttribute (GA (timer - 1) 0 0 (0,0)))
+                                else (setGameAttribute (GA (timer - 1) 0 0 (0,0) 0))
+
+showScore :: WormsAction ()
+showScore = do
+  (GA _ remainingFood _ _ score) <- getGameAttribute
+  printOnScreen (printf "Score: %d    Food remaining: %d" score remainingFood) TimesRoman24 (40,8) 1.0 1.0 1.0
+  showFPS TimesRoman24 (780-60,8) 1.0 0.0 0.0
 
 setNewMap :: Int -> WormsAction ()
 setNewMap 2 = setCurrentMapIndex 1
@@ -278,12 +287,12 @@ addTailNumber (a:as) = do
 
 moveTail :: (Double,Double) -> WormsAction ()
 moveTail presentHeadPos = do
-        (GA timer remainingFood tailSize previousHeadPos) <- getGameAttribute
+        (GA timer remainingFood tailSize previousHeadPos score) <- getGameAttribute
         tails <- getObjectsFromGroup "tail"
         aliveTails <- getAliveTails tails []
         lastTail <- findLastTail aliveTails
         setObjectPosition previousHeadPos lastTail
-        setGameAttribute (GA timer remainingFood tailSize presentHeadPos)
+        setGameAttribute (GA timer remainingFood tailSize presentHeadPos score)
         changeTailsAttribute tailSize aliveTails
 
 findLastTail :: [WormsObject] -> WormsAction WormsObject
@@ -312,7 +321,7 @@ checkSnakeCollision snakeHead = do
                                         then (do setGameState GameOver
                                                  disableObjectsDrawing
                                                  disableObjectsMoving
-                                                 setGameAttribute (GA defaultTimer 0 0 (0,0)))
+                                                 setGameAttribute (GA defaultTimer 0 0 (0,0) 0))
                                         else return ()
 
 createNewFoodPosition :: WormsAction (Double,Double)
