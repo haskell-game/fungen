@@ -18,12 +18,12 @@ module Fun_Display (
 
 import Fun_Game
 import Fun_Aux (when)
-import GL
-import GLUT
+import Graphics.Rendering.OpenGL
+import Graphics.UI.GLUT
 
-display :: Game t s u v -> IOGame t s u v () -> DisplayAction
+display :: Game t s u v -> IOGame t s u v () -> DisplayCallback
 display g gameCycle = do 
-        clear [ColorBufferBit]
+        clear [ColorBuffer]
         runIOGame (displayIOGame gameCycle) g
         swapBuffers
         flush

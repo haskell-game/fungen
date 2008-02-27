@@ -14,7 +14,7 @@ This FunGEn module contains the map (game background) routines.
 
 module Fun_Map (
         GameMap,
-        Tile, TileMatrix, Tile,
+        Tile, TileMatrix,
         getTilePictureIndex, getTileBlocked, getTileMoveCost, getTileSpecialAttribute,
         colorMap, textureMap, tileMap, multiMap,
         getMapSize,
@@ -25,7 +25,7 @@ module Fun_Map (
 
 import Fun_Types
 import Fun_Aux
-import GL
+import Graphics.Rendering.OpenGL
 
 type Tile t = (Int,Bool,Float,t) -- index of picture, possibility to move, cost to move, additional params
 type TileMatrix t = [[(Tile t)]]
@@ -161,32 +161,32 @@ matrixOkAux s (m:ms) | (length m) == s = matrixOkAux s ms
 ----------------------------------------
 clearGameScreen :: Float -> Float -> Float -> IO ()
 clearGameScreen r g b = do
-        clearColor (Color4 r g b (1.0 :: GLfloat))
-        clear [ColorBufferBit]
+        clearColor $= (Color4 r g b (1.0 :: GLfloat))
+        clear [ColorBuffer]
 
 -- draws the background map
-drawGameMap :: GameMap t -> Point2D -> [TextureName] -> IO ()
+drawGameMap :: GameMap t -> Point2D -> [TextureObject] -> IO ()
 drawGameMap (ColorMap c _) _ _ = do
-        clearColor c
-        clear [ColorBufferBit]
-        clearColor (Color4 0 0 0 0) -- performance drawback?
+        clearColor $= c
+        clear [ColorBuffer]
+        clearColor $= (Color4 0 0 0 0) -- performance drawback?
 drawGameMap (TextureMap texId (tX,tY) (vX,vY) _ _) winSize texList = do
-        enable Texture2d'
-        bindTexture Texture2d (texList !! texId)
+        texture Texture2D $= Enabled
+        bindTexture Texture2D (texList !! texId)
         drawTextureMap (tX,tY) (new_winX, new_winY) winSize new_winY texList
-        disable Texture2d'
+        texture Texture2D $= Disabled
         where new_winX | (vX >= 0) = - vX
                        | otherwise = - vX - tX
               new_winY | (vY >= 0) = - vY
                        | otherwise = - vY - tY
 drawGameMap (TileMap matrix size visible _ _) winSize texList = do
-        enable Texture2d'
+        texture Texture2D $= Enabled
         drawTileMap (reverse matrix) size visible winSize 0.0 texList
-        disable Texture2d'
+        texture Texture2D $= Disabled
 drawGameMap (MultiMap _ _) _ _ = error "Fun_Map.drawGameMap error: drawGameMap cannot be applied with MultiMaps!"
 
 -- size of texture, drawing position relative to (X,Y) axis of window, lowest Y drawing position
-drawTextureMap :: Point2D -> Point2D -> Point2D -> GLdouble -> [TextureName] -> IO ()
+drawTextureMap :: Point2D -> Point2D -> Point2D -> GLdouble -> [TextureObject] -> IO ()
 drawTextureMap (tX,tY) (winX,winY) (winWidth,winHeight) baseY texList
         | (winY > winHeight) = drawTextureMap (tX,tY) (winX + tX, baseY) (winWidth,winHeight) baseY texList
         | (winX > winWidth) = return ()
@@ -194,15 +194,15 @@ drawTextureMap (tX,tY) (winX,winY) (winWidth,winHeight) baseY texList
                 loadIdentity
                 translate (Vector3 winX winY (0 :: GLdouble) )
                 color (Color3 1.0 1.0 1.0 :: Color3 GLfloat)
-                beginEnd Quads $ do
-                        texCoord2 0.0 0.0;  vertex3 0.0 0.0 0.0
-                        texCoord2 1.0 0.0;  vertex3  tX 0.0 0.0
-                        texCoord2 1.0 1.0;  vertex3  tX  tY 0.0
-                        texCoord2 0.0 1.0;  vertex3 0.0  tY 0.0
+                renderPrimitive Quads $ do
+                        texCoord $ TexCoord2 0.0 (0.0 :: GLdouble);  vertex $ Vertex3 0.0 0.0 (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 1.0 (0.0 :: GLdouble);  vertex $ Vertex3  tX 0.0 (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 1.0 (1.0 :: GLdouble);  vertex $ Vertex3  tX  tY (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 0.0 (1.0 :: GLdouble);  vertex $ Vertex3 0.0  tY (0.0 :: GLdouble)
                 drawTextureMap (tX,tY) (winX,winY + tY) (winWidth,winHeight) baseY texList
                 
 -- textures handles, tile matrix, size of texture, (X,Y) scroll, drawing position relative to Y axis of window
-drawTileMap :: TileMatrix t -> Point2D -> Point2D -> Point2D -> GLdouble -> [TextureName] -> IO ()
+drawTileMap :: TileMatrix t -> Point2D -> Point2D -> Point2D -> GLdouble -> [TextureObject] -> IO ()
 drawTileMap [] _ _ _ _ _ = return () -- no more tile lines to drawn, so we're done here!
 drawTileMap (a:as) (tX,tY) (sX,sY) (winWidth,winHeight) winY texList
         | (sY >= tY) = drawTileMap as (tX,tY) (sX,sY-tY) (winWidth,winHeight) winY texList -- scrolls in the Y axis
@@ -212,21 +212,21 @@ drawTileMap (a:as) (tX,tY) (sX,sY) (winWidth,winHeight) winY texList
                 drawTileMap as (tX,tY) (sX,sY) (winWidth,winHeight) (winY - sY + tY) texList
 
 -- textures handles, tile line, size of texture, X scroll, drawing position relative to (X,Y) axis of window            
-drawTileMapLine :: TileLine t -> Point2D -> GLdouble -> Point2D -> GLdouble -> [TextureName] -> IO ()
+drawTileMapLine :: TileLine t -> Point2D -> GLdouble -> Point2D -> GLdouble -> [TextureObject] -> IO ()
 drawTileMapLine [] _ _ _ _ _ = return () -- no more tiles to drawn, so we're done here!
 drawTileMapLine (a:as) (tX,tY) sX (winX,winY) winWidth texList
         | (sX >= tX) = drawTileMapLine as (tX,tY) (sX-tX) (winX,winY) winWidth texList -- scrolls in the X axis
         | (winX > winWidth) = return () -- drawing position is higher than the X window coordinate
         | otherwise = do
-                bindTexture Texture2d (texList !! (getTilePictureIndex a))
+                bindTexture Texture2D (texList !! (getTilePictureIndex a))
                 loadIdentity
                 translate (Vector3 (new_winX) winY (0 :: GLdouble) )
                 color (Color3 1.0 1.0 1.0 :: Color3 GLfloat)
-                beginEnd Quads $ do
-                        texCoord2 0.0 0.0;  vertex3 0.0 0.0 0.0
-                        texCoord2 1.0 0.0;  vertex3  tX 0.0 0.0
-                        texCoord2 1.0 1.0;  vertex3  tX  tY 0.0
-                        texCoord2 0.0 1.0;  vertex3 0.0  tY 0.0
+                renderPrimitive Quads $ do
+                        texCoord $ TexCoord2 0.0 (0.0 :: GLdouble);  vertex $ Vertex3 0.0 0.0 (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 1.0 (0.0 :: GLdouble);  vertex $ Vertex3  tX 0.0 (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 1.0 (1.0 :: GLdouble);  vertex $ Vertex3  tX  tY (0.0 :: GLdouble)
+                        texCoord $ TexCoord2 0.0 (1.0 :: GLdouble);  vertex $ Vertex3 0.0  tY (0.0 :: GLdouble)
                 drawTileMapLine as (tX,tY) sX (new_winX + sX + tX,winY) winWidth texList
                 where new_winX | (sX >= 0) = winX + sX
                                | otherwise = winX + sX

@@ -16,9 +16,9 @@ module Fun_Loader (
         loadBitmap, loadBitmapList, FilePictureList
 )where
 
-import GL
+import Graphics.Rendering.OpenGL
 import IO
-import IOExts
+import Foreign
 import Fun_Types
 import Fun_Aux
 import Fun_Types(ColorList3, AwbfBitmap)
@@ -32,7 +32,7 @@ type FilePictureList = [(FilePath,InvList)]
 --loads a bitmap from a file
 loadBitmap :: FilePath -> Maybe ColorList3 -> IO AwbfBitmap
 loadBitmap bmName invList = do
-        bmFile <- openFileEx bmName (BinaryMode ReadMode)
+        bmFile <- openFile bmName (ReadMode)
         bmString <- hGetContents bmFile
         (bmW,bmH) <- getWH (dropGLsizei 18 bmString)
         bmData <- getBmData (dropGLsizei 54 bmString) (bmW,bmH) invList
@@ -59,11 +59,11 @@ getWH (a:b:c:d:e:f:g:h:_) = do
                        op x n = toDecimal(shiftLeft(binAux ++ (make0 (8 - (length x)) ++ x)) n)
 getWH _ = error "Fun_Loader.getWH error: strange bitmap file"                    
 
-getBmData :: String -> (GLsizei,GLsizei) -> Maybe ColorList3 -> IO PixelDescriptor
+getBmData :: String -> (GLsizei,GLsizei) -> Maybe ColorList3 -> IO (PixelData GLubyte)
 getBmData bmString (bmW,bmH) invList = 
         let colorList = makeColorList bmString (bmW,bmH) in
         newArray [Color4 r g b a | (r,g,b,a) <- addInvisiblity colorList invList] >>= \bmData ->
-        return (PixelDescriptor GL.Rgba UnsignedByte (castPtr bmData))
+        return (PixelData RGBA UnsignedByte (castPtr bmData))
         
 addInvisiblity :: ColorList3 -> Maybe ColorList3 -> BmpList
 addInvisiblity [] _ = []

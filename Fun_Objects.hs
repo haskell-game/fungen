@@ -29,8 +29,8 @@ module Fun_Objects (
 
 import Fun_Types
 import Fun_Aux
-import GL
-import GLU
+import Graphics.Rendering.OpenGL hiding (Primitive)
+import Graphics.UI.GLUT hiding (Primitive)
 
 data GameObject t = GO {
     objId	   :: Integer,
@@ -57,7 +57,7 @@ data GamePrimitive
 data GameObjectPicture
     = Tx Int
     | B GamePrimitive
---  | A [TextureName] Int -- miliseconds between frames
+--  | A [TextureObject] Int -- miliseconds between frames
 
 data Primitive
     = Polyg [Point2D] Float Float Float FillMode -- the points (must be in CCW order!), color, fill mode
@@ -204,16 +204,16 @@ adjustNewObjects (o:os) oId managerName = (o {objId = oId, objManagerName = mana
 ------------------------------------------
 -- draw routines
 ------------------------------------------
-drawGameObjects :: [(ObjectManager t)] -> QuadricObj -> [TextureName] -> IO ()
+drawGameObjects :: [(ObjectManager t)] -> QuadricPrimitive -> [TextureObject] -> IO ()
 drawGameObjects [] _ _ = return ()
 drawGameObjects (m:ms) qobj picList = drawGameObjectList (getObjectManagerObjects m) qobj picList >> drawGameObjects ms qobj picList
 
-drawGameObjectList :: [(GameObject t)] -> QuadricObj -> [TextureName] -> IO ()
+drawGameObjectList :: [(GameObject t)] -> QuadricPrimitive -> [TextureObject] -> IO ()
 drawGameObjectList [] _ _ = return ()
 drawGameObjectList (o:os) qobj picList | (getGameObjectAsleep o) = drawGameObjectList os qobj picList
                                        | otherwise = drawGameObject o qobj picList >> drawGameObjectList os qobj picList
 
-drawGameObject :: GameObject t -> QuadricObj -> [TextureName] -> IO ()
+drawGameObject :: GameObject t -> QuadricPrimitive -> [TextureObject] -> IO ()
 drawGameObject o qobj picList = do
     loadIdentity
     let (pX,pY) = getGameObjectPosition o
@@ -223,26 +223,25 @@ drawGameObject o qobj picList = do
         (B (P points c fillMode)) -> do
                     color c
                     if (fillMode == Filled)
-                        then (beginEnd Polygon  $ mapM_ vertex points)
-                        else (beginEnd LineLoop $ mapM_ vertex points) 
+                        then (renderPrimitive Polygon  $ mapM_ vertex points)
+                        else (renderPrimitive LineLoop $ mapM_ vertex points) 
 
         (B (C r c fillMode)) -> do
                     color c
-                    if (fillMode == Filled)
-                        then (quadricDrawStyle qobj GLU.Fill)
-                        else (quadricDrawStyle qobj Silhouette)
-                    disk qobj 0 r 20 3
+                    renderQuadric style $ Disk 0 r 20 3
+                 where style = QuadricStyle Nothing NoTextureCoordinates Outside fillStyle
+                       fillStyle = if (fillMode == Filled) then FillStyle else SilhouetteStyle
 
         (Tx picIndex) -> do
-                        enable Texture2d'
-                        bindTexture Texture2d (picList !! picIndex)
+                        texture Texture2D $= Enabled
+                        bindTexture Texture2D (picList !! picIndex)
                         color (Color4 1.0 1.0 1.0 (1.0 :: GLfloat))
-                        beginEnd Quads $ do
+                        renderPrimitive Quads $ do
                             texCoord2 0.0 0.0;  vertex3 (-x) (-y) 0.0
                             texCoord2 1.0 0.0;  vertex3   x  (-y) 0.0
                             texCoord2 1.0 1.0;  vertex3   x    y  0.0
                             texCoord2 0.0 1.0;  vertex3 (-x)   y  0.0
-                        disable Texture2d'
+                        texture Texture2D $= Disabled
                    where (sX,sY) = getGameObjectSize o
                          x = sX/2
                          y = sY/2

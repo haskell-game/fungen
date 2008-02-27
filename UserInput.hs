@@ -7,17 +7,11 @@ module UserInput (
    Key(..), KeyEvent(..), KeyBinder, StillDownHandler, initUserInput
 ) where
 
-import IOExts(IORef, newIORef, readIORef, modifyIORef)
+import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
 import List(delete)
-import GLUT
+import Graphics.UI.GLUT
 
 ---------------------------------------------------------------------------
-
-data Key =
-     KeyNormal  Char
-   | KeySpecial SpecialKey
-   | KeyMouse   MouseButton WindowPosition
-   deriving Eq
 
 data KeyEvent = Press | StillDown | Release   deriving Eq
 
@@ -73,21 +67,16 @@ initUserInput = do
    -- Using "setKeyRepeat KeyRepeatOff" would be a little bit more
    -- efficient, but has two disadvantages: It is not yet implemented
    -- for M$ and it changes the global state of X11.
-   ignoreKeyRepeat True
-
+   globalKeyRepeat $= GlobalKeyRepeatOff
    bindingTable <- newBindingTable
    pressedKeys  <- newKeyTable
    let keyPress   k = do insertIntoKeyTable pressedKeys k
                          execAction bindingTable k Press
        keyRelease k = do deleteFromKeyTable pressedKeys k
                          execAction bindingTable k Release
-
-   keyboardFunc      (Just (\k _ -> keyPress   (KeyNormal  k)))
-   keyboardUpFunc    (Just (\k _ -> keyRelease (KeyNormal  k)))
-   specialFunc       (Just (\k _ -> keyPress   (KeySpecial k)))
-   specialUpFunc     (Just (\k _ -> keyRelease (KeySpecial k)))
-   mouseFunc         (Just (\k ud wp -> case ud of
-                            Down -> keyPress   (KeyMouse   k wp)
-                            Up   -> keyRelease (KeyMouse   k wp)))
-
+       keyboardMouse k Down _ _ = keyPress   k
+       keyboardMouse k Up   _ _ = keyRelease k
+   keyboardMouseCallback $= Just keyboardMouse
    return (bindKey bindingTable, stillDown bindingTable pressedKeys)
+
+

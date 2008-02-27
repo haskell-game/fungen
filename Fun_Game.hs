@@ -48,13 +48,13 @@ import Fun_Loader
 import Fun_Text
 import Fun_Map
 import Fun_Objects
-import GL
-import GLU
-import GLUT
-import IOExts
+import Graphics.Rendering.OpenGL
+import Graphics.Rendering.OpenGL.GLU
+import Graphics.UI.GLUT
 import Monad
-foreign import shutdownHaskellAndExit :: Int -> IO ()
-
+import System.Exit
+import Data.IORef
+import Text.Printf
 
 
 data Game t s u v = Game {
@@ -63,10 +63,10 @@ data Game t s u v = Game {
 	gameFlags     :: IORef GameFlags,
 	objManagers   :: IORef [(ObjectManager s)],
 	textList      :: IORef [Text],
-	quadricObj    :: QuadricObj,
+	quadricObj    :: QuadricPrimitive,
 	windowConfig  :: IORef WindowConfig,
 	gameAttribute :: IORef t,
-	pictureList   :: IORef [TextureName],
+	pictureList   :: IORef [TextureObject],
 	fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
 	}
 
@@ -146,10 +146,10 @@ getObjectManagers = IOG ( \game -> (readIORef (objManagers game) >>= \om -> retu
 setObjectManagers :: [(ObjectManager s)] -> IOGame t s u v ()
 setObjectManagers o = IOG ( \game -> (writeIORef (objManagers game) o >> return (game,()) ))
                                                    
-getQuadric :: IOGame t s u v QuadricObj
+getQuadric :: IOGame t s u v QuadricPrimitive
 getQuadric = IOG ( \game -> return (game,quadricObj game) )
 
-getPictureList :: IOGame t s u v [TextureName]
+getPictureList :: IOGame t s u v [TextureObject]
 getPictureList = IOG ( \game -> (readIORef (pictureList game) >>= \pl -> return (game,pl) ))
 
 getWindowConfig :: IOGame t s u v WindowConfig
@@ -179,7 +179,7 @@ createGame gMap objectManagers winConf gState gAttrib filePicList = do
         gF <- newIORef (True,True,True)
         gO <- newIORef objectManagers
         gT <- newIORef []
-        gQ <- newQuadric
+        let gQ = Sphere 0 0 0
         gW <- newIORef winConf
         gA <- newIORef gAttrib
         picList <- loadPictures filePicList
@@ -199,10 +199,10 @@ createGame gMap objectManagers winConf gState gAttrib filePicList = do
             })
 
 -- loads all of the pictures used in the game
-loadPictures :: [(FilePath,InvList)] -> IO [TextureName]
+loadPictures :: [(FilePath,InvList)] -> IO [TextureObject]
 loadPictures pathsAndInvLists = do
         bmps <- loadBitmapList (map pathAndInv2color3List pathsAndInvLists)
-        texBmList <- (genTextures (length bmps))
+        texBmList <- genObjectNames (length bmps)
         texStuff texBmList bmps
         return texBmList
 
@@ -210,7 +210,7 @@ loadPictures pathsAndInvLists = do
 -- ending the game
 ---------------------------------
 funExit :: IOGame t s u v ()
-funExit = liftIOtoIOGame' shutdownHaskellAndExit 1
+funExit = liftIOtoIOGame' exitWith ExitSuccess
 
 ----------------------------------
 -- map routines
@@ -697,11 +697,11 @@ showFPS font pos r g b = do
 	if (timei - timebasei > 1000)
 		then setFpsInfo (0,timei,(frame*(toEnum 1000)/(time-timebase)))
 		else setFpsInfo ((framei + 1),timebasei,fps)
-	printOnScreen (show fps) font pos r g b
+	printOnScreen (printf "%.1f" fps) font pos r g b
 
 -- get the elapsed time of the game
 getElapsedTime :: IOGame t s u v Int
-getElapsedTime = liftIOtoIOGame $ get ElapsedTime
+getElapsedTime = liftIOtoIOGame $ get elapsedTime
 
 wait :: Int -> IOGame t s u v ()
 wait delay = do

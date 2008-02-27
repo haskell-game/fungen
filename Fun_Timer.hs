@@ -18,18 +18,18 @@ module Fun_Timer (
 ) where
 
 import UserInput
-import GLUT
+import Graphics.UI.GLUT
 
 data RefreshType
         = Idle
         | Timer Int
 
 setRefresh :: RefreshType -> StillDownHandler -> IO ()
-setRefresh Idle stillDown = idleFunc (Just (stillDown >> postRedisplay))
-setRefresh (Timer t) stillDown = timerFunc t (timer stillDown t)
+setRefresh Idle stillDown = idleCallback $= Just (stillDown >> postRedisplay Nothing)
+setRefresh (Timer t) stillDown = addTimerCallback t (timer stillDown t)
 
-timer :: StillDownHandler -> Int -> TimerAction
+timer :: StillDownHandler -> Int -> TimerCallback
 timer stillDown t = do
         stillDown
-        postRedisplay
-        timerFunc t (timer stillDown t)
+        postRedisplay Nothing
+        addTimerCallback t (timer stillDown t)

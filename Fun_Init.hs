@@ -13,8 +13,7 @@ This FunGEn module contains the initialization procedures.
 -}
 
 module Fun_Init (
-        funInit,
-        WindowConfig
+        funInit
 )where
 
 import Fun_Types
@@ -25,31 +24,31 @@ import Fun_Map
 import Fun_Objects
 import Fun_Game
 import Fun_Timer
-import GL
-import GLUT
+import Graphics.Rendering.OpenGL
+import Graphics.UI.GLUT
 
 funInit :: WindowConfig -> GameMap v -> [(ObjectManager s)] -> u -> t -> [InputConfig t s u v] -> IOGame t s u v () -> RefreshType -> FilePictureList -> IO ()
 funInit winConfig@((px,py),(sx,sy),t) userMap objectGroups gState gAttrib i gameCicle r picList = do
-        GLUT.init Nothing
-        createWindow t (return ()) [ GLUT.Double, GLUT.Rgba ]
-                (Just (WindowPosition px py))
-                (Just (WindowSize     sx sy))
+        initialize "FunGen app" []
+        createWindow t -- (return ()) [ Double, RGBA ]
+        windowPosition $= Position (fromIntegral px) (fromIntegral py)
+        windowSize     $= Size     (fromIntegral sx) (fromIntegral sy)
         basicInit sx sy
         game <- createGame userMap objectGroups winConfig gState gAttrib picList
         (bindKey, stillDown) <- funBinding i game
-        displayFunc (display game gameCicle)
+        displayCallback $= (display game gameCicle)
         setRefresh r stillDown
         mainLoop
         
 basicInit :: Int -> Int -> IO ()
 basicInit sx sy = do
-        clearColor (Color4 0 0 0 0)
-        clear [ColorBufferBit]
-        enable Blend'
-        blendFunc SrcAlpha OneMinusSrcAlpha
-        hint PerspectiveCorrectionHint Nicest
-        matrixMode Projection
+        clearColor $= (Color4 0 0 0 0)
+        clear [ColorBuffer]
+        blend $= Enabled
+        blendFunc $= (SrcAlpha, OneMinusSrcAlpha)
+        hint PerspectiveCorrection $= Nicest
+        matrixMode $= Projection
         loadIdentity
         ortho 0.0 (fromIntegral sx) 0.0 (fromIntegral sy) (-1.0) 1.0
-        matrixMode Modelview
+        matrixMode $= Modelview 0
         loadIdentity

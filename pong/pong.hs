@@ -30,8 +30,8 @@ main = do
             bar    = objectGroup "barGroup"  [createBar]
             ball   = objectGroup "ballGroup" [createBall]
             initScore = Score 0
-            input = [(KeySpecial KeyRight, StillDown, moveBarToRight),
-                     (KeySpecial KeyLeft,  StillDown, moveBarToLeft)]
+            input = [(SpecialKey KeyRight, StillDown, moveBarToRight),
+                     (SpecialKey KeyLeft,  StillDown, moveBarToLeft)]
 
         funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 40) bmpList
 
@@ -66,7 +66,7 @@ moveBarToLeft = do
 gameCycle :: PongAction ()
 gameCycle = do
         (Score n) <- getGameAttribute
-        printOnScreen (show n) BitmapTimesRoman24 (0,0) 1.0 1.0 1.0
+        printOnScreen (show n) TimesRoman24 (0,0) 1.0 1.0 1.0
 
 	ball <- findObject "ball" "ballGroup"
         col1 <- objectLeftMapCollision ball
@@ -82,7 +82,7 @@ gameCycle = do
         when col5
         	(do reverseYSpeed ball
         	    setGameAttribute (Score (n + 10)))
-	showFPS BitmapTimesRoman24 (30,0) 1.0 0.0 0.0
+	showFPS TimesRoman24 (30,0) 1.0 0.0 0.0
 
 
 

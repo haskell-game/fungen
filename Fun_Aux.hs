@@ -20,14 +20,15 @@ module Fun_Aux (
         ord2,
         addNoInvisibility,
         racMod,
-        matrixToList, matrixSize, position,
+        matrixToList, matrixSize, 
         inv2color3, pathAndInv2color3List, point2DtoVertex3,
         isEmpty,
-        when, unless
+        when, unless,
+        bindTexture
 ) where
 
 import Fun_Types
-import GL
+import Graphics.Rendering.OpenGL
 import Random
 
 texCoord2 :: GLdouble -> GLdouble -> IO ()
@@ -36,12 +37,15 @@ texCoord2 x y = texCoord (TexCoord2 x y)
 vertex3 :: GLdouble -> GLdouble -> GLdouble -> IO ()
 vertex3 x y z = vertex (Vertex3 x y z)
 
-texStuff :: [TextureName] -> [AwbfBitmap] -> IO ()
+bindTexture :: TextureTarget -> TextureObject -> IO ()
+bindTexture tt to = textureBinding tt $= Just to
+
+texStuff :: [TextureObject] -> [AwbfBitmap] -> IO ()
 texStuff [] _ = return ()
 texStuff (t:ts) ((bmW,bmH,bmData):bms) = do
-        bindTexture Texture2d t
-        texImage2D Texture2d 0 GL.Rgba' bmW bmH 0 bmData
-        texParameter Texture2d (TextureFilters Nearest Nearest)
+        bindTexture Texture2D t
+        texImage2D Nothing NoProxy 0 RGBA' (TextureSize2D bmW bmH) 0 bmData
+        textureFilter Texture2D $= ((Nearest, Nothing), Nearest)
         texStuff ts bms
 texStuff _ _ = return ()
 
@@ -119,12 +123,6 @@ matrixToList (a:as) = a ++ (matrixToList as)
 matrixSize ::  [[a]] -> (Int,Int)
 matrixSize [] = (0,0)
 matrixSize m@(a:_) = ((length m) - 1,(length a) - 1)
-
--- returns the position of an element in a list (the first elem has position zero)
-position :: (Eq t, Show t) => t -> [t] -> Int
-position x (a:as) | x == a = 0
-                  | otherwise = 1 + position x as
-position x [] = error ("Fun_Aux.position: " ++ (show x) ++ " is not an element of list.")
 
 inv2color3 :: InvList -> Maybe ColorList3
 inv2color3 Nothing = Nothing

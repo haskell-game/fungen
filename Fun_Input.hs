@@ -20,7 +20,7 @@ module Fun_Input (
 
 import Fun_Game
 import UserInput
-import GLUT
+import Graphics.UI.GLUT
 
 type InputConfig t s u v = (Key,KeyEvent,IOGame t s u v ())
 

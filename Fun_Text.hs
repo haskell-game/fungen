@@ -20,8 +20,8 @@ module Fun_Text (
 	putGameText
 ) where
 
-import GLUT
-import GL
+import Graphics.UI.GLUT
+import Graphics.Rendering.OpenGL
 
 type Text = (String,BitmapFont,(GLdouble,GLdouble),GLfloat,GLfloat,GLfloat)
 
@@ -31,6 +31,6 @@ putGameText [] = return ()
 putGameText ((text,font,(x,y),r,g,b):ts) = do
 	loadIdentity
 	color (Color3 r g b)
-	rasterPos (RasterPos2 x y)
-	bitmapString font text
+	rasterPos (Vertex2 x y)
+	renderString font text
 	putGameText ts
