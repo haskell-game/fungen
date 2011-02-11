@@ -32,7 +32,7 @@ type FilePictureList = [(FilePath,InvList)]
 --loads a bitmap from a file
 loadBitmap :: FilePath -> Maybe ColorList3 -> IO AwbfBitmap
 loadBitmap bmName invList = do
-        bmFile <- openFile bmName (ReadMode)
+        bmFile <- openBinaryFile bmName (ReadMode)
         bmString <- hGetContents bmFile
         (bmW,bmH) <- getWH (dropGLsizei 18 bmString)
         bmData <- getBmData (dropGLsizei 54 bmString) (bmW,bmH) invList
