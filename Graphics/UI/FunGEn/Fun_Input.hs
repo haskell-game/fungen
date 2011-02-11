@@ -12,14 +12,14 @@ This FunGEn module controls the user input (mouse, keyboard, joystick...)
 
 -}
 
-module Fun_Input (
+module Graphics.UI.FunGEn.Fun_Input (
         InputConfig,
         Key(..), KeyEvent(..), SpecialKey(..), MouseButton(..),
         funBinding
 ) where
 
-import Fun_Game
-import UserInput
+import Graphics.UI.FunGEn.Fun_Game
+import Graphics.UI.FunGEn.UserInput
 import Graphics.UI.GLUT
 
 type InputConfig t s u v = (Key,KeyEvent,IOGame t s u v ())

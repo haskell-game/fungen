@@ -12,12 +12,12 @@ This FunGEn module renders the game window.
 
 -}
 
-module Fun_Display (
+module Graphics.UI.FunGEn.Fun_Display (
         display
 ) where
 
-import Fun_Game
-import Fun_Aux (when)
+import Graphics.UI.FunGEn.Fun_Game
+import Graphics.UI.FunGEn.Fun_Aux (when)
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 

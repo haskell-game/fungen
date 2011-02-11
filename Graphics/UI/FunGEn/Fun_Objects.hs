@@ -11,7 +11,7 @@ This modules contains the FunGEn objects procedures
 
 -}
 
-module Fun_Objects (
+module Graphics.UI.FunGEn.Fun_Objects (
     GameObject,
     getGameObjectId, getGameObjectName, getGameObjectManagerName, getGameObjectAsleep, getGameObjectPosition, getGameObjectSize, getGameObjectSpeed, getGameObjectAttribute,
     getObjectManagerName, getObjectManagerCounter , getObjectManagerObjects,
@@ -27,8 +27,8 @@ module Fun_Objects (
     destroyGameObject
 ) where
 
-import Fun_Types
-import Fun_Aux
+import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.FunGEn.Fun_Aux
 import Graphics.Rendering.OpenGL hiding (Primitive)
 import Graphics.UI.GLUT hiding (Primitive)
 

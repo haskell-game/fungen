@@ -12,7 +12,7 @@ This FunGEn module contains the map (game background) routines.
 
 -}
 
-module Fun_Map (
+module Graphics.UI.FunGEn.Fun_Map (
         GameMap,
         Tile, TileMatrix,
         getTilePictureIndex, getTileBlocked, getTileMoveCost, getTileSpecialAttribute,
@@ -23,8 +23,8 @@ module Fun_Map (
         drawGameMap, clearGameScreen
 )where
 
-import Fun_Types
-import Fun_Aux
+import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.FunGEn.Fun_Aux
 import Graphics.Rendering.OpenGL
 
 type Tile t = (Int,Bool,Float,t) -- index of picture, possibility to move, cost to move, additional params

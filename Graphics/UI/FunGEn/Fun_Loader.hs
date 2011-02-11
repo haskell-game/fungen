@@ -12,16 +12,16 @@ This FunGEn module loads [bmp] files.
 
 -}
 
-module Fun_Loader (
+module Graphics.UI.FunGEn.Fun_Loader (
         loadBitmap, loadBitmapList, FilePictureList
 )where
 
 import Graphics.Rendering.OpenGL
 import IO
 import Foreign
-import Fun_Types
-import Fun_Aux
-import Fun_Types(ColorList3, AwbfBitmap)
+import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.FunGEn.Fun_Aux
+import Graphics.UI.FunGEn.Fun_Types(ColorList3, AwbfBitmap)
 
 binAux :: String
 binAux = "000000000000000000000000"

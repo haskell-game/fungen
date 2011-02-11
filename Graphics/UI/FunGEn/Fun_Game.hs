@@ -13,7 +13,7 @@ This FunGEn module contains some important game routines.
 -}
 
 
-module Fun_Game (
+module Graphics.UI.FunGEn.Fun_Game (
         Game, IOGame, runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
         getGameState, setGameState,
         getGameFlags, setGameFlags,
@@ -42,12 +42,12 @@ module Fun_Game (
         wait
 ) where
 
-import Fun_Types
-import Fun_Aux
-import Fun_Loader
-import Fun_Text
-import Fun_Map
-import Fun_Objects
+import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.FunGEn.Fun_Aux
+import Graphics.UI.FunGEn.Fun_Loader
+import Graphics.UI.FunGEn.Fun_Text
+import Graphics.UI.FunGEn.Fun_Map
+import Graphics.UI.FunGEn.Fun_Objects
 import Graphics.Rendering.OpenGL
 import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT

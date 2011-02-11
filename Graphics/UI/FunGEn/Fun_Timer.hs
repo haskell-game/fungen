@@ -12,12 +12,12 @@ This FunGEn module controls timing (how time-based functions will behave).
 
 -}
 
-module Fun_Timer (
+module Graphics.UI.FunGEn.Fun_Timer (
         RefreshType(..),
         setRefresh
 ) where
 
-import UserInput
+import Graphics.UI.FunGEn.UserInput
 import Graphics.UI.GLUT
 
 data RefreshType

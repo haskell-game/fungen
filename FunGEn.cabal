@@ -1,0 +1,29 @@
+name:               FunGEn
+version:            0.3
+copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
+license:            BSD3
+license-file:       LICENSE
+author:             Andre Furtado <awbf@cin.ufpe.br>
+maintainer:         Simon Michael <simon@joyful.com>
+category:           Game
+synopsis:           FUNctional Game ENgine
+description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
+stability:          experimental
+cabal-version:      >= 1.2
+build-type:         Simple
+tested-with:        GHC==6.12
+extra-source-files: readme.txt, Examples/pong/hit.wav, Examples/pong/pong.hs, Examples/pong/tex.bmp,
+                    Examples/worms/border1.bmp, Examples/worms/border2.bmp, Examples/worms/border3.bmp,
+                    Examples/worms/congratulations.bmp, Examples/worms/food.bmp, Examples/worms/free1.bmp,
+                    Examples/worms/free2.bmp, Examples/worms/free3.bmp, Examples/worms/gameover.bmp,
+                    Examples/worms/heade.bmp, Examples/worms/heads.bmp, Examples/worms/headn.bmp,
+                    Examples/worms/headw.bmp, Examples/worms/level1.bmp, Examples/worms/level2.bmp,
+                    Examples/worms/level3.bmp, Examples/worms/segment.bmp, Examples/worms/worms.hs
+
+library
+  exposed-modules: Graphics.UI.FunGEn
+  other-modules: Graphics.UI.FunGEn.Fun_Types, Graphics.UI.FunGEn.Fun_Aux, Graphics.UI.FunGEn.Fun_Loader,
+                 Graphics.UI.FunGEn.Fun_Objects, Graphics.UI.FunGEn.Fun_Map, Graphics.UI.FunGEn.Fun_Game,
+                 Graphics.UI.FunGEn.Fun_Display, Graphics.UI.FunGEn.Fun_Input, Graphics.UI.FunGEn.Fun_Timer,
+                 Graphics.UI.FunGEn.Fun_Text, Graphics.UI.FunGEn.Fun_Init, Graphics.UI.FunGEn.UserInput
+  build-depends: base >= 4, OpenGL, GLUT, haskell98

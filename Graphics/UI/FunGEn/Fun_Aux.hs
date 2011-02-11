@@ -12,7 +12,7 @@ This FunGEn module contains some auxiliary functions.
 
 -}
 
-module Fun_Aux (
+module Graphics.UI.FunGEn.Fun_Aux (
         texCoord2, vertex3, texStuff,
         toRad,
         randInt, randFloat, randDouble,
@@ -27,7 +27,7 @@ module Fun_Aux (
         bindTexture
 ) where
 
-import Fun_Types
+import Graphics.UI.FunGEn.Fun_Types
 import Graphics.Rendering.OpenGL
 import Random
 

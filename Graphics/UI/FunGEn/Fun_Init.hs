@@ -12,18 +12,18 @@ This FunGEn module contains the initialization procedures.
 
 -}
 
-module Fun_Init (
+module Graphics.UI.FunGEn.Fun_Init (
         funInit
 )where
 
-import Fun_Types
-import Fun_Loader(FilePictureList)
-import Fun_Display
-import Fun_Input
-import Fun_Map
-import Fun_Objects
-import Fun_Game
-import Fun_Timer
+import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.FunGEn.Fun_Loader(FilePictureList)
+import Graphics.UI.FunGEn.Fun_Display
+import Graphics.UI.FunGEn.Fun_Input
+import Graphics.UI.FunGEn.Fun_Map
+import Graphics.UI.FunGEn.Fun_Objects
+import Graphics.UI.FunGEn.Fun_Game
+import Graphics.UI.FunGEn.Fun_Timer
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 

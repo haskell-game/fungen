@@ -15,7 +15,7 @@ In order to use the Makefile, set the HC, FG (FunGEn dir) and TOP variables corr
 
 module Main where
 
-import FunGEn
+import Graphics.UI.FunGEn
 
 data GameAttribute = Score Int
  

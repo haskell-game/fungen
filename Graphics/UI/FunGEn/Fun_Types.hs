@@ -12,7 +12,7 @@ This FunGEn module contains the FunGEN basic types.
 
 -}
 
-module Fun_Types (
+module Graphics.UI.FunGEn.Fun_Types (
         WindowConfig,
         Point2D,
         ColorList3, AwbfBitmap, InvList,

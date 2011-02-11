@@ -14,7 +14,7 @@ Fonts supported: Bitmap9By15, Bitmap8By13, BitmapTimesRoman10, BitmapTimesRoman2
 
 -}
 
-module Fun_Text (
+module Graphics.UI.FunGEn.Fun_Text (
 	Text,
 	BitmapFont(..),
 	putGameText

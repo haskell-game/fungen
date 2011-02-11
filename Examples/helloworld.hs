@@ -1,6 +1,6 @@
 module Main where
 
-import FunGEn
+import Graphics.UI.FunGEn
 
 main :: IO ()
 main = let  winConfig = ((0,0),(250,250),"Hello, FunGEn World!")

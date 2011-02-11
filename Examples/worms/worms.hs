@@ -16,7 +16,7 @@ In order to use the Makefile, set the HC, FG (FunGEn dir) and TOP variables corr
 module Main where
 
 import Text.Printf
-import FunGEn
+import Graphics.UI.FunGEn
 
 data GameAttribute = GA Int Int Int (Double,Double) Int
 data ObjectAttribute = NoObjectAttribute | Tail Int

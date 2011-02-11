@@ -3,7 +3,7 @@
    Sven Panne 2000.   mailto:Sven.Panne@informatik.uni-muenchen.de
 -}
 
-module UserInput (
+module Graphics.UI.FunGEn.UserInput (
    Key(..), KeyEvent(..), KeyBinder, StillDownHandler, initUserInput
 ) where
 
