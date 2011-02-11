@@ -60,11 +60,11 @@ data GameObjectPicture
 --  | A [TextureObject] Int -- miliseconds between frames
 
 data Primitive
-    = Polyg [Point2D] Float Float Float FillMode -- the points (must be in CCW order!), color, fill mode
-    | Circle Double Float Float Float FillMode -- color, radius, fill mode
+    = Polyg [Point2D] GLfloat GLfloat GLfloat FillMode -- the points (must be in CCW order!), color, fill mode
+    | Circle GLdouble GLfloat GLfloat GLfloat FillMode -- color, radius, fill mode
     
 data ObjectPicture
-    = Tex (Double,Double) Int -- size, current texture
+    = Tex (GLdouble,GLdouble) Int -- size, current texture
     | Basic Primitive
 --  | Animation [(FilePath,InvList)] Int -- (path to file, invisible colors), miliseconds between frames
 
@@ -92,15 +92,15 @@ getGameObjectPicture = objPicture
 getGameObjectAsleep :: GameObject t -> Bool
 getGameObjectAsleep = objAsleep
 
-getGameObjectSize :: GameObject t -> (Double,Double)
+getGameObjectSize :: GameObject t -> (GLdouble,GLdouble)
 getGameObjectSize o = (realToFrac sX,realToFrac sY)
                       where (sX,sY) = objSize o
 
-getGameObjectPosition :: GameObject t -> (Double,Double)
+getGameObjectPosition :: GameObject t -> (GLdouble,GLdouble)
 getGameObjectPosition o = (realToFrac pX,realToFrac pY)
                           where (pX,pY) = objPosition o
 
-getGameObjectSpeed :: GameObject t -> (Double,Double)
+getGameObjectSpeed :: GameObject t -> (GLdouble,GLdouble)
 getGameObjectSpeed o = (realToFrac sX,realToFrac sY)
                        where (sX,sY) = objSpeed o
 
@@ -120,13 +120,13 @@ updateObjectPicture newIndex maxIndex obj =
 updateObjectAsleep :: Bool -> GameObject t -> GameObject t
 updateObjectAsleep asleep o = o {objAsleep = asleep}
 
-updateObjectSize :: (Double,Double) -> GameObject t -> GameObject t
+updateObjectSize :: (GLdouble,GLdouble) -> GameObject t -> GameObject t
 updateObjectSize (sX,sY) o = o {objSize = (realToFrac sX, realToFrac sY)}
 
-updateObjectPosition :: (Double,Double) -> GameObject t -> GameObject t
+updateObjectPosition :: (GLdouble,GLdouble) -> GameObject t -> GameObject t
 updateObjectPosition (pX,pY) o = o {objPosition = (realToFrac pX, realToFrac pY)}
 
-updateObjectSpeed :: (Double,Double) -> GameObject t -> GameObject t
+updateObjectSpeed :: (GLdouble,GLdouble) -> GameObject t -> GameObject t
 updateObjectSpeed (sX,sY) o = o {objSpeed = (realToFrac sX, realToFrac sY)}
 
 updateObjectAttribute :: t -> GameObject t -> GameObject t
@@ -150,7 +150,7 @@ updateObjectManagerObjects objs mng = mng {mngObjects = objs}
 ----------------------------------------
 -- initialization of GameObjects
 ----------------------------------------
-object :: String -> ObjectPicture -> Bool -> (Double,Double) -> (Double,Double) -> t -> GameObject t
+object :: String -> ObjectPicture -> Bool -> (GLdouble,GLdouble) -> (GLdouble,GLdouble) -> t -> GameObject t
 object name pic asleep pos speed oAttrib = let (picture, size) = createPicture pic in
 			GO {
 			objId          = 0,

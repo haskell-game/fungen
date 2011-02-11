@@ -23,7 +23,7 @@ module Graphics.UI.FunGEn.Fun_Text (
 import Graphics.UI.GLUT
 import Graphics.Rendering.OpenGL
 
-type Text = (String,BitmapFont,(GLdouble,GLdouble),GLfloat,GLfloat,GLfloat)
+type Text = (String,BitmapFont,(GLdouble,GLdouble),GLclampf,GLclampf,GLclampf)
 
 -- string to be printed, type of font, screen position, color RGB
 putGameText :: [Text] -> IO ()

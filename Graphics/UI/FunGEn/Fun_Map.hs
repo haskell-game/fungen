@@ -32,7 +32,7 @@ type TileMatrix t = [[(Tile t)]]
 type TileLine t = [(Tile t)]
 
 data GameMap t
-        = ColorMap (Color4 GLfloat) Point2D -- color of the map / size of the map
+        = ColorMap (Color4 GLclampf) Point2D -- color of the map / size of the map
         | TextureMap Int Point2D Point2D Point2D Point2D  -- texture id / size of texture / present scroll (visible window bottom & left) / scroll speed (X,Y) / size of the map
         | TileMap (TileMatrix t)  Point2D Point2D Point2D Point2D  -- texture handles / tiles matrix / size of tile / present scroll (visible window bottom & left) / scroll speed (X,Y) / size of the map
         | MultiMap [(GameMap t)] Int -- list of maps/current map
@@ -118,15 +118,15 @@ updateCurrentIndex _ _ = error "Fun_Map.updateCurrentIndex error: the game map i
 -----------------------------
 
 -- creates a PreColorMap
-colorMap :: Float -> Float -> Float -> Double -> Double -> GameMap t
+colorMap :: GLclampf -> GLclampf -> GLclampf -> GLdouble -> GLdouble -> GameMap t
 colorMap r g b sX sY = ColorMap (Color4 r g b 1.0) (sX,sY)
 
 -- creates a PreTextureMap
-textureMap :: Int -> Double -> Double -> Double -> Double -> GameMap t
+textureMap :: Int -> GLdouble -> GLdouble -> GLdouble -> GLdouble -> GameMap t
 textureMap texId tX tY sX sY = TextureMap texId (tX,tY) (0,0) (0,0) (sX,sY)
 
 -- creates a PreTileMap, cheking if the tileMatrix given is valid and automatically defining the map size
-tileMap :: TileMatrix t -> Double -> Double -> GameMap t
+tileMap :: TileMatrix t -> GLdouble -> GLdouble -> GameMap t
 tileMap matrix tX tY | matrixOk matrix = TileMap matrix (tX,tY) (0,0) (0,0) (sX,sY)
                      | otherwise = error "Fun_Map.tileMap error: each line of your TileMap must have the same number of tiles!"
                    where sX = ((fromIntegral.length.head) matrix) * tX
@@ -159,9 +159,9 @@ matrixOkAux s (m:ms) | (length m) == s = matrixOkAux s ms
 ----------------------------------------
 --       MAP DRAWING ROUTINES         --
 ----------------------------------------
-clearGameScreen :: Float -> Float -> Float -> IO ()
+clearGameScreen :: GLclampf -> GLclampf -> GLclampf -> IO ()
 clearGameScreen r g b = do
-        clearColor $= (Color4 r g b (1.0 :: GLfloat))
+        clearColor $= (Color4 r g b 1.0)
         clear [ColorBuffer]
 
 -- draws the background map

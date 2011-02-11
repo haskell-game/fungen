@@ -17,8 +17,9 @@ module Main where
 
 import Text.Printf
 import Graphics.UI.FunGEn
+import Graphics.Rendering.OpenGL (GLdouble)
 
-data GameAttribute = GA Int Int Int (Double,Double) Int
+data GameAttribute = GA Int Int Int (GLdouble,GLdouble) Int
 data ObjectAttribute = NoObjectAttribute | Tail Int
 data GameState = LevelStart Int | Level Int | GameOver
 data TileAttribute = NoTileAttribute
@@ -28,11 +29,11 @@ type WormsObject = GameObject ObjectAttribute
 type WormsTile = Tile TileAttribute
 type WormsMap = TileMatrix TileAttribute
 
-tileSize, speedMod :: Double
+tileSize, speedMod :: GLdouble
 tileSize = 30.0
 speedMod = 30.0
 
-initPos, tail0Pos, tail1Pos :: (Double,Double)
+initPos, tail0Pos, tail1Pos :: (GLdouble,GLdouble)
 initPos  = (45.0,105.0)
 tail0Pos = (45.0,75.0)
 tail1Pos = (45.0,45.0)
@@ -251,7 +252,7 @@ resetOtherTails n | (n == initTailSize + maxFood) = return ()
                                    setObjectAsleep True tailn
                                    resetOtherTails (n + 1)
 
-addTail :: (Double,Double) -> WormsAction ()
+addTail :: (GLdouble,GLdouble) -> WormsAction ()
 addTail presentHeadPos = do
         tails <- getObjectsFromGroup "tail"
         aliveTails <- getAliveTails tails []
@@ -285,7 +286,7 @@ addTailNumber (a:as) = do
         setObjectAttribute (Tail (n + 1)) a
         addTailNumber as
 
-moveTail :: (Double,Double) -> WormsAction ()
+moveTail :: (GLdouble,GLdouble) -> WormsAction ()
 moveTail presentHeadPos = do
         (GA timer remainingFood tailSize previousHeadPos score) <- getGameAttribute
         tails <- getObjectsFromGroup "tail"
@@ -324,7 +325,7 @@ checkSnakeCollision snakeHead = do
                                                  setGameAttribute (GA defaultTimer 0 0 (0,0) 0))
                                         else return ()
 
-createNewFoodPosition :: WormsAction (Double,Double)
+createNewFoodPosition :: WormsAction (GLdouble,GLdouble)
 createNewFoodPosition = do
                             x <- randomInt (1,18)
                             y <- randomInt (1,24)

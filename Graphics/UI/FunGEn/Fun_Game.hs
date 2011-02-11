@@ -225,7 +225,7 @@ drawMap = do
     liftIOtoIOGame $ drawGameMap m (fromIntegral winWidth, fromIntegral winHeight) p
 
 -- returns a mapTile, given its pixel position (x,y) in the screen
-getTileFromWindowPosition :: (Double,Double) -> IOGame t s u v (Tile v)
+getTileFromWindowPosition :: (GLdouble,GLdouble) -> IOGame t s u v (Tile v)
 getTileFromWindowPosition (preX,preY) = do
        m <- getMap
        if (isTileMap m)
@@ -251,7 +251,7 @@ getTileFromIndex (x,y) = do
             else error "Fun_Game.getTileFromIndex error: game map is not a tile map!"
 
 -- paint the whole screen with a specified RGB color
-clearScreen :: Float -> Float -> Float -> IOGame t s u v ()
+clearScreen :: GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 clearScreen r g b = liftIOtoIOGame $ clearGameScreen r g b
 
 -- set the current map for a MultiMap
@@ -397,21 +397,21 @@ getObjectAsleep o = do managers <- getObjectManagers
 
 -- because an object can have its size modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
-getObjectSize :: GameObject s -> IOGame t s u v (Double,Double)
+getObjectSize :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectSize o = do managers <- getObjectManagers
                      let obj = findObjectFromId o managers
                      return (getGameObjectSize obj)
 
 -- because an object can have its position modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
-getObjectPosition :: GameObject s -> IOGame t s u v (Double,Double)
+getObjectPosition :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectPosition o = do managers <- getObjectManagers
                          let obj = findObjectFromId o managers
                          return (getGameObjectPosition obj)
 
 -- because an object can have its speed modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
-getObjectSpeed :: GameObject s -> IOGame t s u v (Double,Double)
+getObjectSpeed :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectSpeed o = do managers <- getObjectManagers
                       let obj = findObjectFromId o managers
                       return (getGameObjectSpeed obj)
@@ -428,11 +428,11 @@ setObjectAsleep :: Bool -> GameObject s -> IOGame t s u v ()
 setObjectAsleep asleep obj = replaceObject obj (updateObjectAsleep asleep)
 
 -- changes the position of an object, given its new position
-setObjectPosition :: (Double,Double) -> GameObject s -> IOGame t s u v ()
+setObjectPosition :: (GLdouble,GLdouble) -> GameObject s -> IOGame t s u v ()
 setObjectPosition pos obj = replaceObject obj (updateObjectPosition pos)
 
 -- changes the speed of an object, given its new speed
-setObjectSpeed :: (Double,Double) -> GameObject s -> IOGame t s u v ()
+setObjectSpeed :: (GLdouble,GLdouble) -> GameObject s -> IOGame t s u v ()
 setObjectSpeed speed obj = replaceObject obj (updateObjectSpeed speed)
 
 -- changes the current picture of a multitextured object
@@ -623,7 +623,7 @@ objectListObjectFutureCollision (a:as) b = do
                 then (return True)
                 else (objectListObjectFutureCollision as b)
 
-pointsObjectCollision :: Double -> Double -> Double -> Double -> GameObject s -> IOGame t s u v Bool
+pointsObjectCollision :: GLdouble -> GLdouble -> GLdouble -> GLdouble -> GameObject s -> IOGame t s u v Bool
 pointsObjectCollision p1X p1Y s1X s1Y o2 = do
         asleep <- getObjectAsleep o2
         if asleep
@@ -642,7 +642,7 @@ pointsObjectCollision p1X p1Y s1X s1Y o2 = do
                             bY2 = p2Y + (s2Y/2)
                         return ((bX1 < aX2) && (aX1 < bX2) && (bY1 < aY2) && (aY1 < bY2))
                          
-pointsObjectListCollision :: Double -> Double -> Double -> Double -> [(GameObject s)] -> IOGame t s u v Bool
+pointsObjectListCollision :: GLdouble -> GLdouble -> GLdouble -> GLdouble -> [(GameObject s)] -> IOGame t s u v Bool
 pointsObjectListCollision _ _ _ _ [] = return False
 pointsObjectListCollision p1X p1Y s1X s1Y (o:os) = do
         col <- pointsObjectCollision p1X p1Y s1X s1Y o
@@ -658,7 +658,7 @@ printOnPrompt :: Show a => a -> IOGame t s u v ()
 printOnPrompt a = liftIOtoIOGame' print a
 
 -- prints a string in the current window
-printOnScreen :: String -> BitmapFont -> (Double,Double) -> Float -> Float -> Float -> IOGame t s u v ()
+printOnScreen :: String -> BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 printOnScreen text font pos r g b = do
         t <- getTextList
         setTextList ([(text,font,pos,r,g,b)] ++ t)
@@ -687,7 +687,7 @@ randomDouble (x,y) = liftIOtoIOGame $ randDouble (x,y)
 -----------------------------------------------
 
 -- shows the frame rate (or frame per seconds) 
-showFPS :: BitmapFont -> (Double,Double) -> Float -> Float -> Float -> IOGame t s u v ()
+showFPS :: BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 showFPS font pos r g b = do
 	(framei,timebasei,fps) <- getFpsInfo
 	timei <- getElapsedTime

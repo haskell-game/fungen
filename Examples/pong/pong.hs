@@ -16,6 +16,7 @@ In order to use the Makefile, set the HC, FG (FunGEn dir) and TOP variables corr
 module Main where
 
 import Graphics.UI.FunGEn
+import Graphics.Rendering.OpenGL (GLdouble)
 
 data GameAttribute = Score Int
  
@@ -24,8 +25,8 @@ type PongAction a = IOGame GameAttribute () () () a
 
 width = 400
 height = 400
-w = fromIntegral width :: Double
-h = fromIntegral height :: Double
+w = fromIntegral width :: GLdouble
+h = fromIntegral height :: GLdouble
 
 main :: IO ()
 main = do
