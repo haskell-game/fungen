@@ -17,7 +17,7 @@ module Graphics.UI.FunGEn.Fun_Loader (
 )where
 
 import Graphics.Rendering.OpenGL
-import IO
+import System.IO
 import Foreign
 import Graphics.UI.FunGEn.Fun_Types
 import Graphics.UI.FunGEn.Fun_Aux

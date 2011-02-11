@@ -26,4 +26,4 @@ library
                  Graphics.UI.FunGEn.Fun_Objects, Graphics.UI.FunGEn.Fun_Map, Graphics.UI.FunGEn.Fun_Game,
                  Graphics.UI.FunGEn.Fun_Display, Graphics.UI.FunGEn.Fun_Input, Graphics.UI.FunGEn.Fun_Timer,
                  Graphics.UI.FunGEn.Fun_Text, Graphics.UI.FunGEn.Fun_Init, Graphics.UI.FunGEn.UserInput
-  build-depends: base >= 4, OpenGL, GLUT, haskell98
+  build-depends: base >= 4, OpenGL, GLUT, haskell98, random

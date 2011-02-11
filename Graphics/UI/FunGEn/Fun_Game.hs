@@ -51,7 +51,7 @@ import Graphics.UI.FunGEn.Fun_Objects
 import Graphics.Rendering.OpenGL
 import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT
-import Monad
+import Control.Monad
 import System.Exit
 import Data.IORef
 import Text.Printf

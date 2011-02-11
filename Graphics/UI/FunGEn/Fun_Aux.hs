@@ -29,7 +29,7 @@ module Graphics.UI.FunGEn.Fun_Aux (
 
 import Graphics.UI.FunGEn.Fun_Types
 import Graphics.Rendering.OpenGL
-import Random
+import System.Random
 
 texCoord2 :: GLdouble -> GLdouble -> IO ()
 texCoord2 x y = texCoord (TexCoord2 x y)

@@ -8,7 +8,7 @@ module Graphics.UI.FunGEn.UserInput (
 ) where
 
 import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
-import List(delete)
+import Data.List(delete)
 import Graphics.UI.GLUT
 
 ---------------------------------------------------------------------------
