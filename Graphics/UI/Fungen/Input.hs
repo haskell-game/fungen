@@ -8,18 +8,18 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module controls the user input (mouse, keyboard, joystick...)
+This Fungen module controls the user input (mouse, keyboard, joystick...)
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Input (
+module Graphics.UI.Fungen.Input (
         InputConfig,
         Key(..), KeyEvent(..), SpecialKey(..), MouseButton(..),
         funBinding
 ) where
 
-import Graphics.UI.FunGEn.Fun_Game
-import Graphics.UI.FunGEn.UserInput
+import Graphics.UI.Fungen.Game
+import Graphics.UI.Fungen.UserInput
 import Graphics.UI.GLUT
 
 type InputConfig t s u v = (Key,KeyEvent,IOGame t s u v ())

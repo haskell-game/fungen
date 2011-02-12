@@ -1,4 +1,4 @@
-name:               FunGEn
+name:               fungen
 version:            0.2.98
 copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
 license:            BSD3
@@ -21,9 +21,9 @@ extra-source-files: readme.txt, examples/pong/hit.wav, examples/pong/pong.hs, ex
                     examples/worms/level3.bmp, examples/worms/segment.bmp, examples/worms/worms.hs
 
 library
-  exposed-modules: Graphics.UI.FunGEn
-  other-modules: Graphics.UI.FunGEn.Fun_Types, Graphics.UI.FunGEn.Fun_Aux, Graphics.UI.FunGEn.Fun_Loader,
-                 Graphics.UI.FunGEn.Fun_Objects, Graphics.UI.FunGEn.Fun_Map, Graphics.UI.FunGEn.Fun_Game,
-                 Graphics.UI.FunGEn.Fun_Display, Graphics.UI.FunGEn.Fun_Input, Graphics.UI.FunGEn.Fun_Timer,
-                 Graphics.UI.FunGEn.Fun_Text, Graphics.UI.FunGEn.Fun_Init, Graphics.UI.FunGEn.UserInput
+  exposed-modules: Graphics.UI.Fungen
+  other-modules: Graphics.UI.Fungen.Types, Graphics.UI.Fungen.Util, Graphics.UI.Fungen.Loader,
+                 Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
+                 Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
+                 Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
   build-depends: base >= 4, OpenGL, GLUT, haskell98, random

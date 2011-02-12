@@ -8,11 +8,11 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains some auxiliary functions.
+This Fungen module contains some auxiliary functions.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Aux (
+module Graphics.UI.Fungen.Util (
         texCoord2, vertex3, texStuff,
         toRad,
         randInt, randFloat, randDouble,
@@ -27,7 +27,7 @@ module Graphics.UI.FunGEn.Fun_Aux (
         bindTexture
 ) where
 
-import Graphics.UI.FunGEn.Fun_Types
+import Graphics.UI.Fungen.Types
 import Graphics.Rendering.OpenGL
 import System.Random
 
@@ -96,7 +96,7 @@ dropGLsizei                :: GLsizei -> [a] -> [a]
 dropGLsizei 0 xs            = xs
 dropGLsizei _ []            = []
 dropGLsizei n (_:xs) | n>0  = dropGLsizei (n-1) xs
-dropGLsizei _ _ = error "Fun_Aux.dropGLsizei error: negative argument"
+dropGLsizei _ _ = error "Util.dropGLsizei error: negative argument"
 
 -- to be used when no invisibility must be added when loading a file
 addNoInvisibility :: [FilePath] -> [(FilePath, Maybe ColorList3)]

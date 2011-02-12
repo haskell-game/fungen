@@ -8,22 +8,22 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains the initialization procedures.
+This Fungen module contains the initialization procedures.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Init (
+module Graphics.UI.Fungen.Init (
         funInit
 )where
 
-import Graphics.UI.FunGEn.Fun_Types
-import Graphics.UI.FunGEn.Fun_Loader(FilePictureList)
-import Graphics.UI.FunGEn.Fun_Display
-import Graphics.UI.FunGEn.Fun_Input
-import Graphics.UI.FunGEn.Fun_Map
-import Graphics.UI.FunGEn.Fun_Objects
-import Graphics.UI.FunGEn.Fun_Game
-import Graphics.UI.FunGEn.Fun_Timer
+import Graphics.UI.Fungen.Types
+import Graphics.UI.Fungen.Loader(FilePictureList)
+import Graphics.UI.Fungen.Display
+import Graphics.UI.Fungen.Input
+import Graphics.UI.Fungen.Map
+import Graphics.UI.Fungen.Objects
+import Graphics.UI.Fungen.Game
+import Graphics.UI.Fungen.Timer
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 

@@ -7,11 +7,11 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This modules contains the FunGEn objects procedures
+This modules contains the Fungen objects procedures
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Objects (
+module Graphics.UI.Fungen.Objects (
     GameObject,
     getGameObjectId, getGameObjectName, getGameObjectManagerName, getGameObjectAsleep, getGameObjectPosition, getGameObjectSize, getGameObjectSpeed, getGameObjectAttribute,
     getObjectManagerName, getObjectManagerCounter , getObjectManagerObjects,
@@ -27,8 +27,8 @@ module Graphics.UI.FunGEn.Fun_Objects (
     destroyGameObject
 ) where
 
-import Graphics.UI.FunGEn.Fun_Types
-import Graphics.UI.FunGEn.Fun_Aux
+import Graphics.UI.Fungen.Types
+import Graphics.UI.Fungen.Util
 import Graphics.Rendering.OpenGL hiding (Primitive)
 import Graphics.UI.GLUT hiding (Primitive)
 
@@ -112,9 +112,9 @@ updateObjectPicture newIndex maxIndex obj =
     case (getGameObjectPicture obj) of
         Tx _ -> if (newIndex <= maxIndex)
                         then (obj {objPicture = Tx newIndex})
-                        else (error ("Fun_Objects.updateObjectPicture error: picture index out of range for object " ++
+                        else (error ("Objects.updateObjectPicture error: picture index out of range for object " ++
                               (getGameObjectName obj) ++ " of group " ++ (getGameObjectManagerName obj)))
-        _ -> error ("Fun_Objects.updateObjectPicture error: object " ++ (getGameObjectName obj) ++
+        _ -> error ("Objects.updateObjectPicture error: object " ++ (getGameObjectName obj) ++
                      " of group " ++ (getGameObjectManagerName obj) ++ " is not a textured object!")
 
 updateObjectAsleep :: Bool -> GameObject t -> GameObject t
@@ -187,7 +187,7 @@ objectGroupAux [] _ _ = []
 objectGroupAux (o:os) managerName oId = (o {objId = oId, objManagerName = managerName}):(objectGroupAux os managerName (oId + 1))
 
 addObjectsToManager :: [(GameObject t)] -> String -> [(ObjectManager t)] -> [(ObjectManager t)]
-addObjectsToManager _ managerName [] = error ("Fun_Objects.addObjectsToManager error: object manager " ++ managerName ++ " does not exists!")
+addObjectsToManager _ managerName [] = error ("Objects.addObjectsToManager error: object manager " ++ managerName ++ " does not exists!")
 addObjectsToManager objs managerName (m:ms) | (getObjectManagerName m == managerName) = (addObjectsToManagerAux objs m):ms
 					    | otherwise = m:(addObjectsToManager objs managerName ms)
 
@@ -254,18 +254,18 @@ findObjectFromId :: GameObject t -> [(ObjectManager t)] -> GameObject t
 findObjectFromId o mngs = findObjectFromIdAux (getGameObjectId o) (getGameObjectManagerName o) mngs
 
 findObjectFromIdAux :: Integer -> String ->  [(ObjectManager t)] -> GameObject t
-findObjectFromIdAux _ managerName [] = error ("Fun_Objects.findObjectFromIdAux error: object group " ++ managerName ++ " not found!")
+findObjectFromIdAux _ managerName [] = error ("Objects.findObjectFromIdAux error: object group " ++ managerName ++ " not found!")
 findObjectFromIdAux objectId managerName (m:ms) | (managerName == getObjectManagerName m) = searchFromId objectId (getObjectManagerObjects m)
                      				| otherwise = findObjectFromIdAux objectId managerName ms
 
 searchFromId :: Integer -> [(GameObject t)] -> GameObject t
-searchFromId _ [] = error ("Fun_Objects.searchFromId error: object not found!")
+searchFromId _ [] = error ("Objects.searchFromId error: object not found!")
 searchFromId objectId (o:os) | (objectId == getGameObjectId o) = o
 			     | otherwise = searchFromId objectId os
 
 
 searchObjectManager :: String -> [(ObjectManager t)] -> ObjectManager t
-searchObjectManager managerName [] = error ("Fun_Objects.searchObjectManager error: object group " ++ managerName ++ " not found!")
+searchObjectManager managerName [] = error ("Objects.searchObjectManager error: object group " ++ managerName ++ " not found!")
 searchObjectManager managerName (m:ms) | (getObjectManagerName m == managerName) = m
                                        | otherwise = searchObjectManager managerName ms
 
@@ -273,7 +273,7 @@ searchGameObject :: String -> ObjectManager t -> GameObject t
 searchGameObject objectName m = searchGameObjectAux objectName (getObjectManagerObjects m)
 
 searchGameObjectAux :: String -> [(GameObject t)] -> GameObject t
-searchGameObjectAux objectName [] = error ("Fun_Objects.searchGameObjectAux error: object " ++ objectName ++ " not found!")
+searchGameObjectAux objectName [] = error ("Objects.searchGameObjectAux error: object " ++ objectName ++ " not found!")
 searchGameObjectAux objectName (a:as) | (getGameObjectName a == objectName) = a
                                       | otherwise = searchGameObjectAux objectName as
 
@@ -284,13 +284,13 @@ searchGameObjectAux objectName (a:as) | (getGameObjectName a == objectName) = a
 -- substitutes an old object by a new one, given the function to be applied to the old object (whose id is given),
 -- the name of its manager and the group of game managers.
 updateObject :: (GameObject t -> GameObject t) -> Integer -> String -> [(ObjectManager t)] -> [(ObjectManager t)]
-updateObject _ _ managerName [] = error ("Fun_Objects.updateObject error: object manager: " ++ managerName ++ " not found!")
+updateObject _ _ managerName [] = error ("Objects.updateObject error: object manager: " ++ managerName ++ " not found!")
 updateObject f objectId managerName (m:ms) | (getObjectManagerName m == managerName) = (updateObjectManagerObjects newObjects m):ms
                                            | otherwise = m:(updateObject f objectId managerName ms)
                         		   where newObjects = updateObjectAux f objectId (getObjectManagerObjects m)
 
 updateObjectAux :: (GameObject t -> GameObject t) -> Integer -> [(GameObject t)] -> [(GameObject t)]
-updateObjectAux _ _ [] = error ("Fun_Objects.updateObjectAux error: object not found!")
+updateObjectAux _ _ [] = error ("Objects.updateObjectAux error: object not found!")
 updateObjectAux f objectId (o:os) | (getGameObjectId o == objectId) = (f o):os
                                   | otherwise = o:(updateObjectAux f objectId os)
 
@@ -315,12 +315,12 @@ moveSingleObject o = if (getGameObjectAsleep o)
 ------------------------------------------
 
 destroyGameObject :: String -> String -> [(ObjectManager t)] -> [(ObjectManager t)]
-destroyGameObject _ managerName [] = error ("Fun_Objects.destroyGameObject error: object manager: " ++ managerName ++ " not found!")
+destroyGameObject _ managerName [] = error ("Objects.destroyGameObject error: object manager: " ++ managerName ++ " not found!")
 destroyGameObject objectName managerName (m:ms) | (getObjectManagerName m == managerName) = (updateObjectManagerObjects newObjects m):ms
                      | otherwise = m:(destroyGameObject objectName managerName ms)
                        where newObjects = destroyGameObjectAux objectName (getObjectManagerObjects m)
 
 destroyGameObjectAux :: String -> [(GameObject t)] -> [(GameObject t)]
-destroyGameObjectAux objectName [] = error ("Fun_Objects.destroyGameObjectAux error: object: " ++ objectName ++ " not found!") 
+destroyGameObjectAux objectName [] = error ("Objects.destroyGameObjectAux error: object: " ++ objectName ++ " not found!") 
 destroyGameObjectAux objectName (o:os) | (getGameObjectName o == objectName) = os
                     | otherwise = o:(destroyGameObjectAux objectName os)

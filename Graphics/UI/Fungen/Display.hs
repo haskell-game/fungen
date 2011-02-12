@@ -8,16 +8,16 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module renders the game window.
+This Fungen module renders the game window.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Display (
+module Graphics.UI.Fungen.Display (
         display
 ) where
 
-import Graphics.UI.FunGEn.Fun_Game
-import Graphics.UI.FunGEn.Fun_Aux (when)
+import Graphics.UI.Fungen.Game
+import Graphics.UI.Fungen.Util (when)
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 

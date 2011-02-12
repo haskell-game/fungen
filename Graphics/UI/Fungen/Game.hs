@@ -8,12 +8,12 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains some important game routines.
+This Fungen module contains some important game routines.
 
 -}
 
 
-module Graphics.UI.FunGEn.Fun_Game (
+module Graphics.UI.Fungen.Game (
         Game, IOGame, runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
         getGameState, setGameState,
         getGameFlags, setGameFlags,
@@ -42,12 +42,12 @@ module Graphics.UI.FunGEn.Fun_Game (
         wait
 ) where
 
-import Graphics.UI.FunGEn.Fun_Types
-import Graphics.UI.FunGEn.Fun_Aux
-import Graphics.UI.FunGEn.Fun_Loader
-import Graphics.UI.FunGEn.Fun_Text
-import Graphics.UI.FunGEn.Fun_Map
-import Graphics.UI.FunGEn.Fun_Objects
+import Graphics.UI.Fungen.Types
+import Graphics.UI.Fungen.Util
+import Graphics.UI.Fungen.Loader
+import Graphics.UI.Fungen.Text
+import Graphics.UI.Fungen.Map
+import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
 import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT
@@ -234,9 +234,9 @@ getTileFromWindowPosition (preX,preY) = do
                      (x,y) = (preX + scrollX,preY + scrollY)
                      (sX,sY) = getTileMapSize m
                  in if (x >= sX || y >= sY)
-                        then error ("Fun_Game.getTileFromWindowPosition error: pixel " ++ (show (x,y)) ++ " out of map range!")
+                        then error ("Game.getTileFromWindowPosition error: pixel " ++ (show (x,y)) ++ " out of map range!")
                         else getTileFromIndex (fromEnum (y/tileXsize),fromEnum (x/tileYsize)) -- (x,y) window orientation is different than index (x,y)!
-            else error "Fun_Game.getTileFromWindowPosition error: game map is not a tile map!"
+            else error "Game.getTileFromWindowPosition error: game map is not a tile map!"
 
 -- returns a mapTile, given its index (x,y) in the tile map
 getTileFromIndex :: (Int,Int) -> IOGame t s u v (Tile v)
@@ -247,8 +247,8 @@ getTileFromIndex (x,y) = do
                      (mapX,mapY) = matrixSize matrix
                  in if (mapX >= x && mapY >= y && x >= 0 && y >= 0)
                         then return ( (matrix !! (mapX - x)) !! y)
-                        else error ("Fun_Game.getTileFromIndex error: tile index " ++ (show (x,y)) ++ " out of map range!")
-            else error "Fun_Game.getTileFromIndex error: game map is not a tile map!"
+                        else error ("Game.getTileFromIndex error: tile index " ++ (show (x,y)) ++ " out of map range!")
+            else error "Game.getTileFromIndex error: game map is not a tile map!"
 
 -- paint the whole screen with a specified RGB color
 clearScreen :: GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
@@ -260,7 +260,7 @@ setCurrentMapIndex i = do
         m <- getRealMap
         if (isMultiMap m)
                 then (setRealMap (updateCurrentIndex m i))
-                else (error "Fun_Game.setCurrentMapIndex error: you are not working with MultiMaps!")
+                else (error "Game.setCurrentMapIndex error: you are not working with MultiMaps!")
 
 ----------------------------------
 -- flags routines

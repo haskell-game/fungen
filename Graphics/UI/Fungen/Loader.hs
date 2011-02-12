@@ -8,20 +8,20 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module loads [bmp] files.
+This Fungen module loads [bmp] files.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Loader (
+module Graphics.UI.Fungen.Loader (
         loadBitmap, loadBitmapList, FilePictureList
 )where
 
 import Graphics.Rendering.OpenGL
 import System.IO
 import Foreign
-import Graphics.UI.FunGEn.Fun_Types
-import Graphics.UI.FunGEn.Fun_Aux
-import Graphics.UI.FunGEn.Fun_Types(ColorList3, AwbfBitmap)
+import Graphics.UI.Fungen.Types
+import Graphics.UI.Fungen.Util
+import Graphics.UI.Fungen.Types(ColorList3, AwbfBitmap)
 
 binAux :: String
 binAux = "000000000000000000000000"
@@ -57,7 +57,7 @@ getWH (a:b:c:d:e:f:g:h:_) = do
                  (op (bin e) 0) + (op (bin f) 8) + (op (bin g) 16) + (op (bin h) 24))
                  where bin x = toBinary(fromEnum x)
                        op x n = toDecimal(shiftLeft(binAux ++ (make0 (8 - (length x)) ++ x)) n)
-getWH _ = error "Fun_Loader.getWH error: strange bitmap file"                    
+getWH _ = error "Loader.getWH error: strange bitmap file"                    
 
 getBmData :: String -> (GLsizei,GLsizei) -> Maybe ColorList3 -> IO (PixelData GLubyte)
 getBmData bmString (bmW,bmH) invList = 
@@ -78,4 +78,4 @@ makeColorListAux :: GLsizei -> String -> GLsizei -> (GLsizei,GLsizei) -> [(GLuby
 makeColorListAux _ _ 0 _ = []
 makeColorListAux x bmString totVert (0,bmW) = makeColorListAux x (dropGLsizei x bmString) totVert (bmW,bmW)
 makeColorListAux x (b:g:r:bmString) totVert (n,bmW) = (ord2 r,ord2 g,ord2 b): (makeColorListAux x bmString (totVert - 1) (n - 1,bmW))
-makeColorListAux _ _ _ _ = error "Fun_Loader.makeColorListAux error: strange bitmap file"
+makeColorListAux _ _ _ _ = error "Loader.makeColorListAux error: strange bitmap file"

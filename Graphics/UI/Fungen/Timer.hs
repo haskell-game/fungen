@@ -8,16 +8,16 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module controls timing (how time-based functions will behave).
+This Fungen module controls timing (how time-based functions will behave).
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Timer (
+module Graphics.UI.Fungen.Timer (
         RefreshType(..),
         setRefresh
 ) where
 
-import Graphics.UI.FunGEn.UserInput
+import Graphics.UI.Fungen.UserInput
 import Graphics.UI.GLUT
 
 data RefreshType

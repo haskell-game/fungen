@@ -8,11 +8,11 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains the map (game background) routines.
+This Fungen module contains the map (game background) routines.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Map (
+module Graphics.UI.Fungen.Map (
         GameMap,
         Tile, TileMatrix,
         getTilePictureIndex, getTileBlocked, getTileMoveCost, getTileSpecialAttribute,
@@ -23,8 +23,8 @@ module Graphics.UI.FunGEn.Fun_Map (
         drawGameMap, clearGameScreen
 )where
 
-import Graphics.UI.FunGEn.Fun_Types
-import Graphics.UI.FunGEn.Fun_Aux
+import Graphics.UI.Fungen.Types
+import Graphics.UI.Fungen.Util
 import Graphics.Rendering.OpenGL
 
 type Tile t = (Int,Bool,Float,t) -- index of picture, possibility to move, cost to move, additional params
@@ -42,7 +42,7 @@ getMapSize :: GameMap t -> Point2D
 getMapSize (ColorMap _ s) = s
 getMapSize (TextureMap _ _ _ _ s) = s
 getMapSize (TileMap _ _ _ _ s) = s
-getMapSize (MultiMap _ _) = error "Fun_Map.getMapSize error: getMapSize cannot be applied with MultiMaps!"
+getMapSize (MultiMap _ _) = error "Map.getMapSize error: getMapSize cannot be applied with MultiMaps!"
 
 ----------------------------
 -- special TileMap routines
@@ -54,19 +54,19 @@ isTileMap _ = False
 
 getTileMapTileMatrix :: GameMap t -> TileMatrix t
 getTileMapTileMatrix (TileMap m _ _ _ _) = m
-getTileMapTileMatrix _ = error "Fun_Map.getTileMapTileMatrix error: game map is not a tile map!"
+getTileMapTileMatrix _ = error "Map.getTileMapTileMatrix error: game map is not a tile map!"
 
 getTileMapTileSize :: GameMap t -> Point2D
 getTileMapTileSize (TileMap _ ts _ _ _) = ts
-getTileMapTileSize _ = error "Fun_Map.getTileMapTileSize error: game map is not a tile map!"
+getTileMapTileSize _ = error "Map.getTileMapTileSize error: game map is not a tile map!"
 
 getTileMapScroll :: GameMap t -> Point2D
 getTileMapScroll (TileMap _ _ s _ _) = s
-getTileMapScroll _ = error "Fun_Map.getTileMapScroll error: game map is not a tile map!"
+getTileMapScroll _ = error "Map.getTileMapScroll error: game map is not a tile map!"
 
 getTileMapSize :: GameMap t -> Point2D
 getTileMapSize (TileMap _ _ _ _ s) = s
-getTileMapSize _ = error "Fun_Map.getTileMapSize error: game map is not a tile map!"
+getTileMapSize _ = error "Map.getTileMapSize error: game map is not a tile map!"
 
 
 ------------------------------
@@ -92,15 +92,15 @@ getTileSpecialAttribute (_,_,_,t) = t
 
 getCurrentMap :: GameMap t -> GameMap t
 getCurrentMap (MultiMap l i) = (l !! i)
-getCurrentMap _ = error "Fun_Map.getCurrentMap error: getCurrentMap can only be applied with MultiMaps!"
+getCurrentMap _ = error "Map.getCurrentMap error: getCurrentMap can only be applied with MultiMaps!"
 
 updateCurrentMap :: GameMap t -> GameMap t -> GameMap t
 updateCurrentMap (MultiMap l i) newMap = MultiMap (newMapList l newMap i) i
-updateCurrentMap _ _ = error "Fun_Map.updateCurrentMap error: updateCurrentMap can only be applied with MultiMaps!"
+updateCurrentMap _ _ = error "Map.updateCurrentMap error: updateCurrentMap can only be applied with MultiMaps!"
 
 -- internal use only!
 newMapList :: [(GameMap t)] -> GameMap t -> Int -> [(GameMap t)]
-newMapList [] _ _ = error "Fun_Map.newMapList error: please report this bug to awbf@uol.com.br"
+newMapList [] _ _ = error "Map.newMapList error: please report this bug to awbf@uol.com.br"
 newMapList (_:ms) newMap 0 = newMap:ms
 newMapList (m:ms) newMap n = m:(newMapList ms newMap (n - 1))
 
@@ -109,9 +109,9 @@ isMultiMap (MultiMap _ _) = True
 isMultiMap _ = False
 
 updateCurrentIndex :: GameMap t -> Int -> GameMap t
-updateCurrentIndex (MultiMap mapList _) i | (i >= (length mapList)) = error "Fun_Map.updateMultiMapIndex error: map index out of range!"
+updateCurrentIndex (MultiMap mapList _) i | (i >= (length mapList)) = error "Map.updateMultiMapIndex error: map index out of range!"
 					  | otherwise = (MultiMap mapList i)
-updateCurrentIndex _ _ = error "Fun_Map.updateCurrentIndex error: the game map is not a MultiMap!"
+updateCurrentIndex _ _ = error "Map.updateCurrentIndex error: the game map is not a MultiMap!"
 
 -----------------------------
 -- creation of maps
@@ -128,15 +128,15 @@ textureMap texId tX tY sX sY = TextureMap texId (tX,tY) (0,0) (0,0) (sX,sY)
 -- creates a PreTileMap, cheking if the tileMatrix given is valid and automatically defining the map size
 tileMap :: TileMatrix t -> GLdouble -> GLdouble -> GameMap t
 tileMap matrix tX tY | matrixOk matrix = TileMap matrix (tX,tY) (0,0) (0,0) (sX,sY)
-                     | otherwise = error "Fun_Map.tileMap error: each line of your TileMap must have the same number of tiles!"
+                     | otherwise = error "Map.tileMap error: each line of your TileMap must have the same number of tiles!"
                    where sX = ((fromIntegral.length.head) matrix) * tX
                          sY = ((fromIntegral.length) matrix) * tY
 
 -- creates a multimap
 multiMap :: [(GameMap t)] -> Int -> GameMap t
-multiMap [] _ = error "Fun_Map.multiMap  error: the MultiMap map list should not be empty!"
-multiMap mapList currentMap | (currentMap >= (length mapList)) = error "Fun_Map.multiMap error: map index out of range!"
-			    | (mapListContainsMultiMap mapList) = error "Fun_Map.multiMap error: a MultiMap should not contain another MultiMap!"
+multiMap [] _ = error "Map.multiMap  error: the MultiMap map list should not be empty!"
+multiMap mapList currentMap | (currentMap >= (length mapList)) = error "Map.multiMap error: map index out of range!"
+			    | (mapListContainsMultiMap mapList) = error "Map.multiMap error: a MultiMap should not contain another MultiMap!"
 			    | otherwise = MultiMap mapList currentMap
 
 -- checks if a GameMap list contains a multimap (internal use only!)
@@ -183,7 +183,7 @@ drawGameMap (TileMap matrix size visible _ _) winSize texList = do
         texture Texture2D $= Enabled
         drawTileMap (reverse matrix) size visible winSize 0.0 texList
         texture Texture2D $= Disabled
-drawGameMap (MultiMap _ _) _ _ = error "Fun_Map.drawGameMap error: drawGameMap cannot be applied with MultiMaps!"
+drawGameMap (MultiMap _ _) _ _ = error "Map.drawGameMap error: drawGameMap cannot be applied with MultiMaps!"
 
 -- size of texture, drawing position relative to (X,Y) axis of window, lowest Y drawing position
 drawTextureMap :: Point2D -> Point2D -> Point2D -> GLdouble -> [TextureObject] -> IO ()

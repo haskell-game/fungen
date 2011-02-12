@@ -8,15 +8,15 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This is a very simple FunGEn example.
-In order to use the Makefile, set the HC, FG (FunGEn dir) and TOP variables correctly.
+This is a very simple Fungen example.
+In order to use the Makefile, set the HC, FG (Fungen dir) and TOP variables correctly.
 
 -}
 
 module Main where
 
 import Text.Printf
-import Graphics.UI.FunGEn
+import Graphics.UI.Fungen
 import Graphics.Rendering.OpenGL (GLdouble)
 
 data GameAttribute = GA Int Int Int (GLdouble,GLdouble) Int

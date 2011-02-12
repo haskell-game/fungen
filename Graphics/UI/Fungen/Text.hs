@@ -8,13 +8,13 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains some functions to print text on the screen.
+This Fungen module contains some functions to print text on the screen.
 Fonts supported: Bitmap9By15, Bitmap8By13, BitmapTimesRoman10, BitmapTimesRoman24
 		 BitmapHelvetica10, BitmapHelvetica12, BitmapHelvetica18
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Text (
+module Graphics.UI.Fungen.Text (
 	Text,
 	BitmapFont(..),
 	putGameText

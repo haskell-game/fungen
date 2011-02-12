@@ -8,11 +8,11 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This FunGEn module contains the FunGEN basic types.
+This Fungen module contains the FunGEN basic types.
 
 -}
 
-module Graphics.UI.FunGEn.Fun_Types (
+module Graphics.UI.Fungen.Types (
         WindowConfig,
         Point2D,
         ColorList3, AwbfBitmap, InvList,
