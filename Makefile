@@ -27,6 +27,11 @@ docs: haddock
 haddock:
 	cabal configure && cabal haddock
 
+# render docs locally, for preview
+localdocs:
+	pandoc -s README.md > README.html
+	pandoc -s TUTORIAL.md > TUTORIAL.html
+
 ######################################################################
 # RELEASE
 

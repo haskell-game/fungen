@@ -15,6 +15,9 @@ automated way. Actually, FunGEn supports:
 - Sound support (actually for windows platforms only... :-[ );
 - Hope to expand this list soon :-]
 
+This README includes most of the docs from the original site, lightly updated.
+There is also a [tutorial](TUTORIAL.html).
+
 Original home:  [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/\~haskell/fungen)
 
 Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
@@ -24,9 +27,6 @@ Latest haddock: [http://joyful.com/repos/fungen/dist/doc/html/FunGEn/](http://jo
 Hackage:        [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)
 
 Copyright:      [LICENSE](./LICENSE)
-
-This README includes most but not all of the docs from the original site, lightly updated.
-In particular, see also the [tutorial](http://www.cin.ufpe.br/~haskell/fungen/example.html)
 
 ## History
 
