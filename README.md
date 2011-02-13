@@ -18,60 +18,72 @@ automated way. Actually, FunGEn supports:
 This README includes most of the docs from the original site, lightly updated.
 There is also a [tutorial](http://joyful.com/repos/fungen/TUTORIAL.html).
 
-Original home:  [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)
+Hackage:              [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
+Latest code & docs:   [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)  
+Latest haddock:       [http://joyful.com/repos/fungen/dist/doc/html/FunGEn/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)  
+Original home & docs: [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
+Discussion:           [#haskell-game](irc://irc.freenode.net/#haskell-game)  
+Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)  
 
-Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
-
-Latest haddock: [http://joyful.com/repos/fungen/dist/doc/html/FunGEn/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)
-
-Hackage:        [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)
-
-Copyright:      [LICENSE](./LICENSE)
 
 ## History
 
-* Cabalised ghc 6.12-compatible 0.3 released on darcsden & hackage by Simon Michael (2011/02)
+### 0.3 (2011/02/13)
+GHC 6.12-compatible 0.3 released on darcsden & hackage by Simon Michael:
 
-* Cabalised ghc 6.10-compatible 0.1 released on hackage by Miloslav Raus (2008/09)
+- updated for GHC 6.12 & base 4
+- module names simplified
+- beginning of haddockification
+- docs moved into repo
+- published to darcsden, hackage, wiki, haskell-cafe, #haskell-game, reddit
 
-    *Tested under Win32 & Linux/Intel. Known glitches: Flickering under
-    linux (at least on my shitty laptop). Weird pong paddle behavior under
-    Win32.*
+### 0.1-hackage (2008/09/17)
+GHC 6.10-compatible 0.1 released on hackage by Miloslav Raus:
 
-* Repo-ised ghc 6.8-compatible update by Simon Michael (2008/02)
+- updated for GHC 6.10
+- cabalised
+- Tested under Win32 & Linux/Intel. Known glitches: Flickering under linux
+  (at least on my shitty laptop). Weird pong paddle behavior under Win32.
 
-* 0.1 released by Andre Furtado (2002)
+### GHC 6.8 update (2008/02/26)
+GHC 6.8-compatible update by Simon Michael:
 
-    *Current Status:Some feedback indicated that the first version of
-    FunGEn was not as "functional" as it was desired: some game issues
-    were still being dealt through an imperative fashion. This way, the
-    authors of this project decided to change the game engine philosophy:
-    programmers should describe a game as a set of "specifications" rather
-    than defining its behavior imperatively. One plausible alternative for
-    accomplishing this task is porting the Clean Game Library (CGL) to
-    Haskell, adding some FunGEn specific features. Hence, this is the
-    actual status of the FunGEn project: it is being rebuilt in order to
-    provide game programming mechanisms following the CGL concepts. This
-    really demands some time, but the authors expect a new version to be
-    released soon.*
+- updated for GHC 6.8
+- slight tweaks to examples
+- public darcs repo
 
-    *FunGEn v1.0 can be downloaded here. (PLEASE NOTE: this is the very
-    first version of FunGEn, and it was released just to get some feedback
-    from game programmers. You are strongly invited to tell your game
-    programming experiences with FunGEn, helping us to release a
-    definitive, stable version). Ok, after this disclaimer, please fell
-    yourself free to take a quick tour in the site; it contains a lot of
-    useful information for those who are really interested in trying a new
-    game programming experience. Nice coding...*
+### 0.1 (2002)
+First public release by Andre Furtado:
+
+- FunGEn v1.0 can be downloaded here. (PLEASE NOTE: this is the very first
+  version of FunGEn, and it was released just to get some feedback from
+  game programmers. You are strongly invited to tell your game programming
+  experiences with FunGEn, helping us to release a definitive, stable
+  version). Ok, after this disclaimer, please fell yourself free to take a
+  quick tour in the site; it contains a lot of useful information for
+  those who are really interested in trying a new game programming
+  experience. Nice coding...
+
+- Current Status: Some feedback indicated that the first version of FunGEn
+  was not as "functional" as it was desired: some game issues were still
+  being dealt through an imperative fashion. This way, the authors of this
+  project decided to change the game engine philosophy: programmers should
+  describe a game as a set of "specifications" rather than defining its
+  behavior imperatively. One plausible alternative for accomplishing this
+  task is porting the Clean Game Library (CGL) to Haskell, adding some
+  FunGEn specific features. Hence, this is the actual status of the FunGEn
+  project: it is being rebuilt in order to provide game programming
+  mechanisms following the CGL concepts. This really demands some time,
+  but the authors expect a new version to be released soon.
 
 ## Credits
 
-FunGEn was created by a Computation Science graduation student, at the
-Informatics Center (CIn) of the Federal University of Pernambuco (UFPE),
-as part of a Scientific Iniciation (PIBIC/CNPq) research project (Creating
-a Game Platform Using Haskell), oriented by lecturer Andre Santos (PhD,
-1995, University of Glasgow). He was responsible for figuring out a lot of
-FunGEn implementation details.
+FunGEn was created by Andre Furtado, Computation Science graduation
+student at the Informatics Center (CIn) of the Federal University of
+Pernambuco (UFPE), as part of a Scientific Iniciation (PIBIC/CNPq)
+research project (Creating a Game Platform Using Haskell), oriented by
+lecturer Andre Santos (PhD, 1995, University of Glasgow), who was
+responsible for figuring out a lot of FunGEn implementation details.
 
 I would like to thank also the following people who contributed for the development of FunGEn:
 

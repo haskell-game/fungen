@@ -12,8 +12,10 @@
 # autobuild auto:
 # 	sp --no-exts --no-default-map -o $(EXE) ghc --make $(BUILDFLAGS) $(EXE).hs --run $(AUTOBUILDCMDARGS)
 
-test: haddock
+install:
 	cabal install
+
+test: docs install
 
 ######################################################################
 # DOC
@@ -21,16 +23,16 @@ test: haddock
 # called on each darcs commit
 commithook: docs
 
-docs: haddock
+docs: maindocs haddock
+
+# render docs locally, eg for preview
+maindocs:
+	pandoc -s README.md > README.html
+	pandoc -s TUTORIAL.md > TUTORIAL.html
 
 # build haddock docs
 haddock:
 	cabal configure && cabal haddock
-
-# render docs locally, for preview
-localdocs:
-	pandoc -s README.md > README.html
-	pandoc -s TUTORIAL.md > TUTORIAL.html
 
 ######################################################################
 # RELEASE
