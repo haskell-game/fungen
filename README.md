@@ -15,18 +15,18 @@ automated way. Actually, FunGEn supports:
 - Sound support (actually for windows platforms only... :-[ );
 - Hope to expand this list soon :-]
 
-Original home:  http://www.cin.ufpe.br/~haskell/fungen
+Original home:  [http://www.cin.ufpe.br/~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)
 
-Latest code:    http://darcsden.com/simon/fungen
+Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
 
-Latest haddock: http://joyful.com/repos/fungen/dist/doc/html/fungen/
+Latest haddock: [http://joyful.com/repos/fungen/dist/doc/html/fungen/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)
 
-Hackage:        http://hackage.haskell.org/package/FunGEn
+Hackage:        [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)
 
-Copyright:     ./LICENSE
+Copyright:      [LICENSE](./LICENSE)
 
 This README includes most but not all of the docs from the original site, lightly updated.
-In particular, see also the tutorial at http://www.cin.ufpe.br/~haskell/fungen/example.html .
+In particular, see also the [tutorial](http://www.cin.ufpe.br/~haskell/fungen/example.html)
 
 ## History
 
