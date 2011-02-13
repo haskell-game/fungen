@@ -1,4 +1,4 @@
-{-
+{- |
    GLUT-based keyboard/mouse handling
    Sven Panne 2000.   mailto:Sven.Panne@informatik.uni-muenchen.de
 -}

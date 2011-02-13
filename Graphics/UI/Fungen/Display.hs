@@ -1,3 +1,5 @@
+{- | This Fungen module renders the game window.
+-}
 {- 
 
 FunGEN - Functional Game Engine
@@ -8,7 +10,7 @@ This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-This Fungen module renders the game window.
+| This Fungen module renders the game window.
 
 -}
 
@@ -21,6 +23,7 @@ import Graphics.UI.Fungen.Util (when)
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 
+-- | Given a fungen Game and IOGame, generate an opengl display handler.
 display :: Game t s u v -> IOGame t s u v () -> DisplayCallback
 display g gameCycle = do 
         clear [ColorBuffer]
@@ -28,6 +31,7 @@ display g gameCycle = do
         swapBuffers
         flush
 
+-- | Run one update and display an IOGame.
 displayIOGame :: IOGame t s u v () -> IOGame t s u v ()
 displayIOGame gameCycle = do
         (_,_,objectsMoving) <- getGameFlags

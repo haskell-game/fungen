@@ -1,3 +1,6 @@
+{- | 
+This module contains the Fungen objects procedures
+-}
 {- 
 FunGEN - Functional Game Engine
 http://www.cin.ufpe.br/~haskell/fungen
@@ -6,8 +9,6 @@ Copyright (C) 2002  Andre Furtado <awbf@cin.ufpe.br>
 This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This modules contains the Fungen objects procedures
 
 -}
 

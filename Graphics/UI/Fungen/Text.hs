@@ -1,3 +1,8 @@
+{- | 
+This Fungen module contains some functions to print text on the screen.
+Fonts supported: Bitmap9By15, Bitmap8By13, BitmapTimesRoman10, BitmapTimesRoman24
+		 BitmapHelvetica10, BitmapHelvetica12, BitmapHelvetica18
+-}
 {- 
 
 FunGEN - Functional Game Engine
@@ -7,10 +12,6 @@ Copyright (C) 2002  Andre Furtado <awbf@cin.ufpe.br>
 This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This Fungen module contains some functions to print text on the screen.
-Fonts supported: Bitmap9By15, Bitmap8By13, BitmapTimesRoman10, BitmapTimesRoman24
-		 BitmapHelvetica10, BitmapHelvetica12, BitmapHelvetica18
 
 -}
 
