@@ -28,4 +28,9 @@ library
                    Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
 
-  build-depends: base >= 4, OpenGL, GLUT, haskell98, random
+  build-depends:
+                 base == 4.*
+                 ,OpenGL
+                 ,GLUT
+                 ,haskell98
+                 ,random
