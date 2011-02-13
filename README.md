@@ -16,9 +16,9 @@ automated way. Actually, FunGEn supports:
 - Hope to expand this list soon :-]
 
 This README includes most of the docs from the original site, lightly updated.
-There is also a [tutorial](TUTORIAL.html).
+There is also a [tutorial](http://joyful.com/repos/fungen/TUTORIAL.html).
 
-Original home:  [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/\~haskell/fungen)
+Original home:  [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)
 
 Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
 

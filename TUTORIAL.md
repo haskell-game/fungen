@@ -1,8 +1,8 @@
 # FunGEn pong tutorial
 
 This is a reconstructed copy of the tutorial, included here for
-completeness. You may prefer to read the better-styled
-[original](http://www.cin.ufpe.br/\~haskell/fungen/example.html).
+completeness. You should probably read the better-styled
+[original](http://www.cin.ufpe.br/~haskell/fungen/example.html).
 
 Here we'll develop, step by step, a small version of a very famous game
 called Pong. The player will use the left and right arrow keys to move a
