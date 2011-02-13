@@ -30,15 +30,15 @@ In particular, see also the [tutorial](http://www.cin.ufpe.br/~haskell/fungen/ex
 
 ## History
 
-* ghc 6.12-updated version published on darcsden by Simon Michael (2011/02)
+* Cabalised ghc 6.12-compatible 0.3 released on darcsden & hackage by Simon Michael (2011/02)
 
-* Cabalised, ghc 6.8/6.10-updated 0.1 released on hackage by Miloslav Raus (2008/09)
+* Cabalised ghc 6.10-compatible 0.1 released on hackage by Miloslav Raus (2008/09)
 
     *Tested under Win32 & Linux/Intel. Known glitches: Flickering under
     linux (at least on my shitty laptop). Weird pong paddle behavior under
     Win32.*
 
-* Repo-ised, ghc 6.8-updated version by Simon Michael (2008/02)
+* Repo-ised ghc 6.8-compatible update by Simon Michael (2008/02)
 
 * 0.1 released by Andre Furtado (2002)
 
