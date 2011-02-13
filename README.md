@@ -15,7 +15,7 @@ automated way. Actually, FunGEn supports:
 - Sound support (actually for windows platforms only... :-[ );
 - Hope to expand this list soon :-]
 
-Original home:  [http://www.cin.ufpe.br/~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)
+Original home:  [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/\~haskell/fungen)
 
 Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
 
