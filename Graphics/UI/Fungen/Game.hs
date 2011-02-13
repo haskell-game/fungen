@@ -58,21 +58,40 @@ import Data.IORef
 import Text.Printf
 
 
+-- | A game has the type @Game t s u v@, where 
+--  
+-- * t is the type of the game special attributes
+-- 
+-- * s is the type of the object special attributes
+-- 
+-- * u is the type of the game levels (state)
+-- 
+-- * v is the type of the map tile special attribute, in case we use a Tile Map as the background of our game
+-- 
+-- A game consists of:
 data Game t s u v = Game {
-	gameMap       :: IORef (GameMap v),
-    	gameState     :: IORef u,
-	gameFlags     :: IORef GameFlags,
-	objManagers   :: IORef [(ObjectManager s)],
-	textList      :: IORef [Text],
-	quadricObj    :: QuadricPrimitive,
-	windowConfig  :: IORef WindowConfig,
-	gameAttribute :: IORef t,
-	pictureList   :: IORef [TextureObject],
+	gameMap       :: IORef (GameMap v), -- ^ a map (background)
+    	gameState     :: IORef u,           -- ^ initial game state
+	gameFlags     :: IORef GameFlags,   -- ^ initial game flags
+	objManagers   :: IORef [(ObjectManager s)], -- ^ some object managers
+	textList      :: IORef [Text],              -- ^ some texts
+	quadricObj    :: QuadricPrimitive,          -- ^ a quadric thing
+	windowConfig  :: IORef WindowConfig,        -- ^ a config for the main window
+	gameAttribute :: IORef t,                   -- ^ a game attribute
+	pictureList   :: IORef [TextureObject],     -- ^ some pictures
 	fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
 	}
 
+-- | A game action has the type @IOGame t s u v a@, where t, s, u and v
+-- are as for Game and a is the type returned by each action of the game
+-- (such as the Int for "IO Int").  The name IOGame was chosen to remind
+-- that each action deals with a Game, but an IO operation can also be
+-- performed between game actions (such as the reading of a file or
+-- printing something in the prompt).
 newtype IOGame t s u v a = IOG (Game  t s u v -> IO (Game t s u v,a))
-type GameFlags = (Bool,Bool,Bool) -- mapDrawing, objectsDrawing, objectsMoving
+
+-- | Game flags: mapDrawing, objectsDrawing, objectsMoving
+type GameFlags = (Bool,Bool,Bool)
 
 ----------------------------------
 -- IOGame Monad definitions
