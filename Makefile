@@ -42,7 +42,7 @@ showversion:
 	@echo $(VERSION)
 
 tagrepo:
-	@(darcs show tags | grep -q "^$(VERSION)$$") && echo tag $(VERSION) present, ok || (please run darcs tag $(VERSION); exit 1)
+	@(darcs show tags | grep -q "^$(VERSION)$$") && echo tag $(VERSION) present, ok || (echo please run: darcs tag $(VERSION); exit 1)
 
 uploadordebug:
 	(cabal upload $(TARBALL) --check | grep '^Ok$$') \
