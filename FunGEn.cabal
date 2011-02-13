@@ -1,5 +1,5 @@
 name:               FunGEn
-version:            0.2.98
+version:            0.3
 copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>, (C) 2008 Miloslav Raus <666wman@gmail.com>, (C) 2008,2011 Simon Michael <simon@joyful.com>
 license:            BSD3
 license-file:       LICENSE
@@ -13,7 +13,7 @@ stability:          experimental
 cabal-version:      >= 1.2
 build-type:         Simple
 tested-with:        GHC==6.12
-extra-source-files: readme.txt, examples/pong/hit.wav, examples/pong/pong.hs, examples/pong/tex.bmp,
+extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, examples/pong/tex.bmp,
                     examples/worms/border1.bmp, examples/worms/border2.bmp, examples/worms/border3.bmp,
                     examples/worms/congratulations.bmp, examples/worms/food.bmp, examples/worms/free1.bmp,
                     examples/worms/free2.bmp, examples/worms/free3.bmp, examples/worms/gameover.bmp,
@@ -27,4 +27,5 @@ library
                    Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
                    Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
+
   build-depends: base >= 4, OpenGL, GLUT, haskell98, random
