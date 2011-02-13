@@ -1,5 +1,5 @@
 {- | 
-This Fungen module contains the initialization procedures.
+This FunGEn module contains the initialization procedures.
 -}
 {- 
 

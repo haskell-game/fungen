@@ -1,5 +1,5 @@
 {- | 
-This Fungen module contains the map (game background) routines.
+This FunGEn module contains the map (game background) routines.
 -}
 {- 
 

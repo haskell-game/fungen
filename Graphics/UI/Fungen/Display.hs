@@ -1,4 +1,4 @@
-{- | This Fungen module renders the game window.
+{- | This FunGEn module renders the game window.
 -}
 {- 
 
@@ -9,8 +9,6 @@ Copyright (C) 2002  Andre Furtado <awbf@cin.ufpe.br>
 This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-| This Fungen module renders the game window.
 
 -}
 

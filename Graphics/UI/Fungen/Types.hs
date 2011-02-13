@@ -1,4 +1,4 @@
-{- | This Fungen module contains the FunGEN basic types. 
+{- | This FunGEn module contains the FunGEN basic types. 
 -}
 {- 
 

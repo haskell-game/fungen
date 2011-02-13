@@ -1,15 +1,12 @@
 {- 
 
-FunGEN - Functional Game Engine
+worms - a very simple FunGEn example.
 http://www.cin.ufpe.br/~haskell/fungen
 Copyright (C) 2001  Andre Furtado <awbf@cin.ufpe.br>
 
 This code is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This is a very simple Fungen example.
-In order to use the Makefile, set the HC, FG (Fungen dir) and TOP variables correctly.
 
 -}
 

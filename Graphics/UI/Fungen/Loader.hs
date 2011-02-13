@@ -1,5 +1,5 @@
 {- | 
-This Fungen module loads [bmp] files.
+This FunGEn module loads [bmp] files.
 -}
 {- 
 

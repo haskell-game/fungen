@@ -1,5 +1,5 @@
 {- | 
-This Fungen module controls the user input (mouse, keyboard, joystick...)
+This FunGEn module controls the user input (mouse, keyboard, joystick...)
 -}
 {- 
 

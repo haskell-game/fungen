@@ -1,5 +1,5 @@
 {- | 
-This Fungen module contains some functions to print text on the screen.
+This FunGEn module contains some functions to print text on the screen.
 Fonts supported: Bitmap9By15, Bitmap8By13, BitmapTimesRoman10, BitmapTimesRoman24
 		 BitmapHelvetica10, BitmapHelvetica12, BitmapHelvetica18
 -}

@@ -1,5 +1,5 @@
 {- | 
-This Fungen module controls timing (how time-based functions will behave).
+This FunGEn module controls timing (how time-based functions will behave).
 -}
 {- 
 

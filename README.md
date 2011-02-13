@@ -19,7 +19,7 @@ Original home:  [http://www.cin.ufpe.br/~haskell/fungen](http://www.cin.ufpe.br/
 
 Latest code:    [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)
 
-Latest haddock: [http://joyful.com/repos/fungen/dist/doc/html/fungen/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)
+Latest haddock: [http://joyful.com/repos/fungen/dist/doc/html/FunGEn/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)
 
 Hackage:        [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)
 

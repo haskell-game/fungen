@@ -1,5 +1,5 @@
 {- | 
-This Fungen module contains some auxiliary functions.
+This FunGEn module contains some auxiliary functions.
 -}
 {- 
 

@@ -1,5 +1,5 @@
 {- | 
-This module contains the Fungen objects procedures
+This module contains the FunGEn objects procedures
 -}
 {- 
 FunGEN - Functional Game Engine

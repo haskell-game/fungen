@@ -1,5 +1,5 @@
 {- | 
-This Fungen module contains some important game routines.
+This FunGEn module contains some important game routines.
 -}
 {- 
 
