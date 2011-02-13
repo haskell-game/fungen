@@ -1,4 +1,4 @@
-# FunGEN - Functional Game Engine
+# FunGEn - Functional Game Engine
 
 FunGEn (Functional Game Engine) is a BSD-licensed 2D platform-independent
 game engine implemented in and for Haskell, using HOpenGL. It is intended
