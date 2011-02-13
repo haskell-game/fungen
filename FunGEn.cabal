@@ -10,7 +10,7 @@ category:           Game
 synopsis:           FUNctional Game ENgine
 description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
 stability:          experimental
-cabal-version:      >= 1.2
+cabal-version:      >= 1.6
 build-type:         Simple
 tested-with:        GHC==6.12
 extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, examples/pong/tex.bmp,
