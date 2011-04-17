@@ -29,7 +29,7 @@ Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-ga
 ## History
 
 ### 0.3 (2011/02/13)
-GHC 6.12-compatible 0.3 released on darcsden & hackage by Simon Michael:
+GHC 6.12-compatible 0.3 [released](http://thread.gmane.org/gmane.comp.lang.haskell.cafe/86330) on darcsden & hackage by Simon Michael:
 
 - updated for GHC 6.12 & base 4
 - module names simplified
