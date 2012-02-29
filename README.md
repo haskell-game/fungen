@@ -18,12 +18,13 @@ automated way. Actually, FunGEn supports:
 This README includes most of the docs from the original site, lightly updated.
 There is also a [tutorial](http://joyful.com/repos/fungen/TUTORIAL.html).
 
+Home:                 [http://joyful.com/fungen](http://joyful.com/fungen)  
 Hackage:              [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
-Latest code & docs:   [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)  
-Latest haddock:       [http://joyful.com/repos/fungen/dist/doc/html/FunGEn/](http://joyful.com/repos/fungen/dist/doc/html/fungen/)  
-Original home & docs: [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
+Latest code:          [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)  
+<!-- Latest haddock docs:  [here](http://joyful.com/repos/fungen/dist/doc/html/fungen/)   -->
 Discussion:           [#haskell-game](irc://irc.freenode.net/#haskell-game)  
-Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)  
+<!-- Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)   -->
+Old home:             [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
 
 
 ## History

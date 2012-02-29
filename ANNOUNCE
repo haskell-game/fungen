@@ -1,0 +1,10 @@
+I'm pleased to announce the release of FunGEn 0.4.
+
+FunGEn is a multi-platform 2D game engine built on top of OpenGL & GLUT.
+
+New in 0.4:
+
+
+Install: $ cabal install FunGEn
+
+Home: http://joyful.com/fungen

@@ -5,7 +5,7 @@ license:            BSD3
 license-file:       LICENSE
 author:             Andre Furtado <awbf@cin.ufpe.br>
 maintainer:         Simon Michael <simon@joyful.com>
-homepage:           http://darcsden.com/simon/fungen
+homepage:           http://joyful.com/fungen
 category:           Game
 synopsis:           FUNctional Game ENgine
 description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
