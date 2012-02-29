@@ -1,6 +1,6 @@
 name:               FunGEn
-version:            0.3
-copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>, (C) 2008 Miloslav Raus <666wman@gmail.com>, (C) 2008,2011 Simon Michael <simon@joyful.com>
+version:            0.3.98
+copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
 license:            BSD3
 license-file:       LICENSE
 author:             Andre Furtado <awbf@cin.ufpe.br>
@@ -9,10 +9,10 @@ homepage:           http://joyful.com/fungen
 category:           Game
 synopsis:           FUNctional Game ENgine
 description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
-stability:          experimental
+stability:          alpha
 cabal-version:      >= 1.6
 build-type:         Simple
-tested-with:        GHC==6.12
+tested-with:        GHC==7.4.1
 extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, examples/pong/tex.bmp,
                     examples/worms/border1.bmp, examples/worms/border2.bmp, examples/worms/border3.bmp,
                     examples/worms/congratulations.bmp, examples/worms/food.bmp, examples/worms/free1.bmp,
@@ -22,15 +22,14 @@ extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, exa
                     examples/worms/level3.bmp, examples/worms/segment.bmp, examples/worms/worms.hs
 
 library
-  exposed-modules: Graphics.UI.Fungen,
-                   Graphics.UI.Fungen.Types, Graphics.UI.Fungen.Util, Graphics.UI.Fungen.Loader,
-                   Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
-                   Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
-                   Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
+  exposed-modules:  Graphics.UI.Fungen,
+                    Graphics.UI.Fungen.Types, Graphics.UI.Fungen.Util, Graphics.UI.Fungen.Loader,
+                    Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
+                    Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
+                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
 
   build-depends:
-                 base == 4.*
-                 ,OpenGL
-                 ,GLUT
-                 ,haskell98
-                 ,random
+                    base == 4.*
+                   ,OpenGL
+                   ,GLUT
+                   ,random
