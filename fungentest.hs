@@ -1,7 +1,11 @@
--- 
+{-
+This executable is required for the "make auto" rule, and is a
+convenient place for quick tests.
+-}
 
 module Main where
 
+import Control.Monad
 import Graphics.UI.Fungen
 import Text.Printf
 -- import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
@@ -16,9 +20,14 @@ main = do
     ()                                       -- u
     ()                                       -- t
     [                                        -- input handlers
-      -- ((Char 'q', Press,
-      --  do putStrLn "q pressed"
-      -- )
+      (Char 'q',
+       Press,
+       do liftIOtoIOGame $ putStrLn "q pressed"
+      ),
+      (MouseButton LeftButton,
+       Press,
+       do liftIOtoIOGame $ putStrLn "left mouse button pressed"
+      )
     ]
     (do                                      -- iogame action
         return ()
