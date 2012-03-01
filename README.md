@@ -1,9 +1,22 @@
-# FunGEn - Functional Game Engine
+<style>
+.a {
+    font-weight:bold;
+    color:red;
+    font-size:200%;
+}
+.b {
+    font-weight:normal;
+    color:#bbb;
+    font-size:smaller;
+}
+</style>
 
-FunGEn (Functional Game Engine) is a BSD-licensed 2D platform-independent
-game engine implemented in and for Haskell, using HOpenGL. It is intended
-to help game programmers in the game development process, in a faster and
-automated way. Actually, FunGEn supports:
+# <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
+
+FunGEn (Functional Game Engine) is a cross-platform, BSD-licensed,
+OpenGL-based 2D game engine written in Haskell. It is intended to help
+game programmers in the game development process, in a faster and more
+automated way. FunGEn supports:
 
 - Initialization, updating, removing, rendering and grouping routines for game objects;
 - Definition of a game background (or map), including texture-based maps and tile maps;
@@ -26,8 +39,44 @@ Discussion:           [#haskell-game](irc://irc.freenode.net/#haskell-game)
 <!-- Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)   -->
 Old home:             [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
 
+## FAQ
 
-## History
+**What is a game engine?**
+
+A game engine can be considered as a library that provides game facilities
+to a game programmer. When using a game engine, the programmer must
+specify when the game events happen, rather than how they are
+implemented. A same functionality may have its implementation varying from
+platform to platform, in the case the engine is platform-independent. The
+main advantage of a game engine is that it can be reused to the
+development of many different kind of games, in an automated way, saving a
+lot of programming time.
+
+**Why Haskell?**
+
+We believe that Haskell is a great language to develop games, because of
+its high level of abstraction and the generation of a more concise,
+elegant and shorter code. This is great for code maintenance and
+understanding. Combining the power of Haskell with the facilities provided
+by game engines seems a promising project. You can find more info on
+Haskell in its official site.
+
+**What is HOpenGL?**
+
+HOpenGL stands for Haskell Open Graphics Library. Actually, it is a
+binding to one of the most famous graphics libraries around the world
+(OpenGL) and its auxiliary toolkit (GLUT). In other words, it makes
+possible to call OpenGL/GLUT routines (which were written in the C
+language) when programming in Haskell. You can find more info on HOpenGL
+in my HOpenGL Tutorial site, or in its official site.
+
+## Getting started
+
+- try this [video](http://www.youtube.com/watch?v=XRG9H0oC2Fw)
+
+- `cabal install FunGEn`
+
+## Release notes
 
 ### 0.3 (2011/02/13)
 GHC 6.12-compatible 0.3 [released](http://thread.gmane.org/gmane.comp.lang.haskell.cafe/86330) on darcsden & hackage by Simon Michael:
@@ -77,6 +126,28 @@ First public release by Andre Furtado:
   mechanisms following the CGL concepts. This really demands some time,
   but the authors expect a new version to be released soon.
 
+## Contributing
+
+Andre's 2002 todo list:
+
+Here you have a list of some upcoming FunGEn features, and some other
+desired features (but with no implementation prevision yet).
+
+- Support map scrolling (coming soon);
+- Support mouse input management (coming soon);
+- Make a polygon map definition avaiable (coming soon);
+- Make sound avaible to non-Win32 platforms;
+- Create, if possible, some operators to avoid the excessive (x <- ...) syntax;
+- Support auto-animated objects;
+- Create a GLUT independent font support (or perhaps extend it);
+- Improve the installation process;
+- Upgrade FunGEn to be both a 2D (bidimensional) and 2D 1/2 (bi and a half dimensional) engine;
+- Create a map editor/generator (possibly in other language, or using the brand new Haskell GUI...);
+- Take courage to start thinking about the 3D world...
+
+Would you like to suggest a feature? Feel free to do it. Would you like to
+implement a feature? Please do it! Keep in touch.
+
 ## Credits
 
 FunGEn was created by Andre Furtado, Computation Science graduation
@@ -102,60 +173,3 @@ or FITNESS FOR A PARTICULAR PURPOSE. I would thank you if you cite my name
 and this site if you are going to use FunGEn for other things besides home
 programming.
 
-## To do
-
-Andre's 2002 list:
-
-Here you have a list of some upcoming FunGEn features, and some other
-desired features (but with no implementation prevision yet).
-
-- Support map scrolling (coming soon);
-- Support mouse input management (coming soon);
-- Make a polygon map definition avaiable (coming soon);
-- Make sound avaible to non-Win32 platforms;
-- Create, if possible, some operators to avoid the excessive (x <- ...) syntax;
-- Support auto-animated objects;
-- Create a GLUT independent font support (or perhaps extend it);
-- Improve the installation process;
-- Upgrade FunGEn to be both a 2D (bidimensional) and 2D 1/2 (bi and a half dimensional) engine;
-- Create a map editor/generator (possibly in other language, or using the brand new Haskell GUI...);
-- Take courage to start thinking about the 3D world...
-
-Would you like to suggest a feature? Feel free to do it. Would you like to
-implement a feature? Please do it! Keep in touch.
-
-## FAQ
-
-**What is a game engine?**
-
-A game engine can be considered as a library that provides game facilities
-to a game programmer. When using a game engine, the programmer must
-specify when the game events happen, rather than how they are
-implemented. A same functionality may have its implementation varying from
-platform to platform, in the case the engine is platform-independent. The
-main advantage of a game engine is that it can be reused to the
-development of many different kind of games, in an automated way, saving a
-lot of programming time.
-
-**Why Haskell?**
-
-We believe that Haskell is a great language to develop games, because of
-its high level of abstraction and the generation of a more concise,
-elegant and shorter code. This is great for code maintenance and
-understanding. Combining the power of Haskell with the facilities provided
-by game engines seems a promising project. You can find more info on
-Haskell in its official site.
-
-**What is HOpenGL?**
-
-HOpenGL stands for Haskell Open Graphics Library. Actually, it is a
-binding to one of the most famous graphics libraries around the world
-(OpenGL) and its auxiliary toolkit (GLUT). In other words, it makes
-possible to call OpenGL/GLUT routines (which were written in the C
-language) when programming in Haskell. You can find more info on HOpenGL
-in my HOpenGL Tutorial site, or in its official site.
-
-
-## More
-
-- http://www.youtube.com/watch?v=XRG9H0oC2Fw
