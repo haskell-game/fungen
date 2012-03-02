@@ -11,3 +11,6 @@ main = hakyll $ do
   match "*.md" $ do
     route   $ setExtension "html"
     compile $ pageCompiler >>> applyTemplateCompiler "site.hamlet" >>> relativizeUrlsCompiler
+  match "old-site/**" $ do
+    route   idRoute
+    compile copyFileCompiler

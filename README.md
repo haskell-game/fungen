@@ -37,7 +37,7 @@ Latest code:          [http://darcsden.com/simon/fungen](http://darcsden.com/sim
 Latest API docs:      [single-page](http://joyful.com/fungen/apidoc/) or [framed](http://joyful.com/fungen/apidoc/frames.html)  
 Discussion:           [#haskell-game](irc://irc.freenode.net/#haskell-game)  
 <!-- Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)   -->
-Old home:             [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
+Old site & docs:      [2011/5/3 snapshot](old-site/index.html) (from [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen))  
 
 ## FAQ
 
