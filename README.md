@@ -29,7 +29,7 @@ automated way. FunGEn supports:
 - Hope to expand this list soon :-]
 
 This README includes most of the docs from the original site, lightly updated.
-There is also a [tutorial](http://joyful.com/repos/fungen/TUTORIAL.html).
+There is also a [tutorial](TUTORIAL.html).
 
 Home:                 [http://joyful.com/fungen](http://joyful.com/fungen)  
 Hackage:              [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
