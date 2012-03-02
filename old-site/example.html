@@ -1,0 +1,505 @@
+<HTML>
+<HEAD>
+<TITLE>FunGEn - Andre W B Furtado - 2002 </TITLE>
+<BODY BGCOLOR=#000000 LINK=lightblue ALINK=yellow VLINK=lightblue>
+<FONT FACE=arial SIZE=3 COLOR=white>
+
+<DIV ALIGN=center>
+<FONT SIZE=+4 COLOR=blue><B>A Brief Example</B></FONT>
+<HR>
+<B>[ </B><A HREF="index.html">Home</A> <B>|</B> <A HREF="download.html">Download</A> <B>|</B> <A HREF="doc.html">Documentation</A> <B>|</B> <A HREF="todo.html">To Do...</A> <B>|</B> <A HREF="about.html">About</A> <B>]</B>
+
+
+<P><I><B>Please note: this code may be out of date since FunGEn is being rebuilt. Check out the <A HREF="index.html">main page</A> for details.</B></I>
+
+</DIV>
+<P>Here we'll develop, step by step, a small version of a very famous game called <I>Pong</I>. The player will use the left and right arrow keys to move a bar horizontally, and he will need to hit a ball that moves around the screen. When the ball is hit, a sound is played and 10 points is added to the score, which will be displayed in the bottom left corner of the screen. All of this is done using <B>less than 80 lines of code</B>, showing how powerful is the combination of Haskell and game engines. (The following code is explained in <B>almost all</B> details, but since you read it once, you'll get very familiar with FunGEn. Nevertheless, it is possible to understand everything reading only the blue shaded code. It is very intuitive.)
+
+<P>Ok, here we go. The first thing to do is to declare the main module and to import module FunGEn:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+<PRE>
+module Main where
+
+import FunGEn
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Now it is necessary to define an algebraic data type for the game special attributes (in this case, the score, which is represented by an <CODE>Int</CODE> type):
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+<PRE>
+data GameAttribute = Score Int
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Before we start to implement the main function, let's define two type synonyms that will help our code to be more legible. The first refers to the objects of the game. In FunGEn, every object has the type <CODE>GameObject s</CODE>, where <CODE>s</CODE> is the type of the object special attribute (usually an algebraic data type such as <CODE>GameAttribute</CODE>. Since we won't need any special attribute for objects, let's leave the type <CODE>s</CODE> blank, or <CODE>()</CODE>. This lead us to the following code:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+<PRE>
+type PongObject = GameObject ()
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>The second type synonym refers to the type of the <I>actions</I> of our game. In FunGEn, a game has the type <CODE>IOGame t s u v a</CODE>, where
+<UL>
+	<LI><CODE>t</CODE> is the type of the <FONT COLOR=yellow>game special attributes</FONT>;
+	<LI><CODE>s</CODE> is the type of the <FONT COLOR=yellow>object special attributes</FONT>;
+	<LI><CODE>u</CODE> is the type of the <FONT COLOR=yellow>game levels</FONT>;
+	<LI><CODE>v</CODE> is the type of the <FONT COLOR=yellow>map tile special attribute</FONT>, in case we use a <B>Tile Map</B> as the background of our game;
+	<LI><CODE>a</CODE> is the <FONT COLOR=yellow>type returned</FONT> by each action of the game (such as the <CODE>Int</CODE> for <CODE>"IO Int"</CODE>)
+
+</UL>
+
+<P>The name <CODE>IOGame</CODE> was chosen to remind that each action deals with a <CODE>Game</CODE>, but an <CODE>IO</CODE> operation can also be performed between game actions (such as the reading of a file or printing something in the prompt).
+
+<P>Let's think about each one of these types. The type <CODE>t</CODE> was already defined before: it is the algebraic data <CODE>GameAttribute</CODE>, which contains information about the score. We can leave <CODE>s</CODE> as <CODE>()</CODE> because, as mentioned before, we won't use special attributes for objects. Our game will not have different levels, so we can also set <CODE>u</CODE> as <CODE>()</CODE>. Finally, because we won't use a Tile Map as our game background, we can also set <CODE>v</CODE> as <CODE>()</CODE>. So the action of our game (call it <CODE>PongAction</CODE>) will be a type synonym just like that
+	
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+<PRE>
+type PongAction a = IOGame GameAttribute () () () a
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Notice that the <CODE>a</CODE> type is not pre-defined. The same way that a function returns an <CODE>IO Int</CODE>, <CODE>IO Char</CODE>, etc., our game functions will be able to return an <CODE>PongAction Int</CODE>, <CODE>PongAction Char</CODE> and so on. In other words, the <CODE>a</CODE> type refers to the value produced by each of our game actions. (If you are used to <CODE>Monads</CODE>, you may have already noticed that <CODE>IOGame</CODE> is a state tranformer monad: it transforms the state <CODE>Game</CODE> producing a value of type <CODE>a</CODE>.
+
+<P>Ok, that was the most boring part. Now we can start to do some nice coding. Let's define our <CODE>Main</CODE> function. In FunGEn, you must think of it as having the following structure:
+
+<BR><BR>
+<TABLE BGCOLOR = #FFBBBB WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+main :: IO ()
+main = do
+	&#60;some local definitions&#62;
+	&#60;a call to <B>funInit</B> using the definitions above&#62;
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>The first local definition, generally, tells how our game window will look like. We need to specify its initial position (x,y) in pixels, its (width,height) in pixels and its title. The following code says that our window will have its initial position at the top left corner of the screen (0,0), its (width,height) will be (250,250) and its title will be <CODE>"A brief example!"</CODE>:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+main :: IO ()
+main = do
+        let winConfig = ((0,0),(250,250),"A brief example!")
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Now let's use other local definition to specify the kind of map (background) we are going to use. Let's use a <B>Texture Map</B>. This kind of map fills the whole window with copies of a specified texture pattern, loaded from a bitmap (.bmp) file. We need then to tell from which bmp file are we going to use the texture, the horizontal and vertical size of the texture and, finally, the size of the map. Suppose the file tex.bmp contains the following texture and that we'll use it in our map:<BR>
+
+<BR><CENTER><IMG SRC="pic/tex.bmp"><BR></CENTER>
+
+<P>Suppose also that each copy of this texture will have a size of 50, both horizontally and vertically. This means that its width will occupy <NOBR><FONT COLOR=red>(50/250 = 20%)</FONT></NOBR> of the window, and the same to its height. If the value 250 were used instead of 50, there would be only one copy of the texture, filling the whole window, because it would occupy <NOBR><FONT COLOR=red>(250/250 = 100%)</FONT></NOBR> of the window both horizontally and vertically.
+
+<P>So that's the trick to find how big will be the texture in a texture map: its width will occupy <NOBR><FONT COLOR=red>(100*TexWidth/WindowWidth)%</FONT></NOBR> of the screen width, and its height will ocuppy <NOBR><FONT COLOR=red>(100*TexHeight/WindowHeight)%</FONT></NOBR> of the window height. In our case (50 for both width and heigth of the texture), the window will have exactly 25 copies of the texture, since we have 50x50 sized squares filling a 250x250 sized window.
+
+<P>Finally, we define the size of the map, which generally is the same of the window (in our game, (250,250)). All of this blah-blah-blah to code is (remember we are still "inside" the <CODE>let</CODE>):
+        
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+	    bmpList = [("tex.bmp",Nothing)]
+	    gameMap = textureMap 0 50 50 250.0 250.0
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Please notice that we used a local definition called <CODE>bmpList</CODE> to specify a list of all bitmap filepaths we'll use in our game (in this case, only "tex.bmp"). The <CODE>Nothing</CODE> value indicates that we don't want any <I>invisible colors</I> when drawing the bitmap. It is very common, however, to use the <FONT COLOR=magenta>magenta</FONT> color as an invisible color. If we used it, all magenta pixels of our bitmap would not be drawn. We'll talk more about colors later.
+
+<P>The position of the "tex.bmp" filepath in the list (the first position is 0) is the first parameter of function <CODE>textureMap</CODE>. Yes, it is a function, not a type constructor. FunGEn will use this function to do some internal computations, an then produce the appropriate constructor for the map. Keep in mind the signature of <CODE>textureMap</CODE>:
+
+<BR><BR>
+<TABLE BGCOLOR = #FFBBBB WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+textureMap &#60;index of texture&#62; &#60;relative width of texture&#62; &#60;relative heigth of texture&#62;
+	   &#60;map width in pixels&#62; &#60;map height in pixels&#62;
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Now let's define our game objects. A game object is an important entity of the game. In our game, we can think of the ball and the bar as the game objects.
+
+<P>In FunGEn, objects must be grouped. For example, in the <B>pac-man</B> game, one group of objects would be composed by the ghosts, another group by the pac-man food and, finally, a last group containing only the pac-man itself. As you may have noticed, groups of objects contains similar or closely related objects. In <I>Pong</I>, the ball and the bar have no close relation, so we'll have two distinct groups: one containing the bar and the other, the ball. To create a group, we need to call function <CODE>objectGroup</CODE>, which receives the name of the group and a list of object as parameters. Into code:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+            bar    = objectGroup "barGroup"  [createBar]
+            ball   = objectGroup "ballGroup" [createBall]
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Notice that <CODE>createBar</CODE> and <CODE>createBall</CODE> are functions that will create the bar and the ball respectively, and we'll need to define them later.
+
+<P>The next local definition initializes the game special attribute (in our game, the score). So let's define the inial score as 0, using:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+            initScore = Score 0
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Now we'll write the last local definition of our game. This one will be responsible for identifying which keyboard keys will have a meaning in our game. We do this defining a list of triples, where each triple contains a key, an event related to that key and an action (a function to be performed when the event happens). There are three possible events related to a keyboard key:
+
+<OL>
+	<LI>It was pressed;
+	<LI>It was released;
+	<LI>It is being pressed.
+</OL>
+
+<P>Events 1 and 3 are different. Event 1 happens once when the key is pressed, and won't happen again until the key is released and then pressed again. Event 3, othwewise, happens a lot of times between the press and the release of a key. In FunGEn, each of these events are implemented as a type constructor, as respectively shown below:
+
+<OL>
+	<LI><CODE>Pressed</CODE>
+	<LI><CODE>Released</CODE>
+	<LI><CODE>StillDown</CODE>
+</OL>
+
+<P>In our game, what we'll need is the following:
+
+<UL>
+	<LI>While the left arrow key is being pressed (<CODE>StillDown</CODE>), call a function that moves the bar to left (say <CODE>moveBarToLeft</CODE>);
+	<LI>While the right arrow key is being pressed (<CODE>StillDown</CODE>), call a function that moves the bar to right (say <CODE>moveBarToRight</CODE>).
+	
+</UL>
+
+<P>Nothing would be more intuitive:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+            input = [(KeySpecial KeyRight, StillDown, moveBarToRight),
+                     (KeySpecial KeyLeft,  StillDown, moveBarToLeft)]
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Now we have a lot of local definitions, each one doing a different thing:
+
+<UL>
+	<LI>Configuration of the game window (<CODE><FONT COLOR=yellow>winConfig</FONT></CODE>);
+	<LI>Definition of a list containing all the filepaths of the bitmaps used in the game (<CODE><FONT COLOR=yellow>bmpList</FONT></CODE>);
+	<LI>Definition of the game map (<CODE><FONT COLOR=yellow>gameMap</FONT></CODE>);
+	<LI>Definition of the object groups of the game (<CODE><FONT COLOR=yellow>bar</FONT></CODE> and <FONT COLOR=yellow><CODE>ball</CODE></FONT>);
+	<LI>Initialization of the game special attribute, or score (<CODE><FONT COLOR=yellow>initScore</FONT></CODE>);
+	<LI>Specification of the keys that will be interpreted in our game and their respective event actions (<CODE><FONT COLOR=yellow>input</FONT></CODE>).
+
+</UL>
+	
+<P>What should we do with them? Call function <CODE><B>funInit</B></CODE>! Here you have it (the 3 other parameters will be explained below):
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+        funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 40) bmpList
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Notice that:
+
+<UL>
+	<LI>The object groups must be passed as a list (<CODE>[bar,ball]</CODE>);
+	<LI>The fourth parameters refers to the initial game level. Since in this case there are no levels, it is left as <CODE>()</CODE>;
+	<LI>The seventh parameter is a function that will be executed at each game cycle. It is the heart of the game and the place where we'll check if the bar hits 	 the ball, for example. We called this function <CODE>gameCycle</CODE>, and it must be implemented by us (as shown later);
+	<LI>The eighth parameter tells the game execution rate, in miliseconds. In this case, at each 40 miliseconds we'll have an execution (or cycle) of the game. During the game cycle, the map and objects are drawn, the objects are moved (according to their position and speed, as will be shown later), and our function <CODE>gameCycle</CODE> is called. Besides (<CODE>Timer x</CODE>), another possible value for this parameter is <CODE>Idle</CODE>: the game execution will happen as faster as possible, according to the CPU availability.
+</UL>
+
+<P><FONT COLOR=#AAFFCC><B><I>Important (1):</I></B> Using <CODE>Idle</CODE> can make your game to run at different rates in different computers.<BR>
+<B><I>Important (2):</I></B> Using a very slow value for <CODE>x</CODE> in <CODE>(Timer x)</CODE> can cause an unexpected behavior in the game execution rate, since there may be not enough time between the game cycles for the CPU to process data.</FONT>
+
+<P>Now we are done with <CODE>Main</CODE>, and the only thing left to do is to implement some functions called in it. The first two of them is the creation of the ball and the bar.
+
+<P>The function <CODE>createBall</CODE> must return a game object. We have already defined the type of this object in the beginning of our code: <CODE>PongObject</CODE>. So this will be the type of <CODE>createBall</CODE>. Now how do we really create and object in FunGEn? A very simple and useful structure for doing this is the following one:
+
+<BR><BR>
+<TABLE BGCOLOR = #FFBBBB WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+createObject :: &#60;ObjectType&#62;
+createObject = let objPic = &#60;define the picture of the object&#62;
+	       in &#60;call <B>object</B> function using <B>objPic</B> and other desired params&#62;
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>The <B>picture</B> refers to how an object will be drawn (or rendered). In FunGEn, the picture of an object can be:
+
+<UL>
+	<LI>A texture;
+	<LI>A basic primitive (polygon or circle)
+</UL>
+
+<P>Both the bar and the ball will have basic primitives for their pictures. Let's consider the ball a green circle, with a radius of 3.0 screen units, i.e., its width and heigth will occupy <NOBR><FONT COLOR=red>(100*3/250)%</FONT></NOBR> of the screen's width and height respectively. Let's also define its initial position in the screen as (125,125) screen units, and its speed as (-5,5) screen units per cycle. The (0,0) position is always located in the bottom left corner, so the ball will start the game in the middle of the screen, moving to the top left corner (FunGEn is responsible for moving all game objects, according to their speed and position). After the first game cycle, the new ball position will be (120,130), for example.
+
+<P>All of this object creation is done by the following code:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+createBall :: PongObject
+createBall = let ballPic = Basic (Circle 3.0 0.0 1.0 0.0 Filled)
+	     in object "ball" ballPic False (125,125) (-5,5) ()
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Let's take a look at the above code. The first value after the constructor <CODE>Circle</CODE> defines the radius of the ball. The next three numbers refers to the color of the ball, in the RGB (<FONT COLOR=red>Red</FONT> <FONT COLOR=lightgreen>Green</FONT> <FONT COLOR=blue>Blue</FONT>) format. Each of the three colors can vary from 0.0 to 1.0, so <NOBR>(1.0 1.0 1.0)</NOBR> represents white (the total presence of all colors) while <NOBR>(0.0 0.0 0.0)</NOBR> represents black (the total absence of all three colors). Hence, the value <NOBR>(0.0 1.0 0.0)</NOBR> says that our ball is green. Finally, the value <CODE>Filled</CODE> says that the interior os the ball is also green. If we used <CODE>Unfilled</CODE> instead, only the border of the ball (its most outside circumference) would be drawn.
+
+<P>The function <CODE>object</CODE> is then called to effectively create the object. Its parameters are the name of the object, its picture, its sleeping status, its initial position, its inicial speed and its special attribute (which, as we defined before, does not make any sense in our game). If the sleeping status of the ball were <CODE>True</CODE>, FunGEn would ignore it when moving, drawing and checking collisions between it and other objects. One can always change the attributes of and object by <CODE>get</CODE> and <CODE>set</CODE> functions, as it will be shown later.
+
+<P><FONT COLOR=#AAFFCC><B><I>Important:</I></B> FunGEn automatically creates the <CODE>size</CODE> attribute for an object.</FONT>
+
+<P>The creation of the bar is very similar. Suppose we'd like an unfilled white rectangle to represent the picture of the bar, and that its initial position is (125,30) screen units and its initial speed is null (0,0). The code would be:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+createBar :: PongObject
+createBar = let barBound = [(-25,-6),(25,-6),(25,6),(-25,6)]
+                barPic = Basic (Polyg barBound 1.0 1.0 1.0 Unfilled)
+            in object "bar" barPic False (125,30) (0,0) ()
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>The only new thing in the above code is the local definition <CODE>barBound</CODE>, which is a list of points related to the centre of the bar. They must be listed in counter-clockwise order. They're also expressed in screen units.
+
+<P>Now let's define the function <CODE>moveBarToRight</CODE>, which will be called when the player holds the right keyboard key. Basically, what we'll need to do is to find (retrieve) the bar object from the game and increment its position (let's increment it by 5 units). The following code does this task:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+moveBarToRight :: PongAction ()
+moveBarToRight = do
+        obj <- findObject "bar" "barGroup"
+        (pX,pY) <- getObjectPosition obj
+        (sX,_)  <- getObjectSize obj
+        if (pX + (sX/2) + 5 <= 250)
+        	then (setObjectPosition ((pX + 5),pY) obj)
+        	else (setObjectPosition ((250 - (sX/2)),pY) obj)
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>The functions <CODE>findObject</CODE>, <CODE>getObjectPosition</CODE>, <CODE>getObjectSize</CODE>, <CODE>setObjectPosition</CODE> and <CODE>setObjectPosition</CODE> are all FunGEn functionalities. The first of them find an object, given its name and the name of its group. Notice that there is a check to avoid the bar from moving beyond the right window boundary. This check needs to know the position and size of the ball, which are retrieved via <CODE>getObjectPosition</CODE> and <CODE>getObjectSize</CODE> respectively. After the check is done, the new position of the bar is set properly, via <CODE>setObjectPosition</CODE>, which receives the new position (x,y) and the object to be modified as parameters. Notice that the type of this function (and of all functions that changes the state of our game) is <CODE>PongAction ()</CODE>, as defined before.
+
+<P><FONT COLOR=#AAFFCC><B><I>Important:</I></B> You'll may have problems if you create two objects with the same name in the same group, or two groups with the same name. But no problems will occur if two objects, from two different groups, have the same name.</FONT>
+
+
+<P>To the <CODE>moveBarToLeft</CODE> function, the routine is almost the same. The difference is that now we need to avoid the bar from moving to beyond the left window boundary. The final check is then modified; the code for this function is:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+moveBarToLeft :: PongAction ()
+moveBarToLeft = do
+        obj <- findObject "bar" "barGroup"
+        (pX,pY) <- getObjectPosition obj
+        (sX,_)  <- getObjectSize obj
+        if (pX - (sX/2) - 5 >= 0)
+        	then (setObjectPosition ((pX - 5),pY) obj)
+        	else (setObjectPosition (sX/2,pY) obj)
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Dont'give up now, we're almost done. The last thing remaining to do is the implementation of the <CODE>gameCycle</CODE> function. It will be executed every cycle, so it is the right place to describe the game behavior. Its first task is to retrieve the score (the game special attribute) and print it on the screen. Hence, the beginning of this fuction would be:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+gameCycle :: PongAction ()
+gameCycle = do
+        (Score n) <- getGameAttribute
+        printOnScreen (show n) BitmapTimesRoman24 (0,0) 1.0 1.0 1.0
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Both <CODE>getGameAttribute</CODE> and <CODE>printOnScreen</CODE> functions are FunGEn pre-defined functions. The first retrieves the game special attribute, and the later prints a string in the screen, given the string, the font type, the position of the bottom left corner of the text and the color in RBG.
+
+<P>Now let's find the ball object and check if it have collided with any border of the map. If the collision was against the left or right border, the horizontal speed must be changed. Case the top border was hit, the vertical position must be the one changed. If, otherwise, the collision was against the bottom border, the player loses the game and we finish it (calling <CODE>funExit</CODE>) This is done by the following piece of code (remember we're still inside <CODE>gameCycle</CODE>:
+
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+        ball <- findObject "ball" "ballGroup"
+        col1 <- objectLeftMapCollision ball
+        col2 <- objectRightMapCollision ball
+        when (col1 || col2) (reverseXSpeed ball)
+        col3 <- objectTopMapCollision ball
+        when col3 (reverseYSpeed ball)
+        col4 <- objectBottomMapCollision ball
+        when col4 (funExit)
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>It is worth observing that the exiting function <CODE>funExit</CODE>, the collision detection functions and the speed reversing functions are also provided by FunGEn, and that a <CODE>when</CODE> corresponds to an <CODE>if</CODE> without an <CODE>else</CODE> (for monadic actions, such as <CODE>IO</CODE> or <CODE>IOGame</CODE>).
+
+<P>Now we check if the bar have hit the ball. We first find the bar object, call the <CODE>objectsCollision</CODE> function and do the check. If it happened, we call FunGEn <CODE>sound</CODE> function to play a sound, then reverse the speed of the ball and, finally, add 10 points to the score. Into code:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+        bar <- findObject "bar" "barGroup"
+        col5 <- objectsCollision ball bar
+        when col5
+        	(do sound "hit.wav" [Async]
+        	    reverseYSpeed ball
+        	    setGameAttribute (Score (n + 10)))
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>Notice that the <CODE>sound</CODE> function receives the sound filepath and a list of configurations. Here, <CODE>Async</CODE> says that the game execution must not wait for the sound to be completely executed to continue; the sound plays and the game execution continues at the same time.
+
+<P>Ok, now we <B>ARE DONE</B>. When executed, our game would look like:<BR>
+
+<BR><CENTER><IMG SRC="pic/brief.gif"><BR></CENTER>
+
+<P>Please notice that, in our example, when the ball hits one of the sides of the bar, its horizontal speed won't change, so it will "enter" the bar. Try it! Can you change the above code to avoid this...?
+
+<P>One last thing: would you like to check the frame per seconds rate of the game? Try adding the following code line to the end of <CODE>gameCycle</CODE> and see what happens:
+
+<BR><BR>
+<TABLE BGCOLOR = #BABAFF WIDTH = 100%>
+<TR>
+<TD>
+
+<PRE>
+        showFPS BitmapTimesRoman24 (30,0) 1.0 0.0 0.0
+
+</TD>
+</PRE>
+</TR>
+</TABLE>
+
+<P>And that's it. We created a game with many different functionalities and a nice performance in less than 80 lines of code. Hope you enjoyed!
+
+<P><I>(You can download the source code <A HREF="files/pong/pong.hs">here</A> if you wish</I>)
+
+<BR><BR>
+<DIV ALIGN=center>
+<HR>
+<FONT SIZE=2>
+<A HREF="about.html"><B><I>FunGEn</I></B></A> - <A HREF="mailto:awbf@cin.ufpe.br">Andre W B Furtado</A><BR>
+About FunGEn<BR>
+www.cin.ufpe.br/~haskell/fungen/about.html<BR>
+Last updated in 19/04/2002<BR>
+<A HREF="http://www.cin.ufpe.br" TARGET="_blank">Informatics Center</A> (CIn) - <A HREF="http://www.ufpe.br" TARGET="_blank">UFPE</A><BR>
+Recife - PE - Brazil<BR>
+</DIV>
+</BODY>
+</HTML>
