@@ -34,7 +34,7 @@ There is also a [tutorial](TUTORIAL.html).
 Home:                 [http://joyful.com/fungen](http://joyful.com/fungen)  
 Hackage:              [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
 Latest code:          [http://darcsden.com/simon/fungen](http://darcsden.com/simon/fungen)  
-<!-- Latest haddock docs:  [here](http://joyful.com/repos/fungen/dist/doc/html/fungen/)   -->
+Latest API docs:      [single-page](http://joyful.com/fungen/apidoc/) or [framed](http://joyful.com/fungen/apidoc/frames.html)  
 Discussion:           [#haskell-game](irc://irc.freenode.net/#haskell-game)  
 <!-- Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)   -->
 Old home:             [http://www.cin.ufpe.br/\~haskell/fungen](http://www.cin.ufpe.br/~haskell/fungen)  
