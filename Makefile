@@ -45,7 +45,7 @@ website: site _site/index.html
 	./site build
 
 site: site.hs
-	ghc --make -Wall site.hs
+	ghc --make site.hs
 
 _site/index.html:
 	-cd _site && ln -sf README.html index.html
