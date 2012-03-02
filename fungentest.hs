@@ -1,6 +1,6 @@
 {-
-This executable is required for the "make auto" rule, and is a
-convenient place for quick tests.
+This executable is used by the "make auto" rule, and is a good place for experiments.
+It probably needs to be compiled to work.
 -}
 
 module Main where
@@ -8,7 +8,6 @@ module Main where
 import Control.Monad
 import Graphics.UI.Fungen
 import Text.Printf
--- import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
 import Graphics.UI.GLUT
 
 main :: IO ()
@@ -20,13 +19,25 @@ main = do
     ()                                       -- u
     ()                                       -- t
     [                                        -- input handlers
-      (Char 'q',
-       Press,
-       do liftIOtoIOGame $ putStrLn "q pressed"
+      -- q, shift-q, control-q etc. must be matched as different characters, at least on the mac:
+      (Char 'q', Press,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "q pressed with mods %s, pos %s" (show mods) (show pos)
       ),
-      (MouseButton LeftButton,
-       Press,
-       do liftIOtoIOGame $ putStrLn "left mouse button pressed"
+      (Char 'Q', Press,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "shift q pressed with mods %s, pos %s" (show mods) (show pos)
+      ),
+      (Char '\DC1', Press,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "control q pressed with mods %s, pos %s" (show mods) (show pos)
+      ),
+      (MouseButton LeftButton, Press,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "left mouse button pressed with mods %s, pos %s" (show mods) (show pos)
+      ),
+      -- still down handler - mods and pos remain at the initial values
+      (MouseButton LeftButton, StillDown,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "left mouse button still down with mods %s, pos %s" (show mods) (show pos)
+      ),
+      (MouseButton LeftButton, Release,
+       \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "left mouse button released with mods %s, pos %s" (show mods) (show pos)
       )
     ]
     (do                                      -- iogame action
@@ -34,13 +45,3 @@ main = do
     )
     Idle                                     -- refresh type
     []                                       -- file picture list
-
-    -- let winConfig = ((100,20),(width,height),"A brief example!")
-    --      bmpList = [("tex.bmp",Nothing)]
-    --      gameMap = textureMap 0 30 30 w h
-    --      bar    = objectGroup "barGroup"  [createBar]
-    --      ball   = objectGroup "ballGroup" [createBall]
-    --      initScore = Score 0
-    --      input = [(SpecialKey KeyRight, StillDown, moveBarToRight),
-    --               (SpecialKey KeyLeft,  StillDown, moveBarToLeft)]
-    --  funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 30) bmpList
