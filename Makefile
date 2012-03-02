@@ -12,8 +12,7 @@ install:
 build:
 	cabal build
 
-# build automatically on file change, using sp
-# (darcs get http://joyful.com/repos/searchpath, make it, add it to your PATH)
+# build automatically on file change using sp
 # flag(s) to work around ghc vs. macports issue on mac, if needed:
 #PREFERMACUSRLIBFLAGS=-L/usr/lib
 #BUILDFLAGS=-threaded -W -fwarn-tabs -Werror $(PREFERMACUSRLIBFLAGS)
@@ -21,7 +20,13 @@ build:
 AUTOBUILDEXE=fungentest
 AUTOBUILDEXEARGS=tests
 autobuild auto:
+	@echo "auto-building with sp (if this fails, do make sp)"
 	sp --no-exts --no-default-map -o $(AUTOBUILDEXE) ghc --make $(BUILDFLAGS) $(AUTOBUILDEXE).hs --run $(AUTOBUILDEXEARGS)
+
+sp:
+	@echo "To install sp:"
+	@echo "darcs get http://joyful.com/repos/searchpath,"
+	@echo "cd searchpath, make, add the sp executable to your PATH"
 
 ######################################################################
 # DOC
