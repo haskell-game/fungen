@@ -14,8 +14,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 -}
 
 module Graphics.UI.Fungen.Input (
-        InputConfig,
-        Key(..), KeyEvent(..), SpecialKey(..), MouseButton(..),
+        InputConfig, GameAction,
+        Key(..), KeyEvent(..), SpecialKey(..), MouseButton(..), Modifiers(..), Position(..),
         funBinding
 ) where
 

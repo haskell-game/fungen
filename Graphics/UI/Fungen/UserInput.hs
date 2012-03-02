@@ -8,7 +8,7 @@ button up/down events, and manages bindings from input events to actions.
 -}
 
 module Graphics.UI.Fungen.UserInput (
-   Key(..), KeyEvent(..), KeyBinder, StillDownHandler, initUserInput
+   Key(..), KeyEvent(..), KeyBinder, InputHandler, StillDownHandler, initUserInput
 ) where
 
 import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
