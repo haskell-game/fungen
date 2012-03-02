@@ -1,6 +1,10 @@
 {- |
    GLUT-based keyboard/mouse handling
    Sven Panne 2000.   mailto:Sven.Panne@informatik.uni-muenchen.de
+
+This provides a "still down" event in addition to GLUT's key/mouse
+button up/down events, and manages bindings from input events to actions.
+
 -}
 
 module Graphics.UI.Fungen.UserInput (
@@ -8,7 +12,7 @@ module Graphics.UI.Fungen.UserInput (
 ) where
 
 import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
-import Data.List(delete)
+import Data.List(deleteBy)
 import Graphics.UI.GLUT
 
 ---------------------------------------------------------------------------
@@ -17,26 +21,35 @@ data KeyEvent = Press | StillDown | Release   deriving Eq
 
 ---------------------------------------------------------------------------
 
-type KeyTable = IORef [Key]
+-- | A mutable list of keys (or mouse buttons), along with modifier
+-- state and mouse position.
+type KeyTable = IORef [(Key, Modifiers, Position)]
 
 newKeyTable :: IO KeyTable
 newKeyTable = newIORef []
 
-getKeys :: KeyTable -> IO [Key]
+getKeys :: KeyTable -> IO [(Key, Modifiers, Position)]
 getKeys = readIORef
 
-insertIntoKeyTable :: KeyTable -> Key -> IO ()
-insertIntoKeyTable keyTab key = modifyIORef keyTab (key:)
+insertIntoKeyTable :: KeyTable -> Key -> Modifiers -> Position -> IO ()
+insertIntoKeyTable keyTab key mods pos = modifyIORef keyTab ((key,mods,pos):)
 
 deleteFromKeyTable :: KeyTable -> Key -> IO ()
-deleteFromKeyTable keyTab key = modifyIORef keyTab (delete key)
+deleteFromKeyTable keyTab key = modifyIORef keyTab (deleteBy (\(k,_,_) (l,_,_) -> k==l) (key, nullmods, nullpos))
+  where nullmods = Modifiers Up Up Up
+        nullpos = Position 0 0
 
 ---------------------------------------------------------------------------
 
-type KeyBinder = Key -> KeyEvent -> Maybe (IO ()) -> IO ()
+type InputHandler = Modifiers -> Position -> IO ()
 
--- TODO: Improve type
-type BindingTable = IORef [((Key,KeyEvent), IO ())]
+type KeyBinder = Key -> KeyEvent -> Maybe InputHandler -> IO ()
+
+-- TODO: Improve type 
+
+-- | A mutable list of mappings from key/mousebutton up/down/stilldown
+-- events to IO actions.
+type BindingTable = IORef [((Key,KeyEvent), InputHandler)]
 
 newBindingTable :: IO BindingTable
 newBindingTable = newIORef []
@@ -48,9 +61,9 @@ bindKey bindingTable key event (Just action) = do
    bindKey bindingTable key event Nothing
    modifyIORef bindingTable (((key, event), action) :)
 
-execAction :: BindingTable -> Key -> KeyEvent -> IO ()
-execAction bindingTable key event =
-   readIORef bindingTable >>= (maybe (return ()) id . lookup (key, event))
+execAction :: BindingTable -> Key -> KeyEvent -> Modifiers -> Position -> IO ()
+execAction bindingTable key event mods pos  =
+   readIORef bindingTable >>= (maybe (return ()) (\a -> a mods pos) . lookup (key, event))
 
 ---------------------------------------------------------------------------
 
@@ -58,10 +71,14 @@ type StillDownHandler = IO ()
 
 stillDown :: BindingTable -> KeyTable -> StillDownHandler
 stillDown bindingTable pressedKeys =
-   getKeys pressedKeys >>= mapM_ (\k -> execAction bindingTable k StillDown)
+   getKeys pressedKeys >>= mapM_ (\(k,mods,pos) -> execAction bindingTable k StillDown mods pos)
 
 ---------------------------------------------------------------------------
 
+-- | Initialise the input system, which keeps a list of input event to
+-- action bindings and executes the the proper actions automatically.
+-- Returns a function for adding bindings, and another which should be
+-- called periodically (eg from refresh) to trigger still-down actions.
 initUserInput :: IO (KeyBinder, StillDownHandler)
 initUserInput = do
    -- Using "setKeyRepeat KeyRepeatOff" would be a little bit more
@@ -70,12 +87,14 @@ initUserInput = do
    globalKeyRepeat $= GlobalKeyRepeatOff
    bindingTable <- newBindingTable
    pressedKeys  <- newKeyTable
-   let keyPress   k = do insertIntoKeyTable pressedKeys k
-                         execAction bindingTable k Press
-       keyRelease k = do deleteFromKeyTable pressedKeys k
-                         execAction bindingTable k Release
-       keyboardMouse k Down _ _ = keyPress   k
-       keyboardMouse k Up   _ _ = keyRelease k
+   let keyPress k mods pos = do
+         insertIntoKeyTable pressedKeys k mods pos
+         execAction bindingTable k Press mods pos
+       keyRelease k mods pos = do 
+         deleteFromKeyTable pressedKeys k
+         execAction bindingTable k Release mods pos
+       keyboardMouse k Down mods pos = keyPress   k mods pos
+       keyboardMouse k Up   mods pos = keyRelease k mods pos
    keyboardMouseCallback $= Just keyboardMouse
    return (bindKey bindingTable, stillDown bindingTable pressedKeys)
 
