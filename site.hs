@@ -1,18 +1,13 @@
 #!/usr/bin/env runhaskell
 {-# LANGUAGE OverloadedStrings #-}
-{-
-website build script
-ghc --make site.hs && ./site build
--}
+{- hakyll script, builds website in ./_site/ -}
 
-import Control.Arrow ((>>>)) --, (***), arr)
+import Control.Arrow ((>>>))
 import Hakyll
 
 main:: IO ()
 main = hakyll $ do
-    match "*.md" $ do
-        route   $ setExtension "html"
-        compile $ pageCompiler
-            >>> applyTemplateCompiler "site.hamlet"
-            >>> relativizeUrlsCompiler
-    match "*.hamlet" $ compile templateCompiler
+  match "*.hamlet" $ compile templateCompiler
+  match "*.md" $ do
+    route   $ setExtension "html"
+    compile $ pageCompiler >>> applyTemplateCompiler "site.hamlet" >>> relativizeUrlsCompiler
