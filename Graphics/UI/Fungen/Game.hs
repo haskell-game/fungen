@@ -68,7 +68,39 @@ import Text.Printf
 -- 
 -- * v is the type of the map tile special attribute, in case we use a Tile Map as the background of our game
 -- 
--- A game consists of:
+-- For a mnemonic, uh...
+--
+-- * t - /T/op-level game attribute type,
+--
+-- * s - /S/prite object attribute type,
+--
+-- * u - /U/pdating game state type,
+--
+-- * v - /V/icinity (map tile) attribute type.
+-- 
+-- A Game consists of the following attributes, accessible via the
+-- accessor functions below:
+--
+-- * @gameMap       :: IORef (GameMap v)         -- a map (background)@
+--
+-- * @gameState     :: IORef u                   -- initial game state@
+--
+-- * @gameFlags     :: IORef GameFlags           -- initial game flags@
+--
+-- * @objManagers   :: IORef [(ObjectManager s)] -- some object managers@
+--
+-- * @textList      :: IORef [Text]              -- some texts@
+--
+-- * @quadricObj    :: QuadricPrimitive          -- a quadric thing@
+--
+-- * @windowConfig  :: IORef WindowConfig        -- a config for the main window@
+--
+-- * @gameAttribute :: IORef t                   -- a game attribute@
+--
+-- * @pictureList   :: IORef [TextureObject]     -- some pictures@
+--
+-- * @fpsInfo       :: IORef (Int,Int,Float)     -- only for debugging@
+-- 
 data Game t s u v = Game {
 	gameMap       :: IORef (GameMap v), -- ^ a map (background)
     	gameState     :: IORef u,           -- ^ initial game state
