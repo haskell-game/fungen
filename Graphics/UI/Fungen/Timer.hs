@@ -18,8 +18,8 @@ module Graphics.UI.Fungen.Timer (
         setRefresh
 ) where
 
-import Graphics.UI.Fungen.UserInput
 import Graphics.UI.GLUT
+import Graphics.UI.GLUT.Input
 
 data RefreshType
         = Idle

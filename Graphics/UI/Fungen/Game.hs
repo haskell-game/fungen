@@ -114,7 +114,7 @@ data Game t s u v = Game {
 	fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
 	}
 
--- | A game action has the type @IOGame t s u v a@, where t, s, u and v
+-- | A game action (IOGame) has the type @IOGame t s u v a@, where t, s, u and v
 -- are as for Game and a is the type returned by each action of the game
 -- (such as the Int for "IO Int").  The name IOGame was chosen to remind
 -- that each action deals with a Game, but an IO operation can also be

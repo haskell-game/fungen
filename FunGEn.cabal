@@ -26,7 +26,7 @@ library
                     Graphics.UI.Fungen.Types, Graphics.UI.Fungen.Util, Graphics.UI.Fungen.Loader,
                     Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
                     Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
-                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.Fungen.UserInput
+                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.GLUT.Input
 
   build-depends:
                     base == 4.*

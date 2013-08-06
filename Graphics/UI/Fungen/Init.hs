@@ -28,7 +28,7 @@ import Graphics.UI.Fungen.Timer
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 
-funInit :: WindowConfig -> GameMap v -> [(ObjectManager s)] -> u -> t -> [InputConfig t s u v] -> IOGame t s u v () -> RefreshType -> FilePictureList -> IO ()
+funInit :: WindowConfig -> GameMap v -> [(ObjectManager s)] -> u -> t -> [InputBinding t s u v] -> IOGame t s u v () -> RefreshType -> FilePictureList -> IO ()
 funInit winConfig@((px,py),(sx,sy),t) userMap objectGroups gState gAttrib i gameCicle r picList = do
         initialize "FunGen app" []
         createWindow t -- (return ()) [ Double, RGBA ]

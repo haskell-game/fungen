@@ -1,14 +1,15 @@
 {- |
-   GLUT-based keyboard/mouse handling
-   Sven Panne 2000.   mailto:Sven.Panne@informatik.uni-muenchen.de
+GLUT-based keyboard/mouse handling.
+
+Sven Panne 2000 <Sven.Panne@informatik.uni-muenchen.de>
 
 This provides a "still down" event in addition to GLUT's key/mouse
 button up/down events, and manages bindings from input events to actions.
 
 -}
 
-module Graphics.UI.Fungen.UserInput (
-   Key(..), KeyEvent(..), KeyBinder, InputHandler, StillDownHandler, initUserInput
+module Graphics.UI.GLUT.Input (
+   Key(..), KeyEvent(..), KeyBinder, InputHandler, StillDownHandler, initGLUTInput
 ) where
 
 import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
@@ -79,8 +80,8 @@ stillDown bindingTable pressedKeys =
 -- action bindings and executes the the proper actions automatically.
 -- Returns a function for adding bindings, and another which should be
 -- called periodically (eg from refresh) to trigger still-down actions.
-initUserInput :: IO (KeyBinder, StillDownHandler)
-initUserInput = do
+initGLUTInput :: IO (KeyBinder, StillDownHandler)
+initGLUTInput = do
    -- Using "setKeyRepeat KeyRepeatOff" would be a little bit more
    -- efficient, but has two disadvantages: It is not yet implemented
    -- for M$ and it changes the global state of X11.

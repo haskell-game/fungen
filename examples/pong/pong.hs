@@ -17,9 +17,6 @@ import Graphics.Rendering.OpenGL (GLdouble)
 
 data GameAttribute = Score Int
  
-type PongObject = GameObject ()
-type PongAction a = IOGame GameAttribute () () () a
-
 width = 400
 height = 400
 w = fromIntegral width :: GLdouble
@@ -33,23 +30,23 @@ main = do
             bar    = objectGroup "barGroup"  [createBar]
             ball   = objectGroup "ballGroup" [createBall]
             initScore = Score 0
-            input = [(SpecialKey KeyRight, StillDown, moveBarToRight),
-                     (SpecialKey KeyLeft,  StillDown, moveBarToLeft)]
-
+            input = [(SpecialKey KeyRight, StillDown, moveBarToRight)
+                    ,(SpecialKey KeyLeft,  StillDown, moveBarToLeft)
+                    ]
         funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 30) bmpList
 
-createBall :: PongObject
+createBall :: GameObject ()
 createBall = let ballPic = Basic (Circle 6.0 0.0 1.0 0.0 Filled)
 	     in object "ball" ballPic False (w/2,h/2) (-8,8) ()
 
 
-createBar :: PongObject
+createBar :: GameObject ()
 createBar = let barBound = [(-25,-6),(25,-6),(25,6),(-25,6)]
                 barPic = Basic (Polyg barBound 1.0 1.0 1.0 Filled)
             in object "bar" barPic False (w/2,30) (0,0) ()
 
-moveBarToRight :: PongAction ()
-moveBarToRight = do
+moveBarToRight :: Modifiers -> Position -> IOGame GameAttribute () () () ()
+moveBarToRight mods pos = do
         obj <- findObject "bar" "barGroup"
         (pX,pY) <- getObjectPosition obj
         (sX,_)  <- getObjectSize obj
@@ -57,8 +54,8 @@ moveBarToRight = do
         	then (setObjectPosition ((pX + 5),pY) obj)
         	else (setObjectPosition ((w - (sX/2)),pY) obj)
 
-moveBarToLeft :: PongAction ()
-moveBarToLeft = do
+moveBarToLeft :: Modifiers -> Position -> IOGame GameAttribute () () () ()
+moveBarToLeft mods pos = do
         obj <- findObject "bar" "barGroup"
         (pX,pY) <- getObjectPosition obj
         (sX,_)  <- getObjectSize obj
@@ -66,7 +63,7 @@ moveBarToLeft = do
         	then (setObjectPosition ((pX - 5),pY) obj)
         	else (setObjectPosition (sX/2,pY) obj)
 
-gameCycle :: PongAction ()
+gameCycle :: IOGame GameAttribute () () () ()
 gameCycle = do
         (Score n) <- getGameAttribute
         printOnScreen (show n) TimesRoman24 (0,0) 1.0 1.0 1.0

@@ -124,26 +124,26 @@ createAsleepTails tMin tMax pic
     | (tMin > tMax) = []
     | otherwise = (object ("tail" ++ (show tMin)) pic True (0,0) (0,0) (Tail 0)):(createAsleepTails (tMin + 1) tMax pic)
 
-turnLeft :: WormsAction ()
-turnLeft = do
+turnLeft :: Modifiers -> Position -> WormsAction ()
+turnLeft _ _ = do
     snakeHead <- findObject "head" "head"
     setObjectCurrentPicture 8 snakeHead
     setObjectSpeed (-speedMod,0) snakeHead
     
-turnRight :: WormsAction ()
-turnRight = do
+turnRight :: Modifiers -> Position -> WormsAction ()
+turnRight _ _ = do
     snakeHead <- findObject "head" "head"
     setObjectCurrentPicture 7 snakeHead
     setObjectSpeed (speedMod,0) snakeHead
 
-turnUp :: WormsAction ()
-turnUp = do
+turnUp :: Modifiers -> Position -> WormsAction ()
+turnUp _ _ = do
     snakeHead <- findObject "head" "head"
     setObjectCurrentPicture 5 snakeHead
     setObjectSpeed (0,speedMod) snakeHead
 
-turnDown :: WormsAction ()
-turnDown = do
+turnDown :: Modifiers -> Position -> WormsAction ()
+turnDown _ _ = do
     snakeHead <- findObject "head" "head"
     setObjectCurrentPicture 6 snakeHead
     setObjectSpeed (0,-speedMod) snakeHead
