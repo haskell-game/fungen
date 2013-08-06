@@ -16,7 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 module Graphics.UI.Fungen.Loader (
         loadBitmap, loadBitmapList, FilePictureList
-)where
+) where
 
 import Graphics.Rendering.OpenGL
 import System.IO
@@ -31,7 +31,7 @@ binAux = "000000000000000000000000"
 type BmpList = [(GLubyte, GLubyte, GLubyte, GLubyte)]
 type FilePictureList = [(FilePath,InvList)]
 
---loads a bitmap from a file
+-- | Loads a bitmap from a file.
 loadBitmap :: FilePath -> Maybe ColorList3 -> IO AwbfBitmap
 loadBitmap bmName invList = do
         bmFile <- openBinaryFile bmName (ReadMode)
@@ -41,7 +41,7 @@ loadBitmap bmName invList = do
         hClose bmFile
         return (bmW,bmH,bmData)
 
- -- loads n bitmaps from n files        
+-- | Loads n bitmaps from n files.
 loadBitmapList :: [(FilePath, Maybe ColorList3)] -> IO [AwbfBitmap]
 loadBitmapList bmps = do
         bmList <- loadBmListAux bmps []

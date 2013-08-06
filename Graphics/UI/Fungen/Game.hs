@@ -16,33 +16,44 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 module Graphics.UI.Fungen.Game (
-        Game, IOGame,
-        createGame, 
-        runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
-        getGameState, setGameState,
-        getGameFlags, setGameFlags,
-        enableGameFlags, disableGameFlags,
-        enableMapDrawing, disableMapDrawing,
-        enableObjectsDrawing, disableObjectsDrawing,
-        enableObjectsMoving, disableObjectsMoving,
-        getObjectManagers, setObjectManagers,
-        getGameAttribute, setGameAttribute,
-        drawMap, clearScreen, getTileFromIndex, getTileFromWindowPosition, setCurrentMapIndex,
-        drawAllObjects, drawObject, moveAllObjects, destroyObjects, destroyObject,
-        getObjectsFromGroup, addObjectsToGroup, addObjectsToNewGroup, findObjectManager,findObject,
-        getObjectName, getObjectGroupName, getObjectAsleep, getObjectSize,
-        getObjectPosition, getObjectSpeed, getObjectAttribute,
-        setObjectPosition, setObjectAsleep, setObjectSpeed, setObjectCurrentPicture, setObjectAttribute,
-        replaceObject,
-        reverseXSpeed, reverseYSpeed,
-        objectsCollision, objectsFutureCollision,
-        objectListObjectCollision, objectListObjectFutureCollision,
-        objectTopMapCollision, objectBottomMapCollision, objectRightMapCollision, objectLeftMapCollision,
-        pointsObjectCollision, pointsObjectListCollision,
-        objectTopMapFutureCollision, objectBottomMapFutureCollision, objectRightMapFutureCollision, objectLeftMapFutureCollision,
-        printOnPrompt, printOnScreen, printText, randomFloat, randomInt, randomDouble,
-        showFPS,
-        wait
+  Game, IOGame,
+  -- ** creating
+  createGame, 
+  -- ** IO utilities
+  runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
+  -- ** game state
+  getGameState, setGameState,
+  getGameAttribute, setGameAttribute,
+  -- ** game flags
+  getGameFlags, setGameFlags,
+  enableGameFlags, disableGameFlags,
+  enableMapDrawing, disableMapDrawing,
+  enableObjectsDrawing, disableObjectsDrawing,
+  enableObjectsMoving, disableObjectsMoving,
+  -- ** map operations
+  drawMap, clearScreen, getTileFromIndex, getTileFromWindowPosition, setCurrentMapIndex,
+  -- ** object operations
+  getObjectManagers, setObjectManagers,
+  drawAllObjects, drawObject, moveAllObjects, destroyObjects, destroyObject,
+  getObjectsFromGroup, addObjectsToGroup, addObjectsToNewGroup, findObjectManager,findObject,
+  getObjectName, getObjectGroupName, getObjectAsleep, getObjectSize,
+  getObjectPosition, getObjectSpeed, getObjectAttribute,
+  setObjectPosition, setObjectAsleep, setObjectSpeed, setObjectCurrentPicture, setObjectAttribute,
+  replaceObject,
+  reverseXSpeed, reverseYSpeed,
+  -- ** collision detection
+  objectsCollision, objectsFutureCollision,
+  objectListObjectCollision, objectListObjectFutureCollision,
+  objectTopMapCollision, objectBottomMapCollision, objectRightMapCollision, objectLeftMapCollision,
+  pointsObjectCollision, pointsObjectListCollision,
+  objectTopMapFutureCollision, objectBottomMapFutureCollision, objectRightMapFutureCollision, objectLeftMapFutureCollision,
+  -- ** text operations
+  printOnPrompt, printOnScreen, printText,
+  -- ** random numbers
+  randomFloat, randomInt, randomDouble,
+  -- ** utilities
+  showFPS,
+  wait
 ) where
 
 import Graphics.UI.Fungen.Types
@@ -255,7 +266,7 @@ createGame gMap objectManagers winConf gState gAttrib filePicList = do
             fpsInfo 	  = gFPS
             })
 
--- loads all of the pictures used in the game
+-- | loads all of the pictures used in the game
 loadPictures :: [(FilePath,InvList)] -> IO [TextureObject]
 loadPictures pathsAndInvLists = do
         bmps <- loadBitmapList (map pathAndInv2color3List pathsAndInvLists)
@@ -267,7 +278,7 @@ loadPictures pathsAndInvLists = do
 -- map routines
 ----------------------------------
 
--- draws the background map
+-- | draws the background map
 drawMap :: IOGame t s u v ()
 drawMap = do
     m <- getMap
@@ -275,7 +286,7 @@ drawMap = do
     (_,(winWidth, winHeight),_) <- getWindowConfig
     liftIOtoIOGame $ drawGameMap m (fromIntegral winWidth, fromIntegral winHeight) p
 
--- returns a mapTile, given its pixel position (x,y) in the screen
+-- | returns a mapTile, given its pixel position (x,y) in the screen
 getTileFromWindowPosition :: (GLdouble,GLdouble) -> IOGame t s u v (Tile v)
 getTileFromWindowPosition (preX,preY) = do
        m <- getMap
@@ -289,7 +300,7 @@ getTileFromWindowPosition (preX,preY) = do
                         else getTileFromIndex (fromEnum (y/tileXsize),fromEnum (x/tileYsize)) -- (x,y) window orientation is different than index (x,y)!
             else error "Game.getTileFromWindowPosition error: game map is not a tile map!"
 
--- returns a mapTile, given its index (x,y) in the tile map
+-- | returns a mapTile, given its index (x,y) in the tile map
 getTileFromIndex :: (Int,Int) -> IOGame t s u v (Tile v)
 getTileFromIndex (x,y) = do
         m <- getMap
@@ -301,11 +312,11 @@ getTileFromIndex (x,y) = do
                         else error ("Game.getTileFromIndex error: tile index " ++ (show (x,y)) ++ " out of map range!")
             else error "Game.getTileFromIndex error: game map is not a tile map!"
 
--- paint the whole screen with a specified RGB color
+-- | paint the whole screen with a specified RGB color
 clearScreen :: GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 clearScreen r g b = liftIOtoIOGame $ clearGameScreen r g b
 
--- set the current map for a MultiMap
+-- | set the current map for a MultiMap
 setCurrentMapIndex :: Int -> IOGame t s u v ()
 setCurrentMapIndex i = do
         m <- getRealMap
@@ -357,7 +368,7 @@ disableObjectsMoving = do
 -- objects routines
 ----------------------------------
 
--- draws all visible objects
+-- | draws all visible objects
 drawAllObjects :: IOGame t s u v ()
 drawAllObjects = do
     o <- getObjectManagers
@@ -365,26 +376,26 @@ drawAllObjects = do
     p <- getPictureList
     liftIOtoIOGame $ drawGameObjects o q p
 
--- draw one object
+-- | draw one object
 drawObject :: GameObject s -> IOGame t s u v ()
 drawObject o = do
     q <- getQuadric
     p <- getPictureList
     liftIOtoIOGame $ drawGameObject o q p
 
--- changes objects position according to its speed
+-- | changes objects position according to its speed
 moveAllObjects :: IOGame t s u v ()
 moveAllObjects = do
     m <- getObjectManagers
     let newManagers = moveGameObjects m
     setObjectManagers newManagers
 
--- destroys objects from the game
+-- | destroys objects from the game
 destroyObjects :: [(GameObject s)] -> IOGame t s u v ()
 destroyObjects [] = return ()
 destroyObjects (o:os) = destroyObject o >> destroyObjects os
 
--- destroys an object from the game
+-- | destroys an object from the game
 destroyObject :: GameObject s -> IOGame t s u v ()
 destroyObject obj = do
     m <- getObjectManagers
@@ -393,13 +404,13 @@ destroyObject obj = do
     let newManagers = destroyGameObject objName mngName m
     setObjectManagers newManagers
 
--- returns the list of all objects from the group whose name is given
+-- | returns the list of all objects from the group whose name is given
 getObjectsFromGroup :: String -> IOGame t s u v [(GameObject s)]
 getObjectsFromGroup mngName = do
         mng <- findObjectManager mngName
         return (getObjectManagerObjects mng)
 
--- adds an object to a previously created group
+-- | adds an object to a previously created group
 addObjectsToGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
 addObjectsToGroup objs managerName = do
 	manager <- findObjectManager managerName
@@ -407,96 +418,96 @@ addObjectsToGroup objs managerName = do
 	let newManagers = addObjectsToManager objs managerName managers 
 	setObjectManagers newManagers
 
--- adds an object to a new group
+-- | adds an object to a new group
 addObjectsToNewGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
 addObjectsToNewGroup objs newMngName = do
 	let newManager = objectGroup newMngName objs
 	managers <- getObjectManagers
 	setObjectManagers (newManager:managers)
 
--- returns an object manager of the game, given its name (internal use)
+-- | returns an object manager of the game, given its name (internal use)
 findObjectManager :: String -> IOGame t s u v (ObjectManager s)
 findObjectManager mngName = do
     objectManagers <- getObjectManagers
     return (searchObjectManager mngName objectManagers)
     
--- returns an object of the game, given its name and is object manager name
+-- | returns an object of the game, given its name and is object manager name
 findObject :: String -> String -> IOGame t s u v (GameObject s)
 findObject objName mngName = do
     objectManagers <- getObjectManagers
     let m = searchObjectManager mngName objectManagers
     return (searchGameObject objName m)
 
--- there is no need to search through the managers, because the name of an object is
+-- | there is no need to search through the managers, because the name of an object is
 -- never modified so the result of this function will always be safe.
 getObjectName :: GameObject s -> IOGame t s u v String
 getObjectName o = return (getGameObjectName o)
 
--- because an object can have its group (manager) name modified, it is necessary
+-- | because an object can have its group (manager) name modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectGroupName :: GameObject s -> IOGame t s u v String
 getObjectGroupName o = do managers <- getObjectManagers
                           let obj = findObjectFromId o managers
                           return (getGameObjectManagerName obj)
 
--- because an object can have its sleeping status modified, it is necessary
+-- | because an object can have its sleeping status modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectAsleep :: GameObject s -> IOGame t s u v Bool
 getObjectAsleep o = do managers <- getObjectManagers
                        let obj = findObjectFromId o managers
                        return (getGameObjectAsleep obj)
 
--- because an object can have its size modified, it is necessary
+-- | because an object can have its size modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectSize :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectSize o = do managers <- getObjectManagers
                      let obj = findObjectFromId o managers
                      return (getGameObjectSize obj)
 
--- because an object can have its position modified, it is necessary
+-- | because an object can have its position modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectPosition :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectPosition o = do managers <- getObjectManagers
                          let obj = findObjectFromId o managers
                          return (getGameObjectPosition obj)
 
--- because an object can have its speed modified, it is necessary
+-- | because an object can have its speed modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectSpeed :: GameObject s -> IOGame t s u v (GLdouble,GLdouble)
 getObjectSpeed o = do managers <- getObjectManagers
                       let obj = findObjectFromId o managers
                       return (getGameObjectSpeed obj)
 
--- because an object can have its attribute modified, it is necessary
+-- | because an object can have its attribute modified, it is necessary
 -- to search through the managers to find it, otherwise this functions won't be safe.
 getObjectAttribute :: GameObject s -> IOGame t s u v s
 getObjectAttribute o = do managers <- getObjectManagers
                           let obj = findObjectFromId o managers
                           return (getGameObjectAttribute obj)
 
--- changes the sleeping status of an object, given its new status
+-- | changes the sleeping status of an object, given its new status
 setObjectAsleep :: Bool -> GameObject s -> IOGame t s u v ()
 setObjectAsleep asleep obj = replaceObject obj (updateObjectAsleep asleep)
 
--- changes the position of an object, given its new position
+-- | changes the position of an object, given its new position
 setObjectPosition :: (GLdouble,GLdouble) -> GameObject s -> IOGame t s u v ()
 setObjectPosition pos obj = replaceObject obj (updateObjectPosition pos)
 
--- changes the speed of an object, given its new speed
+-- | changes the speed of an object, given its new speed
 setObjectSpeed :: (GLdouble,GLdouble) -> GameObject s -> IOGame t s u v ()
 setObjectSpeed speed obj = replaceObject obj (updateObjectSpeed speed)
 
--- changes the current picture of a multitextured object
+-- | changes the current picture of a multitextured object
 setObjectCurrentPicture :: Int -> GameObject s -> IOGame t s u v ()
 setObjectCurrentPicture n obj = do
 	picList <- getPictureList
 	replaceObject obj (updateObjectPicture n ((length picList) - 1))
 
--- changes the attribute of an object, given its new attribute
+-- | changes the attribute of an object, given its new attribute
 setObjectAttribute :: s -> GameObject s -> IOGame t s u v ()
 setObjectAttribute a obj = replaceObject obj (updateObjectAttribute a)
 
--- replaces an object by a new one, given the old object and the function that must be applied to it.
+-- | replaces an object by a new one, given the old object and the function that must be applied to it.
 replaceObject :: GameObject s -> (GameObject s -> GameObject s) -> IOGame t s u v ()
 replaceObject obj f = do
     managerName <- getObjectGroupName obj
@@ -517,7 +528,7 @@ reverseYSpeed o = do (vX,vY) <- getObjectSpeed o
 -- collision routines
 -----------------------
 
--- checks the collision between an object and the top of the map
+-- | checks the collision between an object and the top of the map
 objectTopMapCollision :: GameObject s -> IOGame t s u v Bool
 objectTopMapCollision o = do
     asleep <- getObjectAsleep o
@@ -529,7 +540,7 @@ objectTopMapCollision o = do
                 let (_,mY) = getMapSize m
                 return (pY + (sY/2) > (realToFrac mY))
 
--- checks the collision between an object and the top of the map in the next game cicle
+-- | checks the collision between an object and the top of the map in the next game cicle
 objectTopMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectTopMapFutureCollision o = do
     asleep <- getObjectAsleep o
@@ -542,7 +553,7 @@ objectTopMapFutureCollision o = do
                 let (_,mY) = getMapSize m
                 return (pY + (sY/2) + vY > (realToFrac mY))
 
--- checks the collision between an object and the bottom of the map
+-- | checks the collision between an object and the bottom of the map
 objectBottomMapCollision :: GameObject s -> IOGame t s u v Bool
 objectBottomMapCollision o = do
     asleep <- getObjectAsleep o
@@ -552,7 +563,7 @@ objectBottomMapCollision o = do
                 (_,sY) <- getObjectSize o
                 return (pY - (sY/2) < 0)
 
--- checks the collision between an object and the bottom of the map in the next game cicle
+-- | checks the collision between an object and the bottom of the map in the next game cicle
 objectBottomMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectBottomMapFutureCollision o = do
     asleep <- getObjectAsleep o
@@ -563,7 +574,7 @@ objectBottomMapFutureCollision o = do
                 (_,vY) <- getObjectSpeed o
                 return (pY - (sY/2) + vY < 0)
 
--- checks the collision between an object and the right side of the map
+-- | checks the collision between an object and the right side of the map
 objectRightMapCollision :: GameObject s -> IOGame t s u v Bool
 objectRightMapCollision o = do
     asleep <- getObjectAsleep o
@@ -575,7 +586,7 @@ objectRightMapCollision o = do
                 let (mX,_) = getMapSize m
                 return (pX + (sX/2) > (realToFrac mX))
 
--- checks the collision between an object and the right side of the map in the next game cicle
+-- | checks the collision between an object and the right side of the map in the next game cicle
 objectRightMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectRightMapFutureCollision o = do
     asleep <- getObjectAsleep o
@@ -588,7 +599,7 @@ objectRightMapFutureCollision o = do
                 let (mX,_) = getMapSize m
                 return (pX + (sX/2) + vX > (realToFrac mX))
 
--- checks the collision between an object and the left side of the map
+-- | checks the collision between an object and the left side of the map
 objectLeftMapCollision :: GameObject s -> IOGame t s u v Bool
 objectLeftMapCollision o = do
     asleep <- getObjectAsleep o
@@ -598,7 +609,7 @@ objectLeftMapCollision o = do
                 (sX,_) <- getObjectSize o
                 return (pX - (sX/2) < 0)
 
--- checks the collision between an object and the left side of the map in the next game cicle
+-- | checks the collision between an object and the left side of the map in the next game cicle
 objectLeftMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectLeftMapFutureCollision o = do
     asleep <- getObjectAsleep o
@@ -609,7 +620,7 @@ objectLeftMapFutureCollision o = do
                 (vX,_) <- getObjectSpeed o
                 return (pX - (sX/2) + vX < 0)
 
--- checks the collision between two objects
+-- | checks the collision between two objects
 objectsCollision :: GameObject s -> GameObject s -> IOGame t s u v Bool
 objectsCollision o1 o2 = do
     asleep1 <- getObjectAsleep o1
@@ -633,7 +644,7 @@ objectsCollision o1 o2 = do
                               
                          return ((bX1 < aX2) && (aX1 < bX2) && (bY1 < aY2) && (aY1 < bY2))
 
--- checks the collision between two objects in the next game cicle
+-- | checks the collision between two objects in the next game cicle
 objectsFutureCollision :: GameObject s -> GameObject s -> IOGame t s u v Bool
 objectsFutureCollision o1 o2 = do
     asleep1 <- getObjectAsleep o1
@@ -704,17 +715,17 @@ pointsObjectListCollision p1X p1Y s1X s1Y (o:os) = do
 -----------------------------------------------
 --              TEXT ROUTINES                --
 -----------------------------------------------
--- prints a string in the prompt
+-- | prints a string in the prompt
 printOnPrompt :: Show a => a -> IOGame t s u v ()
 printOnPrompt a = liftIOtoIOGame' print a
 
--- prints a string in the current window
+-- | prints a string in the current window
 printOnScreen :: String -> BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 printOnScreen text font pos r g b = do
         t <- getTextList
         setTextList ([(text,font,pos,r,g,b)] ++ t)
 
--- internal use of the engine
+-- | internal use of the engine
 printText :: IOGame t s u v ()
 printText = do
         t <- getTextList
@@ -737,7 +748,7 @@ randomDouble (x,y) = liftIOtoIOGame $ randDouble (x,y)
 --           DEBUGGING ROUTINES              --
 -----------------------------------------------
 
--- shows the frame rate (or frame per seconds) 
+-- | shows the frame rate (or frame per seconds) 
 showFPS :: BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 showFPS font pos r g b = do
 	(framei,timebasei,fps) <- getFpsInfo
@@ -750,10 +761,11 @@ showFPS font pos r g b = do
 		else setFpsInfo ((framei + 1),timebasei,fps)
 	printOnScreen (printf "%.1f" fps) font pos r g b
 
--- get the elapsed time of the game
+-- | get the elapsed time of the game
 getElapsedTime :: IOGame t s u v Int
 getElapsedTime = liftIOtoIOGame $ get elapsedTime
 
+-- | delay for N  seconds while continuing essential game functions
 wait :: Int -> IOGame t s u v ()
 wait delay = do
 	printText 				    -- force text messages to be printed (is not working properly!)

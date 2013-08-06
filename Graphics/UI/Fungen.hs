@@ -50,7 +50,7 @@ module Graphics.UI.Fungen (
   module Graphics.UI.Fungen.Timer,
 
   -- * Game
-  -- | Game management.
+  -- | Game management and various game utilities.
   module Graphics.UI.Fungen.Game,
 
   -- * Display

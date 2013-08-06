@@ -15,15 +15,18 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 -}
 
 module Graphics.UI.Fungen.Map (
-        GameMap,
-        Tile, TileMatrix,
-        getTilePictureIndex, getTileBlocked, getTileMoveCost, getTileSpecialAttribute,
-        colorMap, textureMap, tileMap, multiMap,
-        getMapSize,
-        isTileMap, getTileMapTileMatrix, getTileMapScroll, getTileMapSize, getTileMapTileSize,
-        getCurrentMap, updateCurrentMap, updateCurrentIndex, isMultiMap,
-        drawGameMap, clearGameScreen
-)where
+  GameMap, Tile, TileMatrix,
+  -- ** creating
+  colorMap, textureMap, tileMap, multiMap,
+  -- ** map attributes
+  isTileMap, isMultiMap, getMapSize, getTileMapTileMatrix, getTileMapScroll, getTileMapSize, getTileMapTileSize,
+  -- ** map tiles
+  getTilePictureIndex, getTileBlocked, getTileMoveCost, getTileSpecialAttribute,
+  -- ** setting the current map
+  getCurrentMap, updateCurrentMap, updateCurrentIndex,
+  -- ** drawing
+  drawGameMap, clearGameScreen,
+) where
 
 import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
@@ -47,7 +50,7 @@ getMapSize (TileMap _ _ _ _ s) = s
 getMapSize (MultiMap _ _) = error "Map.getMapSize error: getMapSize cannot be applied with MultiMaps!"
 
 ----------------------------
--- special TileMap routines
+-- * special TileMap routines
 ----------------------------
 
 isTileMap ::  GameMap t -> Bool
@@ -72,7 +75,7 @@ getTileMapSize _ = error "Map.getTileMapSize error: game map is not a tile map!"
 
 
 ------------------------------
--- get routines for a Tile
+-- * get routines for a Tile
 ------------------------------
 
 getTilePictureIndex :: Tile t -> Int
@@ -89,7 +92,7 @@ getTileSpecialAttribute (_,_,_,t) = t
 
 
 -------------------------------
--- get routines for a MultiMap
+-- * get routines for a MultiMap
 -------------------------------
 
 getCurrentMap :: GameMap t -> GameMap t
@@ -116,25 +119,25 @@ updateCurrentIndex (MultiMap mapList _) i | (i >= (length mapList)) = error "Map
 updateCurrentIndex _ _ = error "Map.updateCurrentIndex error: the game map is not a MultiMap!"
 
 -----------------------------
--- creation of maps
+-- * creation of maps
 -----------------------------
 
--- creates a PreColorMap
+-- | creates a PreColorMap
 colorMap :: GLclampf -> GLclampf -> GLclampf -> GLdouble -> GLdouble -> GameMap t
 colorMap r g b sX sY = ColorMap (Color4 r g b 1.0) (sX,sY)
 
--- creates a PreTextureMap
+-- | creates a PreTextureMap
 textureMap :: Int -> GLdouble -> GLdouble -> GLdouble -> GLdouble -> GameMap t
 textureMap texId tX tY sX sY = TextureMap texId (tX,tY) (0,0) (0,0) (sX,sY)
 
--- creates a PreTileMap, cheking if the tileMatrix given is valid and automatically defining the map size
+-- | creates a PreTileMap, cheking if the tileMatrix given is valid and automatically defining the map size
 tileMap :: TileMatrix t -> GLdouble -> GLdouble -> GameMap t
 tileMap matrix tX tY | matrixOk matrix = TileMap matrix (tX,tY) (0,0) (0,0) (sX,sY)
                      | otherwise = error "Map.tileMap error: each line of your TileMap must have the same number of tiles!"
                    where sX = ((fromIntegral.length.head) matrix) * tX
                          sY = ((fromIntegral.length) matrix) * tY
 
--- creates a multimap
+-- | creates a multimap
 multiMap :: [(GameMap t)] -> Int -> GameMap t
 multiMap [] _ = error "Map.multiMap  error: the MultiMap map list should not be empty!"
 multiMap mapList currentMap | (currentMap >= (length mapList)) = error "Map.multiMap error: map index out of range!"
@@ -147,7 +150,7 @@ mapListContainsMultiMap [] = False
 mapListContainsMultiMap (a:as) | (isMultiMap a) = True
 			       | otherwise = mapListContainsMultiMap as
 
--- cheks if the tile matrix is a square matrix
+-- checks if the tile matrix is a square matrix
 matrixOk :: TileMatrix t -> Bool
 matrixOk [] = False
 matrixOk (m:ms) = matrixOkAux (length m) ms
@@ -159,14 +162,16 @@ matrixOkAux s (m:ms) | (length m) == s = matrixOkAux s ms
 
 
 ----------------------------------------
---       MAP DRAWING ROUTINES         --
+-- * map drawing
 ----------------------------------------
+
+-- | clear the screen
 clearGameScreen :: GLclampf -> GLclampf -> GLclampf -> IO ()
 clearGameScreen r g b = do
         clearColor $= (Color4 r g b 1.0)
         clear [ColorBuffer]
 
--- draws the background map
+-- | draw the background map
 drawGameMap :: GameMap t -> Point2D -> [TextureObject] -> IO ()
 drawGameMap (ColorMap c _) _ _ = do
         clearColor $= c

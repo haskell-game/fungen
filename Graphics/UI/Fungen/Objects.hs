@@ -14,19 +14,29 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 -}
 
 module Graphics.UI.Fungen.Objects (
-    GameObject,
-    getGameObjectId, getGameObjectName, getGameObjectManagerName, getGameObjectAsleep, getGameObjectPosition, getGameObjectSize, getGameObjectSpeed, getGameObjectAttribute,
-    getObjectManagerName, getObjectManagerCounter , getObjectManagerObjects,
-    ObjectPicture(..), Primitive(..),
-    FillMode (..),
-    object, drawGameObjects, drawGameObject,
-    objectGroup, ObjectManager,
-    findObjectFromId, searchObjectManager, searchGameObject,
-    updateObject, updateObjectAsleep, updateObjectSize, updateObjectPosition,
-    updateObjectSpeed, updateObjectAttribute, updateObjectPicture,
-    addObjectsToManager,
-    moveGameObjects,
-    destroyGameObject
+  ObjectManager,
+  GameObject,
+  ObjectPicture(..), Primitive(..),
+  FillMode (..),
+  -- ** creating
+  object,
+  -- ** object attributes
+  getGameObjectId, getGameObjectName, getGameObjectManagerName, getGameObjectAsleep,
+  getGameObjectPosition, getGameObjectSize, getGameObjectSpeed, getGameObjectAttribute,
+  -- ** updating
+  updateObject, updateObjectAsleep, updateObjectSize, updateObjectPosition,
+  updateObjectSpeed, updateObjectAttribute, updateObjectPicture,
+  -- ** drawing
+  drawGameObjects, drawGameObject,
+  -- ** moving
+  moveGameObjects,
+  -- ** destroying
+  destroyGameObject,
+  -- ** groups of objects
+  objectGroup, addObjectsToManager,
+  getObjectManagerName, getObjectManagerCounter , getObjectManagerObjects,
+  -- ** searching
+  findObjectFromId, searchObjectManager, searchGameObject,
 ) where
 
 import Graphics.UI.Fungen.Types

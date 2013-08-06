@@ -26,9 +26,10 @@ import Graphics.UI.GLUT
 import Graphics.UI.Fungen.Types
 import Graphics.Rendering.OpenGL
 
+-- | String to be printed, font, screen position, color RGB.
 type Text = (String,BitmapFont,Point2D,GLclampf,GLclampf,GLclampf)
 
--- string to be printed, type of font, screen position, color RGB
+-- | Display these texts on screen.
 putGameText :: [Text] -> IO ()
 putGameText [] = return ()
 putGameText ((text,font,(x,y),r,g,b):ts) = do

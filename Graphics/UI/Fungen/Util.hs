@@ -100,7 +100,7 @@ dropGLsizei _ []            = []
 dropGLsizei n (_:xs) | n>0  = dropGLsizei (n-1) xs
 dropGLsizei _ _ = error "Util.dropGLsizei error: negative argument"
 
--- to be used when no invisibility must be added when loading a file
+-- | to be used when no invisibility must be added when loading a file
 addNoInvisibility :: [FilePath] -> [(FilePath, Maybe ColorList3)]
 addNoInvisibility [] = []
 addNoInvisibility (a:as) = (a, Nothing):(addNoInvisibility as)
@@ -121,7 +121,7 @@ matrixToList :: [[a]] -> [a]
 matrixToList [] = []
 matrixToList (a:as) = a ++ (matrixToList as)
 
--- return the max indexes of a matrix (assumed that its lines have the same length)
+-- | return the max indexes of a matrix (assumed that its lines have the same length)
 matrixSize ::  [[a]] -> (Int,Int)
 matrixSize [] = (0,0)
 matrixSize m@(a:_) = ((length m) - 1,(length a) - 1)

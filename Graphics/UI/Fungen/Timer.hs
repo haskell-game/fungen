@@ -22,14 +22,17 @@ module Graphics.UI.Fungen.Timer (
 import Graphics.UI.GLUT
 import Graphics.UI.GLUT.Input
 
+-- | Used by 'Graphics.UI.Fungen.funInit' to configure the main loop's timing strategy.
 data RefreshType
         = Idle
         | Timer Int
 
+-- | Change the current timing strategy.
 setRefresh :: RefreshType -> StillDownHandler -> IO ()
 setRefresh Idle stillDown = idleCallback $= Just (stillDown >> postRedisplay Nothing)
 setRefresh (Timer t) stillDown = addTimerCallback t (timer stillDown t)
 
+-- | Generate a GLUT timer callback.
 timer :: StillDownHandler -> Int -> TimerCallback
 timer stillDown t = do
         stillDown
