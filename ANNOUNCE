@@ -1,10 +1,22 @@
-I'm pleased to announce the release of FunGEn 0.4.
+I'm pleased to announce the long-pending release of FunGEn 0.4!
 
-FunGEn is a multi-platform 2D game engine built on top of OpenGL & GLUT.
+FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
+OpenGL/GLUT-based 2D game engine.  With very few dependencies and
+several example games, it's one of the easiest ways to get started
+with game development in Haskell. FunGEn was created by Andre Furtado
+in 2002 and I (Simon Michael, sm) have maintained it sporadically.
+If you'd like to take it on, let's chat! (eg on #haskell-game).
 
 New in 0.4:
 
+* a new hakyll-based website, incorporating the old site
+
+* input handlers now receive mouse position and modifier state
+  (inspired by Pradeep Kumar).  See fungentest.hs for examples.
+
+* more haddocks
 
 Install: $ cabal install FunGEn
 
 Home: http://joyful.com/fungen
+Repo: http://hub.darcs.net/simon/fungen

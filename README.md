@@ -28,13 +28,11 @@ supports:
 - Sound support (actually for windows platforms only... :-[ );
 - Hope to expand this list soon :-]
 
-Home:            [http://joyful.com/fungen](http://joyful.com/fungen)  
-Docs:            here are the [original docs](old-site/index.html) from the [old site](http://www.cin.ufpe.br/~haskell/fungen), gradually being merged with this site and updated. <!-- Here is another copy of the [pong tutorial](TUTORIAL.html). --> Here's a [video of the worms demo](http://www.youtube.com/watch?v=XRG9H0oC2Fw).  
-Latest API docs: [single-page](http://joyful.com/fungen/apidoc/) or [framed](http://joyful.com/fungen/apidoc/frames.html)  
-Latest code:     [http://joyful.com/repos/fungen](http://joyful.com/repos/fungen)  
-Hackage release: [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
-Discussion:      [#haskell-game](irc://irc.freenode.net/#haskell-game) or [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists)  
-<!-- Commit notifications: [#haskell-game-commits](irc://irc.freenode.net/#haskell-game-commits)   -->
+Home:               [http://joyful.com/fungen](http://joyful.com/fungen)  
+Docs:               [Original docs](old-site/index.html), moved here from the [old site](http://www.cin.ufpe.br/~haskell/fungen). <!-- Another version of the [pong tutorial](TUTORIAL.html). --> A [video of the worms demo](http://www.youtube.com/watch?v=XRG9H0oC2Fw).  
+Hackage & API docs: [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
+Latest code:        [http://hub.darcs.net/simon/fungen](http://hub.darcs.net/simon/fungen)  
+Discussion & help:  [#haskell-game](irc://irc.freenode.net/#haskell-game) or [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists)  
 
 ## Getting started
 
@@ -73,11 +71,12 @@ in my HOpenGL Tutorial site, or in its official site.
 
 ## Release notes
 
-### 0.4 ...
+### 0.4 (2013/08/05)
 
-- updated for GHC 7.4
-- input handlers now receive mouse position and modifier state
-- new site
+* a new hakyll-based website, incorporating the old site
+* input handlers now receive mouse position and modifier state
+  (inspired by Pradeep Kumar).  See fungentest.hs for examples.
+* more haddocks
 
 ### 0.3 (2011/02/13)
 GHC 6.12-compatible 0.3 [released](http://thread.gmane.org/gmane.comp.lang.haskell.cafe/86330) on darcsden & hackage by Simon Michael:
