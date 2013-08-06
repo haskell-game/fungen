@@ -12,7 +12,7 @@ description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
 stability:          alpha
 cabal-version:      >= 1.6
 build-type:         Simple
-tested-with:        GHC==7.4.1
+tested-with:        GHC==7.6.3
 extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, examples/pong/tex.bmp,
                     examples/worms/border1.bmp, examples/worms/border2.bmp, examples/worms/border3.bmp,
                     examples/worms/congratulations.bmp, examples/worms/food.bmp, examples/worms/free1.bmp,
