@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | 
 This module contains the FunGEn objects procedures
 -}

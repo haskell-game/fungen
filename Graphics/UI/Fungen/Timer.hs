@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | 
 This FunGEn module controls timing (how time-based functions will behave).
 -}

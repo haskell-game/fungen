@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | 
 This FunGEn module contains some important game routines.
 -}
@@ -15,7 +16,9 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 module Graphics.UI.Fungen.Game (
-        Game, IOGame, runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
+        Game, IOGame,
+        createGame, 
+        runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
         getGameState, setGameState,
         getGameFlags, setGameFlags,
         enableGameFlags, disableGameFlags,
@@ -24,7 +27,6 @@ module Graphics.UI.Fungen.Game (
         enableObjectsMoving, disableObjectsMoving,
         getObjectManagers, setObjectManagers,
         getGameAttribute, setGameAttribute,
-        createGame, funExit,
         drawMap, clearScreen, getTileFromIndex, getTileFromWindowPosition, setCurrentMapIndex,
         drawAllObjects, drawObject, moveAllObjects, destroyObjects, destroyObject,
         getObjectsFromGroup, addObjectsToGroup, addObjectsToNewGroup, findObjectManager,findObject,
@@ -47,13 +49,13 @@ import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
 import Graphics.UI.Fungen.Loader
 import Graphics.UI.Fungen.Text
+import Graphics.UI.Fungen.Timer
 import Graphics.UI.Fungen.Map
 import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
 import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT
 import Control.Monad
-import System.Exit
 import Data.IORef
 import Text.Printf
 
@@ -78,8 +80,7 @@ import Text.Printf
 --
 -- * v - /V/icinity (map tile) attribute type.
 -- 
--- A Game consists of the following attributes, accessible via the
--- accessor functions below:
+-- Internally, a Game consists of:
 --
 -- * @gameMap       :: IORef (GameMap v)         -- a map (background)@
 --
@@ -114,12 +115,16 @@ data Game t s u v = Game {
 	fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
 	}
 
--- | A game action (IOGame) has the type @IOGame t s u v a@, where t, s, u and v
--- are as for Game and a is the type returned by each action of the game
--- (such as the Int for "IO Int").  The name IOGame was chosen to remind
--- that each action deals with a Game, but an IO operation can also be
--- performed between game actions (such as the reading of a file or
--- printing something in the prompt).
+-- | IOGame is the monad in which game actions run. An IOGame action
+-- takes a Game (with type parameters @t s u v@), performs some IO,
+-- and returns an updated Game along with a result value (@a@):
+--
+-- @newtype IOGame t s u v a = IOG (Game  t s u v -> IO (Game t s u v,a))@
+--
+-- The name IOGame was chosen to remind that each action deals with a
+-- Game, but an IO operation can also be performed between game
+-- actions (such as the reading of a file or printing something in the
+-- prompt).
 newtype IOGame t s u v a = IOG (Game  t s u v -> IO (Game t s u v,a))
 
 -- | Game flags: mapDrawing, objectsDrawing, objectsMoving
@@ -257,12 +262,6 @@ loadPictures pathsAndInvLists = do
         texBmList <- genObjectNames (length bmps)
         texStuff texBmList bmps
         return texBmList
-
----------------------------------
--- ending the game
----------------------------------
-funExit :: IOGame t s u v ()
-funExit = liftIOtoIOGame' exitWith ExitSuccess
 
 ----------------------------------
 -- map routines

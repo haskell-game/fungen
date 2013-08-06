@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | This FunGEn module renders the game window.
 -}
 {- 
@@ -21,7 +22,9 @@ import Graphics.UI.Fungen.Util (when)
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 
--- | Given a fungen Game and IOGame, generate an opengl display handler.
+-- | Given a fungen Game and IOGame step action, generate a GLUT
+-- display callback that steps the game and renders its resulting
+-- state. 'Graphics.UI.Fungen.funInit' runs this automatically.
 display :: Game t s u v -> IOGame t s u v () -> DisplayCallback
 display g gameCycle = do 
         clear [ColorBuffer]

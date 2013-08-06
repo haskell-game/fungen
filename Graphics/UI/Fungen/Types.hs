@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | This FunGEn module contains the FunGEN basic types. 
 -}
 {- 

@@ -1,3 +1,4 @@
+-- {-# OPTIONS_HADDOCK hide #-}
 {- |
 GLUT-based keyboard/mouse handling.
 

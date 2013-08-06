@@ -1,3 +1,4 @@
+{-# OPTIONS_HADDOCK hide #-}
 {- | 
 This FunGEn module contains the initialization procedures.
 -}
@@ -15,6 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 module Graphics.UI.Fungen.Init (
         funInit
+        ,funExit
 )where
 
 import Graphics.UI.Fungen.Types
@@ -27,8 +29,19 @@ import Graphics.UI.Fungen.Game
 import Graphics.UI.Fungen.Timer
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
+import System.Exit
 
-funInit :: WindowConfig -> GameMap v -> [(ObjectManager s)] -> u -> t -> [InputBinding t s u v] -> IOGame t s u v () -> RefreshType -> FilePictureList -> IO ()
+-- | Build a FunGEn game and start it running.
+funInit :: WindowConfig           -- ^ main window config
+        -> GameMap v              -- ^ background tile map
+        -> [(ObjectManager s)]    -- ^ object (sprite) groups
+        -> u                      -- ^ initial game state
+        -> t                      -- ^ initial game attribute
+        -> [InputBinding t s u v] -- ^ input bindings
+        -> IOGame t s u v ()      -- ^ step action
+        -> RefreshType            -- ^ timing type
+        -> FilePictureList        -- ^ image files to load
+        -> IO ()
 funInit winConfig@((px,py),(sx,sy),t) userMap objectGroups gState gAttrib i gameCicle r picList = do
         initialize "FunGen app" []
         createWindow t -- (return ()) [ Double, RGBA ]
@@ -53,3 +66,8 @@ basicInit sx sy = do
         ortho 0.0 (fromIntegral sx) 0.0 (fromIntegral sy) (-1.0) 1.0
         matrixMode $= Modelview 0
         loadIdentity
+
+-- | Exit the program successfully.
+funExit :: IOGame t s u v ()
+funExit = liftIOtoIOGame' exitWith ExitSuccess
+
