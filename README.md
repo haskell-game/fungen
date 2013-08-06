@@ -78,6 +78,7 @@ in my HOpenGL Tutorial site, or in its official site.
 ### 0.4 (2013/08/05)
 
 * a new hakyll-based website, incorporating the old site
+* tested with GHC 7.6
 * input handlers now receive mouse position and modifier state
   (inspired by Pradeep Kumar).  See fungentest.hs for examples.
 * more haddocks
