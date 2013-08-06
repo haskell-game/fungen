@@ -71,6 +71,10 @@ in my HOpenGL Tutorial site, or in its official site.
 
 ## Release notes
 
+### 0.4.1 (2013/08/06)
+
+* reorganised and exposed more haddocks
+
 ### 0.4 (2013/08/05)
 
 * a new hakyll-based website, incorporating the old site
