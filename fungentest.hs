@@ -39,6 +39,10 @@ main = do
       (MouseButton LeftButton, Release,
        \mods pos -> do liftIOtoIOGame $ putStrLn $ printf "left mouse button released with mods %s, pos %s" (show mods) (show pos)
       )
+      ,(SpecialKey KeyRight, Press,     \_ _ -> liftIOtoIOGame $ putStrLn "RIGHT")
+      ,(SpecialKey KeyRight, StillDown, \_ _ -> liftIOtoIOGame $ putStrLn "RIGHT STILL DOWN")
+      ,(SpecialKey KeyLeft,  Press,     \_ _ -> liftIOtoIOGame $ putStrLn "LEFT")
+      ,(SpecialKey KeyLeft,  StillDown, \_ _ -> liftIOtoIOGame $ putStrLn "LEFT STILL DOWN")
     ]
     (do                                      -- iogame action
         return ()
