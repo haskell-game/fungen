@@ -63,7 +63,7 @@ $ cabal update
 $ cabal install FunGEn
 ```
 
-Install source and run examples:
+Install source and run the [examples](http://hub.darcs.net/simon/fungen/examples):
 
 ```
 $ darcs get http://hub.darcs.net/simon/fungen
