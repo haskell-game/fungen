@@ -1,22 +1,68 @@
-I'm pleased to announce the long-pending release of FunGEn 0.4!
+I'm pleased to announce the hackage release of FunGEn 0.4!  (Actually
+0.4.1 as my 0.4 announcement failed to reach the mail lists.)
 
 FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
-OpenGL/GLUT-based 2D game engine.  With very few dependencies and
-several example games, it's one of the easiest ways to get started
-with game development in Haskell. FunGEn was created by Andre Furtado
-in 2002 and I (Simon Michael, sm) have maintained it sporadically.
-If you'd like to take it on, let's chat! (eg on #haskell-game).
+OpenGL/GLUT-based, imperative game engine/framework.  With very few
+dependencies and two example games, it's one of the easiest ways to
+get started with game development in Haskell.
 
-New in 0.4:
+FunGEn was probably the first Haskell game framework, created by Andre
+Furtado in 2002 (!). Here's his original feature list:
 
-* a new hakyll-based website, incorporating the old site
+* Initialization, updating, removing, rendering and grouping
+  routines for game objects;
+
+* Definition of a game background (or map), including texture-based
+  maps and tile maps;
+
+* Reading and intepretation of the player's keyboard input;
+
+* Collision detection;
+
+* Time-based functions and pre-defined game actions;
+
+* Loading and displaying of 24-bit bitmap files;
+
+* Some debugging and game performance evaluation facilities;
+
+* Sound support (actually for windows platforms only... :-[ )
+
+What's new in 0.4:
+
+* a new hakyll-based website, incorporating the old site content
+
+* tested with GHC 7.6
 
 * input handlers now receive mouse position and modifier state
   (inspired by Pradeep Kumar).  See fungentest.hs for examples.
 
-* more haddocks
+* haddock documentation reorganised and updated
 
-Install: $ cabal install FunGEn
+Home:    http://joyful.com/fungen
+Hackage: http://hackage.haskell.org/package/fungen
+Code:    http://hub.darcs.net/simon/fungen
 
-Home: http://joyful.com/fungen
-Repo: http://hub.darcs.net/simon/fungen
+Install from hackage: 
+
+$ cabal update
+$ cabal install FunGEn
+
+Install source and run examples:
+
+$ darcs get http://hub.darcs.net/simon/fungen
+$ cd fungen
+$ cabal install
+$ (cd examples/pong; ghc pong; ./pong)
+$ (cd examples/worms; ghc worms; ./worms)
+
+Contribute patches:
+
+- log in to hub.darcs.net and fork http://hub.darcs.net/simon/fungen
+- push changes to your branch
+- give me a "pull request" on #haskell-game
+
+I have maintained FunGEn very sporadically. If you'd like to take it
+and run with it, or co-maintain, let's chat! I'm sm on the
+#haskell-game IRC channel.
+
+-Simon
