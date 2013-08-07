@@ -33,6 +33,10 @@ type InputHandler t s u v = Modifiers -> Position -> IOGame t s u v ()
 -- | A mapping from an input event to an input handler.
 type InputBinding t s u v = (Key, KeyEvent, InputHandler t s u v)
 
+-- | Initialise the input system, which keeps a list of input event to
+-- action bindings and executes the the proper actions automatically.
+-- Returns a function for adding bindings, and another which should be
+-- called periodically (eg from refresh) to trigger still-down actions.
 funBinding :: [InputBinding t s u v] -> Game t s u v -> IO (KeyBinder, StillDownHandler)
 funBinding inputs g = do
         (bindKey, stillDown) <- initGLUTInput
