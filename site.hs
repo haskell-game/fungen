@@ -18,6 +18,6 @@ main = hakyll $ do
   match "*.md" $ do
     route   $ setExtension "html"
     compile $ pandocCompiler >>= loadAndApplyTemplate "site.html" defaultContext >>= relativizeUrls
-  match "old-site/**" $ do
+  match ("*.png" .||. "old-site/**") $ do
     route   idRoute
     compile copyFileCompiler

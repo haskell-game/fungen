@@ -13,30 +13,79 @@
 
 # <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
 
-FunGEn (Functional Game Engine) is a cross-platform, BSD-licensed,
-OpenGL-based 2D game engine written in Haskell. It is intended to help
-game programmers make games in a faster and more automated way. FunGEn
-supports:
+FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
+OpenGL/GLUT-based, imperative game engine/framework written in
+Haskell.  With very few dependencies and two example games, it's one
+of the easiest ways to get started with game development in Haskell.
 
-- Initialization, updating, removing, rendering and grouping routines for game objects;
-- Definition of a game background (or map), including texture-based maps and tile maps;
-- Reading and intepretation of the player's keyboard input;
-- Collision detection;
-- Time-based functions and pre-defined game actions;
-- Loading and displaying of 24-bit bitmap files;
-- Debugging and game performance evaluation facilities;
-- Sound support (actually for windows platforms only... :-[ );
-- Hope to expand this list soon :-]
+<img src="pong.png" title="An example pong game" style="float:right; margin:1em;">
 
-Home:               [http://joyful.com/fungen](http://joyful.com/fungen)  
-Docs:               [Original docs](old-site/index.html), moved here from the [old site](http://www.cin.ufpe.br/~haskell/fungen). <!-- Another version of the [pong tutorial](TUTORIAL.html). --> A [video of the worms demo](http://www.youtube.com/watch?v=XRG9H0oC2Fw).  
-Hackage & API docs: [http://hackage.haskell.org/package/FunGEn](http://hackage.haskell.org/package/FunGEn)  
-Latest code:        [http://hub.darcs.net/simon/fungen](http://hub.darcs.net/simon/fungen)  
-Discussion & help:  [#haskell-game](irc://irc.freenode.net/#haskell-game) or [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists)  
+FunGEn, created by Andre Furtado, is intended to help game programmers
+make games in a faster and more automated way. It supports:
+
+* Initialization, updating, removing, rendering and grouping
+  routines for game objects;
+* Definition of a game background (or map), including texture-based
+  maps and tile maps;
+* Reading and intepretation of the player's keyboard and mouse input
+* Collision detection;
+* Time-based functions and pre-defined game actions;
+* Loading and displaying of 24-bit bitmap files;
+* Some debugging and game performance evaluation facilities;
+* Sound support (maybe ? windows only)
+
+**Home:**                  <http://joyful.com/fungen>
+ \
+**Hackage:**  <http://hackage.haskell.org/package/FunGEn>
+ \
+**Docs:**
+ [0.4 API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.1/doc/html/Graphics-UI-Fungen.html),
+ [0.1 intro docs](old-site/index.html)
+ <!-- Another version of the [pong tutorial](TUTORIAL.html), -->
+ <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen), -->
+ \
+**Code:**           <http://hub.darcs.net/simon/fungen>
+ \
+**Discussion & help:**
+ [#haskell-game](irc://irc.freenode.net/#haskell-game) IRC channel,
+ [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
+ \
+
 
 ## Getting started
 
-    cabal install FunGEn
+<img src="worms.png" title="An example snake game" style="float:right; margin:1em;">
+
+Install from hackage: 
+
+```
+$ cabal update
+$ cabal install FunGEn
+```
+
+Install source and run examples:
+
+```
+$ darcs get http://hub.darcs.net/simon/fungen
+$ cd fungen
+$ cabal install
+$ (cd examples/pong; ghc pong; ./pong)
+$ (cd examples/worms; ghc worms; ./worms)
+```
+
+Contribute patches:
+
+```
+- log in to hub.darcs.net and fork http://hub.darcs.net/simon/fungen
+- push changes to your branch
+- give me a "pull request" on #haskell-game
+```
+
+I ([Simon Michael](http://joyful.com)) maintain FunGEn
+sporadically. If you'd like to take it and run with it, or
+co-maintain, let's chat! I'm sm on the #haskell-game IRC channel.
+
+---
 
 ## FAQ
 
@@ -68,6 +117,8 @@ binding to one of the most famous graphics libraries around the world
 possible to call OpenGL/GLUT routines (which were written in the C
 language) when programming in Haskell. You can find more info on HOpenGL
 in my HOpenGL Tutorial site, or in its official site.
+
+---
 
 ## Release notes
 
@@ -131,6 +182,8 @@ First public release by Andre Furtado:
   mechanisms following the CGL concepts. This really demands some time,
   but the authors expect a new version to be released soon.
 
+---
+
 ## Contributing
 
 Andre's 2002 todo list:
@@ -153,7 +206,11 @@ desired features (but with no implementation prevision yet).
 Would you like to suggest a feature? Feel free to do it. Would you like to
 implement a feature? Please do it! Keep in touch.
 
+---
+
 ## Credits
+
+Andre's 2002 credits:
 
 FunGEn was created by Andre Furtado, Computation Science graduation
 student at the Informatics Center (CIn) of the Federal University of
