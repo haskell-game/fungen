@@ -83,10 +83,10 @@ stillDown bindingTable pressedKeys =
 -- called periodically (eg from refresh) to trigger still-down actions.
 initGLUTInput :: IO (KeyBinder, StillDownHandler)
 initGLUTInput = do
-   -- Using "setKeyRepeat KeyRepeatOff" would be a little bit more
-   -- efficient, but has two disadvantages: It is not yet implemented
-   -- for M$ and it changes the global state of X11.
-   globalKeyRepeat $= GlobalKeyRepeatOff
+  -- globalKeyRepeat would be a little bit more efficient, but it has
+  -- two disadvantages: it is not yet implemented for MS windows and
+  -- it changes the global state of X11.
+   perWindowKeyRepeat $= PerWindowKeyRepeatOff
    bindingTable <- newBindingTable
    pressedKeys  <- newKeyTable
    let keyPress k mods pos = do
