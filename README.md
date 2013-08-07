@@ -63,23 +63,25 @@ $ cabal update
 $ cabal install FunGEn
 ```
 
-Install source and run the [examples](http://hub.darcs.net/simon/fungen/examples):
+Or, install source and
+[run](http://hub.darcs.net/simon/fungen/examples/helloworld.hs)
+[the](http://hub.darcs.net/simon/fungen/examples/pong/pong.hs)
+[examples](http://hub.darcs.net/simon/fungen/examples/worms/worms.hs):
 
 ```
 $ darcs get http://hub.darcs.net/simon/fungen
 $ cd fungen
 $ cabal install
+$ (cd examples; ghc helloworld; ./helloworld)
 $ (cd examples/pong; ghc pong; ./pong)
 $ (cd examples/worms; ghc worms; ./worms)
 ```
 
 Contribute patches:
 
-```
-- log in to hub.darcs.net and fork http://hub.darcs.net/simon/fungen
-- push changes to your branch
+- log in to hub.darcs.net and fork <http://hub.darcs.net/simon/fungen>
+- push patches to your branch
 - give me a "pull request" on #haskell-game
-```
 
 I ([Simon Michael](http://joyful.com)) maintain FunGEn
 sporadically. If you'd like to take it and run with it, or
