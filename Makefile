@@ -60,7 +60,7 @@ VIEWHTML=open
 viewhaddock: docs
 	$(VIEWHTML) dist/doc/html/FunGEn/index.html
 
-viewsite: site
+sitepreview: site
 	$(VIEWHTML) http://localhost:8002/
 	./site preview 8002
 
