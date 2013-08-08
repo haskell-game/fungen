@@ -1,5 +1,5 @@
-I'm pleased to announce the hackage release of FunGEn 0.4!  (Actually
-0.4.1 as my 0.4 announcement failed to reach the mail lists.)
+I'm pleased to announce the hackage release of FunGEn 0.4!  
+(Actually 0.4.2 as my 0.4 announcement did not reach the mail lists.)
 
 FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
 OpenGL/GLUT-based, imperative game engine/framework.  With very few
@@ -30,16 +30,11 @@ Furtado in 2002 (!). Here's his original feature list:
 What's new in 0.4.x:
 
 * a new hakyll-based website, incorporating the old site content
-
 * new haddock documentation
-
 * tested with GHC 7.6
-
 * fixed buggy input when holding down keys on windows
-
 * input handlers now receive mouse position and modifier state
-  (inspired by Pradeep Kumar).  See fungentest.hs for examples.
-
+  (inspired by Pradeep Kumar; see fungentest.hs for examples)
 * added q as quit key in examples
 
 Home:    http://joyful.com/fungen
