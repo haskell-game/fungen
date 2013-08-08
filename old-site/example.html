@@ -1,16 +1,14 @@
 <HTML>
 <HEAD>
-<TITLE>FunGEn - Andre W B Furtado - 2002 </TITLE>
+<TITLE>FunGEn 0.1 - A Brief Example</TITLE>
 <BODY BGCOLOR=#000000 LINK=lightblue ALINK=yellow VLINK=lightblue>
 <FONT FACE=arial SIZE=3 COLOR=white>
 
 <DIV ALIGN=center>
 <FONT SIZE=+4 COLOR=blue><B>A Brief Example</B></FONT>
 <HR>
-<B>[ </B><A HREF="index.html">Home</A> <B>|</B> <A HREF="download.html">Download</A> <B>|</B> <A HREF="doc.html">Documentation</A> <B>|</B> <A HREF="todo.html">To Do...</A> <B>|</B> <A HREF="about.html">About</A> <B>]</B>
 
-
-<P><I><B>Please note: this code may be out of date since FunGEn is being rebuilt. Check out the <A HREF="index.html">main page</A> for details.</B></I>
+<P><I><B>Please note: this tutorial corresponds to FunGEn 0.1 windows version and is (slightly) out of date. To view or run the latest example code, see the <A HREF="..">main page</A>.</B></I>
 
 </DIV>
 <P>Here we'll develop, step by step, a small version of a very famous game called <I>Pong</I>. The player will use the left and right arrow keys to move a bar horizontally, and he will need to hit a ball that moves around the screen. When the ball is hit, a sound is played and 10 points is added to the score, which will be displayed in the bottom left corner of the screen. All of this is done using <B>less than 80 lines of code</B>, showing how powerful is the combination of Haskell and game engines. (The following code is explained in <B>almost all</B> details, but since you read it once, you'll get very familiar with FunGEn. Nevertheless, it is possible to understand everything reading only the blue shaded code. It is very intuitive.)
@@ -24,7 +22,7 @@
 <PRE>
 module Main where
 
-import FunGEn
+import Graphics.UI.Fungen
 
 </TD>
 </PRE>
@@ -280,7 +278,7 @@ textureMap &#60;index of texture&#62; &#60;relative width of texture&#62; &#60;r
 
 <P>Now we are done with <CODE>Main</CODE>, and the only thing left to do is to implement some functions called in it. The first two of them is the creation of the ball and the bar.
 
-<P>The function <CODE>createBall</CODE> must return a game object. We have already defined the type of this object in the beginning of our code: <CODE>PongObject</CODE>. So this will be the type of <CODE>createBall</CODE>. Now how do we really create and object in FunGEn? A very simple and useful structure for doing this is the following one:
+<P>The function <CODE>createBall</CODE> must return a game object. We have already defined the type of this object in the beginning of our code: <CODE>PongObject</CODE>. So this will be the type of <CODE>createBall</CODE>. Now how do we really create an object in FunGEn? A very simple and useful structure for doing this is the following one:
 
 <BR><BR>
 <TABLE BGCOLOR = #FFBBBB WIDTH = 100%>
@@ -488,17 +486,13 @@ gameCycle = do
 
 <P>And that's it. We created a game with many different functionalities and a nice performance in less than 80 lines of code. Hope you enjoyed!
 
-<P><I>(You can download the source code <A HREF="files/pong/pong.hs">here</A> if you wish</I>)
-
 <BR><BR>
 <DIV ALIGN=center>
 <HR>
 <FONT SIZE=2>
-<A HREF="about.html"><B><I>FunGEn</I></B></A> - <A HREF="mailto:awbf@cin.ufpe.br">Andre W B Furtado</A><BR>
-About FunGEn<BR>
-www.cin.ufpe.br/~haskell/fungen/about.html<BR>
+<A HREF=".."><B><I>FunGEn</I></B></A> - <A HREF="mailto:awbf@cin.ufpe.br">Andre W B Furtado</A><BR>
 Last updated in 19/04/2002<BR>
-<A HREF="http://www.cin.ufpe.br" TARGET="_blank">Informatics Center</A> (CIn) - <A HREF="http://www.ufpe.br" TARGET="_blank">UFPE</A><BR>
+Informatics Center (CIn) - UFPE<BR>
 Recife - PE - Brazil<BR>
 </DIV>
 </BODY>
