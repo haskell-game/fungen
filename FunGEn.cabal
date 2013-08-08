@@ -22,12 +22,7 @@ extra-source-files: README.md, examples/pong/hit.wav, examples/pong/pong.hs, exa
                     examples/worms/level3.bmp, examples/worms/segment.bmp, examples/worms/worms.hs
 
 library
-  exposed-modules:  Graphics.UI.Fungen,
-                    Graphics.UI.Fungen.Types, Graphics.UI.Fungen.Util, Graphics.UI.Fungen.Loader,
-                    Graphics.UI.Fungen.Objects, Graphics.UI.Fungen.Map, Graphics.UI.Fungen.Game,
-                    Graphics.UI.Fungen.Display, Graphics.UI.Fungen.Input, Graphics.UI.Fungen.Timer,
-                    Graphics.UI.Fungen.Text, Graphics.UI.Fungen.Init, Graphics.UI.GLUT.Input
-
+  exposed-modules:  Graphics.UI.Fungen
   build-depends:
                     base == 4.*
                    ,OpenGL
