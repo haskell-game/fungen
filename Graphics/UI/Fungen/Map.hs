@@ -36,11 +36,12 @@ type Tile t = (Int,Bool,Float,t) -- index of picture, possibility to move, cost 
 type TileMatrix t = [[(Tile t)]]
 type TileLine t = [(Tile t)]
 
+-- | A game background (flat color, scrollable texture, or tile map), or several of them.
 data GameMap t
-        = ColorMap (Color4 GLclampf) Point2D -- color of the map / size of the map
-        | TextureMap Int Point2D Point2D Point2D Point2D  -- texture id / size of texture / present scroll (visible window bottom & left) / scroll speed (X,Y) / size of the map
-        | TileMap (TileMatrix t)  Point2D Point2D Point2D Point2D  -- texture handles / tiles matrix / size of tile / present scroll (visible window bottom & left) / scroll speed (X,Y) / size of the map
-        | MultiMap [(GameMap t)] Int -- list of maps/current map
+        = ColorMap (Color4 GLclampf) Point2D -- ^ color of the map, size of the map
+        | TextureMap Int Point2D Point2D Point2D Point2D  -- ^ texture id, size of texture, present scroll (visible window bottom & left), scroll speed (X,Y),size of the map
+        | TileMap (TileMatrix t)  Point2D Point2D Point2D Point2D  -- ^ texture handles, tiles matrix, size of tile, present scroll (visible window bottom & left), scroll speed (X,Y), size of the map
+        | MultiMap [(GameMap t)] Int -- ^ list of maps, current map
 --      | PolygMap [Primitive]
 
 getMapSize :: GameMap t -> Point2D

@@ -33,8 +33,8 @@ module Graphics.UI.Fungen (
   -- | Printing text on the screen.
   module Graphics.UI.Fungen.Text,
 
-  -- * Tile Maps
-  -- | Tile maps (backgrounds).
+  -- * Maps/backgrounds
+  -- | Game backgrounds, tile maps.
   module Graphics.UI.Fungen.Map,
 
   -- * Objects
