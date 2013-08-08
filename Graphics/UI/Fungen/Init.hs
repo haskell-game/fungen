@@ -67,7 +67,7 @@ basicInit sx sy = do
         matrixMode $= Modelview 0
         loadIdentity
 
--- | Exit the program successfully.
+-- | Exit the program successfully (from within a game action).
 funExit :: IOGame t s u v ()
 funExit = liftIOtoIOGame' exitWith ExitSuccess
 
