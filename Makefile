@@ -157,7 +157,7 @@ TAGCMD=hasktags -e
 
 tag: TAGS
 
-TAGFILES=*.hs Graphics/UI/*.hs Graphics/UI/Fungen/*.hs *.cabal *.md Makefile #tests/*.test 
+TAGFILES=*.hs Graphics/UI/*.hs Graphics/UI/*/*.hs *.cabal *.md Makefile #tests/*.test 
 TAGS: $(TAGFILES)
 	$(TAGCMD) $(TAGFILES)
 
