@@ -1,5 +1,7 @@
 # project makefile
 
+export LANG=en_US.UTF-8
+
 ######################################################################
 # BUILD
 
@@ -32,7 +34,7 @@ sp:
 # DOC
 
 # called on each darcs commit
-commithook: docs
+commithook: website
 
 docs: website haddock
 
