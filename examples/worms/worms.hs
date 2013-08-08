@@ -86,10 +86,13 @@ main = do
                       (objectGroup "food"     [createFood]),
                       (objectGroup "tail"      createTail )]
 
-            input = [(SpecialKey KeyLeft,  Press, turnLeft ),
+            input = [
+                     (SpecialKey KeyLeft,  Press, turnLeft ),
                      (SpecialKey KeyRight, Press, turnRight),
                      (SpecialKey KeyUp,    Press, turnUp   ),
-                     (SpecialKey KeyDown,  Press, turnDown )]
+                     (SpecialKey KeyDown,  Press, turnDown )
+                    ,(Char 'q',            Press, \_ _ -> funExit)
+                    ]
         
         funInit winConfig gameMap groups (LevelStart 1) gameAttribute input gameCycle (Timer 150) bmpList
 

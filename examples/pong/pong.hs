@@ -30,8 +30,10 @@ main = do
             bar    = objectGroup "barGroup"  [createBar]
             ball   = objectGroup "ballGroup" [createBall]
             initScore = Score 0
-            input = [(SpecialKey KeyRight, StillDown, moveBarToRight)
+            input = [
+                     (SpecialKey KeyRight, StillDown, moveBarToRight)
                     ,(SpecialKey KeyLeft,  StillDown, moveBarToLeft)
+                    ,(Char 'q',            Press,     \_ _ -> funExit)
                     ]
         funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 30) bmpList
 
