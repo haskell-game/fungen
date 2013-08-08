@@ -1,4 +1,10 @@
 <style>
+/*
+body {
+    background-color:black;
+    color:white;
+}
+*/
 .a {
     font-weight:bold;
     color:red;
@@ -6,67 +12,71 @@
 }
 .b {
     font-weight:normal;
-    color:#bbb;
+    /* color:#bbb; */
+    color:black;
     font-size:smaller;
 }
 </style>
+
+<div style="float:right; margin:3em 0 1em 1em;">
+<img src="/old-site/pic/logo.gif">
+<br>
+<a href="http://hub.darcs.net/simon/fungen/examples/pong/pong.hs#22"><img border=0 src="pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
+<br>
+<a href="http://hub.darcs.net/simon/fungen/examples/worms/worms.hs#22"><img border=0 src="worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
+</div>
 
 # <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
 
 FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
 OpenGL/GLUT-based, imperative game engine/framework written in
 Haskell.  With very few dependencies and two example games, it's one
-of the easiest ways to get started with game development in Haskell.
-
-<img src="pong.png" title="An example pong game" style="float:right; margin:1em;">
-
-FunGEn, created by Andre Furtado, is intended to help game programmers
-make games in a faster and more automated way. It supports:
+of the easiest ways to get started with Haskell game development.
+It provides:
 
 * Initialization, updating, removing, rendering and grouping
-  routines for game objects;
+  routines for game objects
 * Definition of a game background (or map), including texture-based
-  maps and tile maps;
+  maps and tile maps
 * Reading and intepretation of the player's keyboard and mouse input
-* Collision detection;
-* Time-based functions and pre-defined game actions;
-* Loading and displaying of 24-bit bitmap files;
-* Some debugging and game performance evaluation facilities;
-* Sound support (maybe ? windows only)
+* Collision detection
+* Time-based functions and pre-defined game actions
+* Loading and displaying of 24-bit bitmap files
+* Some debugging and game performance evaluation facilities
+<!-- * Sound support (windows only, not in current release) -->
 
-**Home:**                  <http://joyful.com/fungen>
- \
-**Hackage:**  <http://hackage.haskell.org/package/FunGEn>
- \
-**Docs:**
- [0.4 API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.1/doc/html/Graphics-UI-Fungen.html),
- [0.1 intro docs](old-site/index.html)
- <!-- Another version of the [pong tutorial](TUTORIAL.html), -->
- <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen), -->
- \
-**Code:**           <http://hub.darcs.net/simon/fungen>
- \
+Andre Furtado created FunGEn and I
+([Simon Michael](http://joyful.com)) maintain it sporadically. If
+you'd like to take it and run with it, or co-maintain, let's chat! I'm
+`sm` on the #haskell-game IRC channel.
+
+**Home:**     <http://joyful.com/fungen> \
+**Hackage:**  <http://hackage.haskell.org/package/FunGEn> \
+**Code:**     <http://hub.darcs.net/simon/fungen> \
 **Discussion & help:**
- [#haskell-game](irc://irc.freenode.net/#haskell-game) IRC channel,
+ [#haskell-game](http://www.haskell.org/haskellwiki/IRC_channel) IRC channel,
  [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
  \
+**Docs:**
+ [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html),
+ Andre's [pong tutorial](old-site/example.html)
+ <!-- New version of the [pong tutorial](TUTORIAL.html) \ -->
+ <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
 
 
 ## Getting started
 
-<img src="worms.png" title="An example snake game" style="float:right; margin:1em;">
-
-Install from hackage: 
+**Install from hackage:**
 
 ```
 $ cabal update
 $ cabal install FunGEn
 ```
 
-Or, install source and
+**Or, install source and
 [run](http://hub.darcs.net/simon/fungen/examples/helloworld.hs)
 [the](http://hub.darcs.net/simon/fungen/examples/pong/pong.hs)
-[examples](http://hub.darcs.net/simon/fungen/examples/worms/worms.hs):
+[examples](http://hub.darcs.net/simon/fungen/examples/worms/worms.hs):**
 
 ```
 $ darcs get http://hub.darcs.net/simon/fungen
@@ -77,15 +87,13 @@ $ (cd examples/pong; ghc pong; ./pong)
 $ (cd examples/worms; ghc worms; ./worms)
 ```
 
-Contribute patches:
+(darcs is like git but simpler. If your system doesn't provide it, get it [here](http://darcs.net/Binaries).)
+
+**Contribute patches:**
 
 - log in to hub.darcs.net and fork <http://hub.darcs.net/simon/fungen>
 - push patches to your branch
 - give me a "pull request" on #haskell-game
-
-I ([Simon Michael](http://joyful.com)) maintain FunGEn
-sporadically. If you'd like to take it and run with it, or
-co-maintain, let's chat! I'm sm on the #haskell-game IRC channel.
 
 ---
 
@@ -168,50 +176,40 @@ GHC 6.8-compatible update by Simon Michael:
 ### 0.1 (2002)
 First public release by Andre Furtado:
 
-- FunGEn v1.0 can be downloaded here. (PLEASE NOTE: this is the very first
-  version of FunGEn, and it was released just to get some feedback from
-  game programmers. You are strongly invited to tell your game programming
-  experiences with FunGEn, helping us to release a definitive, stable
-  version). Ok, after this disclaimer, please fell yourself free to take a
-  quick tour in the site; it contains a lot of useful information for
-  those who are really interested in trying a new game programming
-  experience. Nice coding...
-
-- Current Status: Some feedback indicated that the first version of FunGEn
-  was not as "functional" as it was desired: some game issues were still
-  being dealt through an imperative fashion. This way, the authors of this
-  project decided to change the game engine philosophy: programmers should
-  describe a game as a set of "specifications" rather than defining its
-  behavior imperatively. One plausible alternative for accomplishing this
-  task is porting the Clean Game Library (CGL) to Haskell, adding some
-  FunGEn specific features. Hence, this is the actual status of the FunGEn
-  project: it is being rebuilt in order to provide game programming
-  mechanisms following the CGL concepts. This really demands some time,
-  but the authors expect a new version to be released soon.
-
 ---
 
-## Contributing
+## To do
 
-Andre's 2002 todo list:
+Andre's 2002 site included this message:
 
-Here you have a list of some upcoming FunGEn features, and some other
-desired features (but with no implementation prevision yet).
+> Current Status: Some feedback indicated that the first version of FunGEn was not as "functional" as it was desired: some game issues were still being dealt through an imperative fashion. This way, the authors of this project decided to change the game engine philosophy: programmers should describe a game as a set of "specifications" rather than defining its behavior imperatively. One plausible alternative for accomplishing this task
+> is porting the Clean Game Library (CGL) to Haskell, adding some FunGEn specific features. Hence, this is the actual status of the FunGEn project: it is being rebuilt in order to provide game programming mechanisms following the CGL
+> concepts. This really demands some time, but the authors expect a new version to be released soon.
+> 
+> ... PLEASE NOTE: this is the very first version of FunGEn, and it was released just to get some feedback from game programmers. You are strongly invited to <A HREF="mailto:awbf@cin.ufpe.br">tell</A> your game programming experiences with FunGEn, helping us to release a definitive, stable version). Ok, after this disclaimer, please fell yourself free to take a quick tour in the site; it contains a lot of useful information for those who are really interested in trying a new game programming experience. Nice coding...
 
-- Support map scrolling (coming soon);
-- Support mouse input management (coming soon);
-- Make a polygon map definition avaiable (coming soon);
-- Make sound avaible to non-Win32 platforms;
-- Create, if possible, some operators to avoid the excessive (x <- ...) syntax;
-- Support auto-animated objects;
-- Create a GLUT independent font support (or perhaps extend it);
-- Improve the installation process;
-- Upgrade FunGEn to be both a 2D (bidimensional) and 2D 1/2 (bi and a half dimensional) engine;
-- Create a map editor/generator (possibly in other language, or using the brand new Haskell GUI...);
-- Take courage to start thinking about the 3D world...
+and this todo list:
 
-Would you like to suggest a feature? Feel free to do it. Would you like to
-implement a feature? Please do it! Keep in touch.
+> Here you have a list of some upcoming FunGEn features, and some other
+> desired features (but with no implementation prevision yet).
+> 
+> - Support map scrolling (coming soon);
+> - Support mouse input management (coming soon);
+> - Make a polygon map definition avaiable (coming soon);
+> - Make sound avaible to non-Win32 platforms;
+> - Create, if possible, some operators to avoid the excessive (x <- ...) syntax;
+> - Support auto-animated objects;
+> - Create a GLUT independent font support (or perhaps extend it);
+> - Improve the installation process;
+> - Upgrade FunGEn to be both a 2D (bidimensional) and 2D 1/2 (bi and a half dimensional) engine;
+> - Create a map editor/generator (possibly in other language, or using the brand new Haskell GUI...);
+> - Take courage to start thinking about the 3D world...
+> 
+> Would you like to suggest a feature? Feel free to do it. Would you like to
+> implement a feature? Please do it! Keep in touch.
+
+and this [old windows code with sound support](/old-site/FunGEn0.1-Win32.zip).
+
 
 ---
 
@@ -219,26 +217,27 @@ implement a feature? Please do it! Keep in touch.
 
 Andre's 2002 credits:
 
-FunGEn was created by Andre Furtado, Computation Science graduation
-student at the Informatics Center (CIn) of the Federal University of
-Pernambuco (UFPE), as part of a Scientific Iniciation (PIBIC/CNPq)
-research project (Creating a Game Platform Using Haskell), oriented by
-lecturer Andre Santos (PhD, 1995, University of Glasgow), who was
-responsible for figuring out a lot of FunGEn implementation details.
+> FunGEn was created by Andre Furtado, Computation Science graduation
+> student at the Informatics Center (CIn) of the Federal University of
+> Pernambuco (UFPE), as part of a Scientific Iniciation (PIBIC/CNPq)
+> research project (Creating a Game Platform Using Haskell), oriented by
+> lecturer Andre Santos (PhD, 1995, University of Glasgow), who was
+> responsible for figuring out a lot of FunGEn implementation details.
+> 
+> I would like to thank also the following people who contributed for the development of FunGEn:
+> 
+> - Sven Panne
+> - Jay Cox
+> - Geber Ramalho
+> - Carlos Andre Pessoa
+> - Charles Madeira
+> - Monique Monteiro
+> - The people at the Haskell mailing lists
+> 
+> FunGEn can be distributed freely, in the hope that it will be useful, but
+> WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+> or FITNESS FOR A PARTICULAR PURPOSE. I would thank you if you cite my name
+> and this site if you are going to use FunGEn for other things besides home
+> programming.
 
-I would like to thank also the following people who contributed for the development of FunGEn:
-
-- Sven Panne
-- Jay Cox
-- Geber Ramalho
-- Carlos Andre Pessoa
-- Charles Madeira
-- Monique Monteiro
-- The people at the Haskell mailing lists
-
-FunGEn can be distributed freely, in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE. I would thank you if you cite my name
-and this site if you are going to use FunGEn for other things besides home
-programming.
-
+---
