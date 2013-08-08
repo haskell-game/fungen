@@ -27,16 +27,20 @@ Furtado in 2002 (!). Here's his original feature list:
 
 * Sound support (actually for windows platforms only... :-[ )
 
-What's new in 0.4:
+What's new in 0.4.x:
 
 * a new hakyll-based website, incorporating the old site content
 
+* new haddock documentation
+
 * tested with GHC 7.6
+
+* fixed buggy input when holding down keys on windows
 
 * input handlers now receive mouse position and modifier state
   (inspired by Pradeep Kumar).  See fungentest.hs for examples.
 
-* haddock documentation reorganised and updated
+* added q as quit key in examples
 
 Home:    http://joyful.com/fungen
 Hackage: http://hackage.haskell.org/package/FunGEn

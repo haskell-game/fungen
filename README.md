@@ -124,6 +124,11 @@ in my HOpenGL Tutorial site, or in its official site.
 
 ## Release notes
 
+### 0.4.2 (2013/08/07)
+
+* add q as quit key to examples
+* fix buggy input when holding down keys on windows
+
 ### 0.4.1 (2013/08/06)
 
 * reorganised and exposed more haddocks

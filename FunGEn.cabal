@@ -8,7 +8,7 @@ maintainer:         Simon Michael <simon@joyful.com>
 homepage:           http://joyful.com/fungen
 category:           Game
 synopsis:           FUNctional Game ENgine
-description:        Multi-platform 2D game engine built on top of OpenGL & GLUT
+description:        A lightweight, cross-platform, OpenGL/GLUT-based game engine
 stability:          alpha
 cabal-version:      >= 1.6
 build-type:         Simple
