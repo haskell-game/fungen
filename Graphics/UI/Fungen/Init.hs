@@ -31,16 +31,16 @@ import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
 import System.Exit
 
--- | Build a FunGEn game and start it running.
-funInit :: WindowConfig           -- ^ main window config
-        -> GameMap v              -- ^ background tile map
-        -> [(ObjectManager s)]    -- ^ object (sprite) groups
+-- | Configure a FunGEn game and start it running.
+funInit :: WindowConfig           -- ^ main window layout
+        -> GameMap v              -- ^ background/map(s)
+        -> [(ObjectManager s)]    -- ^ object groups
         -> u                      -- ^ initial game state
         -> t                      -- ^ initial game attribute
         -> [InputBinding t s u v] -- ^ input bindings
         -> IOGame t s u v ()      -- ^ step action
-        -> RefreshType            -- ^ timing type
-        -> FilePictureList        -- ^ image files to load
+        -> RefreshType            -- ^ main loop timing
+        -> FilePictureList        -- ^ image files
         -> IO ()
 funInit winConfig@((px,py),(sx,sy),t) userMap objectGroups gState gAttrib i gameCicle r picList = do
         initialize "FunGen app" []

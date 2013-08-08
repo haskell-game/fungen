@@ -32,7 +32,7 @@ import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
 import Graphics.Rendering.OpenGL
 
-type Tile t = (Int,Bool,Float,t) -- index of picture, possibility to move, cost to move, additional params
+type Tile t = (Int,Bool,Float,t) -- ^ index of picture, possibility to move, cost to move, additional params
 type TileMatrix t = [[(Tile t)]]
 type TileLine t = [(Tile t)]
 
