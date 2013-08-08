@@ -10,7 +10,7 @@ button up/down events, and manages bindings from input events to actions.
 -}
 
 module Graphics.UI.GLUT.Input (
-   Key(..), KeyEvent(..), KeyBinder, InputHandler, StillDownHandler, initGLUTInput
+   Key(..), KeyEvent(..), KeyBinder, InputHandler, StillDownHandler, glutInitInput
 ) where
 
 import Data.IORef(IORef, newIORef, readIORef, modifyIORef)
@@ -81,8 +81,8 @@ stillDown bindingTable pressedKeys =
 -- action bindings and executes the the proper actions automatically.
 -- Returns a function for adding bindings, and another which should be
 -- called periodically (eg from refresh) to trigger still-down actions.
-initGLUTInput :: IO (KeyBinder, StillDownHandler)
-initGLUTInput = do
+glutInitInput :: IO (KeyBinder, StillDownHandler)
+glutInitInput = do
   -- globalKeyRepeat would be a little bit more efficient, but it has
   -- two disadvantages: it is not yet implemented for MS windows and
   -- it changes the global state of X11.
