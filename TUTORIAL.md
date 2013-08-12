@@ -97,7 +97,7 @@ are we going to use the texture, the horizontal and vertical size of the
 texture and, finally, the size of the map. Suppose the file tex.bmp
 contains the following texture and that we'll use it in our map:
 
-<img src="examples/pong/tex.bmp" />
+<img src="/site-files/tex.bmp" />
 
 Suppose also that each copy of this texture will have a size of 50, both
 horizontally and vertically. This means that its width will occupy (50/250
@@ -392,7 +392,7 @@ game execution continues at the same time.
 
 Ok, now we ARE DONE. When executed, our game would look like:
 
-<img src="http://www.cin.ufpe.br/~haskell/fungen/pic/brief.gif" />
+<img src="/site-files/brief.gif" />
 
 Please notice that, in our example, when the ball hits one of the sides of
 the bar, its horizontal speed won't change, so it will "enter" the

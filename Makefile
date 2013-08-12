@@ -23,7 +23,7 @@ AUTOBUILDEXE=fungentest
 AUTOBUILDEXEARGS=tests
 autobuild auto:
 	@echo "auto-building with sp (if this fails, do make sp)"
-	sp --no-exts --no-default-map -o $(AUTOBUILDEXE) ghc --make $(BUILDFLAGS) $(AUTOBUILDEXE).hs --run $(AUTOBUILDEXEARGS)
+	sp --no-exts --no-default-map -o $(AUTOBUILDEXE) ghc $(BUILDFLAGS) $(AUTOBUILDEXE).hs --run $(AUTOBUILDEXEARGS)
 
 sp:
 	@echo "To install sp:"
@@ -43,16 +43,13 @@ haddock:
 	cabal configure && cabal haddock #--executables
 
 # build site with hakyll
-website: site _site/index.html
+website: site
 	./site build
 
 site: site.hs
-	ghc --make site.hs
+	ghc site.hs
 
-_site/index.html:
-	-cd _site && ln -sf README.html index.html
-
-cleansite: site
+siteclean: site
 	./site clean
 
 # preview docs
@@ -167,6 +164,6 @@ TAGS: $(TAGFILES)
 clean:
 	rm -f `find . -name "*.o" -o -name "*.hi" -o -name "*~" -o -name "darcs-amend-record*" -o -name "*-darcs-backup*"`
 
-Clean: clean cleansite
+Clean: clean siteclean
 	rm -f TAGS # _cache #_site
 	cabal clean
