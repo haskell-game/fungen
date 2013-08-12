@@ -26,12 +26,28 @@ module Graphics.UI.Fungen.Util (
         inv2color3, pathAndInv2color3List, point2DtoVertex3,
         isEmpty,
         when, unless,
-        bindTexture
+        bindTexture,
+        tracewith, strace, ltrace, mtrace
 ) where
 
 import Graphics.UI.Fungen.Types
 import Graphics.Rendering.OpenGL
 import System.Random
+
+-- debug helpers
+import Debug.Trace (trace)
+-- | trace an expression using a custom show function
+tracewith f e = trace (f e) e
+-- | trace a showable expression
+strace :: Show a => a -> a
+strace = tracewith show
+-- | labelled trace - like strace, with a label prepended
+ltrace :: Show a => String -> a -> a
+ltrace l a = trace (l ++ ": " ++ show a) a
+-- | monadic trace - like strace, but works as a standalone line in a monad
+mtrace :: (Monad m, Show a) => a -> m a
+mtrace a = strace a `seq` return a
+--
 
 texCoord2 :: GLdouble -> GLdouble -> IO ()
 texCoord2 x y = texCoord (TexCoord2 x y)
