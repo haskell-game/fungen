@@ -59,9 +59,11 @@ you'd like to take it and run with it, or co-maintain, let's chat! I'm
  \
 **Docs:**
  [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html),
- Andre's [pong tutorial](site-files/example.html)
+ Andre's [pong tutorial](site-files/example.html),
  <!-- New version of the [pong tutorial](TUTORIAL.html) \ -->
  <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
+ Stack Overflow [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen), \
+ Haskell wiki [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1) \
 
 
 ## Getting started
