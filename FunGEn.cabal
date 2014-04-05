@@ -25,6 +25,6 @@ library
   exposed-modules:  Graphics.UI.Fungen
   build-depends:
                     base == 4.*
-                   ,OpenGL
-                   ,GLUT
+                   ,OpenGL < 2.9
+                   ,GLUT < 2.5
                    ,random
