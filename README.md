@@ -53,7 +53,7 @@ you'd like to take it and run with it, or co-maintain, let's chat! I'm
 **Home:**     <http://joyful.com/fungen> \
 **Hackage:**  <http://hackage.haskell.org/package/FunGEn> \
 <!-- **Changelog:**  <http://hackage.haskell.org/package/FunGEn/changelog> \ -->
-**Changelog:**  <http://hub.darcs.net/simon/fungen/CHANGES> \
+**Changelog:**  <http://hub.darcs.net/simon/fungen/raw-file/CHANGES> \
 **Code:**     <http://hub.darcs.net/simon/fungen> \
 **Discussion & help:**
  [#haskell-game](http://www.haskell.org/haskellwiki/IRC_channel) IRC channel,
