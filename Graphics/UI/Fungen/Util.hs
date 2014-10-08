@@ -55,14 +55,14 @@ texCoord2 x y = texCoord (TexCoord2 x y)
 vertex3 :: GLdouble -> GLdouble -> GLdouble -> IO ()
 vertex3 x y z = vertex (Vertex3 x y z)
 
-bindTexture :: TextureTarget -> TextureObject -> IO ()
+bindTexture :: TextureTarget2D -> TextureObject -> IO ()
 bindTexture tt to = textureBinding tt $= Just to
 
 texStuff :: [TextureObject] -> [AwbfBitmap] -> IO ()
 texStuff [] _ = return ()
 texStuff (t:ts) ((bmW,bmH,bmData):bms) = do
         bindTexture Texture2D t
-        texImage2D Nothing NoProxy 0 RGBA' (TextureSize2D bmW bmH) 0 bmData
+        texImage2D Texture2D NoProxy 0 RGBA' (TextureSize2D bmW bmH) 0 bmData
         textureFilter Texture2D $= ((Nearest, Nothing), Nearest)
         texStuff ts bms
 texStuff _ _ = return ()

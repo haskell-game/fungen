@@ -55,7 +55,7 @@ library
                     Graphics.UI.GLUT.Input
 
   build-depends:
-                    base == 4.*
-                   ,OpenGL < 2.9
-                   ,GLUT < 2.5
+                    base   == 4.*
+                   ,OpenGL == 2.9.*
+                   ,GLUT   == 2.5.*
                    ,random
