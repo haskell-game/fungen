@@ -24,7 +24,6 @@ module Graphics.UI.Fungen.Text (
 
 import Graphics.UI.GLUT
 import Graphics.UI.Fungen.Types
-import Graphics.Rendering.OpenGL
 
 -- | String to be printed, font, screen position, color RGB.
 type Text = (String,BitmapFont,Point2D,GLclampf,GLclampf,GLclampf)

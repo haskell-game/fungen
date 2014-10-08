@@ -23,7 +23,6 @@ import System.IO
 import Foreign
 import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
-import Graphics.UI.Fungen.Types(ColorList3, AwbfBitmap)
 
 binAux :: String
 binAux = "000000000000000000000000"

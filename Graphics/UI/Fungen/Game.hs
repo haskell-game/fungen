@@ -60,11 +60,9 @@ import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
 import Graphics.UI.Fungen.Loader
 import Graphics.UI.Fungen.Text
-import Graphics.UI.Fungen.Timer
 import Graphics.UI.Fungen.Map
 import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
-import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT
 import Control.Applicative (Applicative(..))
 import Control.Monad
@@ -421,7 +419,7 @@ getObjectsFromGroup mngName = do
 -- | adds an object to a previously created group
 addObjectsToGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
 addObjectsToGroup objs managerName = do
-	manager <- findObjectManager managerName
+	-- manager <- findObjectManager managerName
 	managers <- getObjectManagers
 	let newManagers = addObjectsToManager objs managerName managers 
 	setObjectManagers newManagers

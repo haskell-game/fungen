@@ -49,7 +49,7 @@ funInit winConfig@((px,py),(sx,sy),t) userMap objectGroups gState gAttrib i game
         windowSize     $= Size     (fromIntegral sx) (fromIntegral sy)
         basicInit sx sy
         game <- createGame userMap objectGroups winConfig gState gAttrib picList
-        (bindKey, stillDown) <- funInitInput i game
+        (_bindKey, stillDown) <- funInitInput i game
         displayCallback $= (display game gameCicle)
         setRefresh r stillDown
         mainLoop

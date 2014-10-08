@@ -42,7 +42,6 @@ module Graphics.UI.Fungen.Objects (
 import Graphics.UI.Fungen.Types
 import Graphics.UI.Fungen.Util
 import Graphics.Rendering.OpenGL hiding (Primitive)
-import Graphics.UI.GLUT hiding (Primitive)
 
 data GameObject t = GO {
     objId	   :: Integer,
@@ -226,7 +225,7 @@ drawGameObjectList (o:os) qobj picList | (getGameObjectAsleep o) = drawGameObjec
                                        | otherwise = drawGameObject o qobj picList >> drawGameObjectList os qobj picList
 
 drawGameObject :: GameObject t -> QuadricPrimitive -> [TextureObject] -> IO ()
-drawGameObject o qobj picList = do
+drawGameObject o _qobj picList = do
     loadIdentity
     let (pX,pY) = getGameObjectPosition o
         picture = getGameObjectPicture o

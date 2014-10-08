@@ -39,6 +39,7 @@ extra-source-files:
                     examples/worms/worms.hs
 
 library
+  ghc-options:      -W
   exposed-modules:  
                     Graphics.UI.Fungen,
                     Graphics.UI.Fungen.Display,

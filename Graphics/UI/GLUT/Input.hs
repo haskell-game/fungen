@@ -58,7 +58,7 @@ newBindingTable = newIORef []
 
 bindKey :: BindingTable -> KeyBinder
 bindKey bindingTable key event Nothing =
-   modifyIORef bindingTable (\t -> [ e | e@(b,a) <- t, b /= (key, event)])
+   modifyIORef bindingTable (\t -> [ e | e@(b,_) <- t, b /= (key, event)])
 bindKey bindingTable key event (Just action) = do
    bindKey bindingTable key event Nothing
    modifyIORef bindingTable (((key, event), action) :)
