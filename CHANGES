@@ -1,11 +1,52 @@
-0.4.4
+0.4.4 (2014/10/7)
 
 * add missing files to cabal file (Samuel Gélineau)
-
 * support & require latest OpenGL 2.9
-
 * make IOGame also a Functor and Applicative, for ghc 7.10
 
-0.4.3
+0.4.3 (2014/4/5)
 
 * set upper bound on OpenGL to avoid build failure with OpenGL 2.9
+
+0.4.2 (2013/08/07)
+
+* add q as quit key to examples
+* fix buggy input when holding down keys on windows
+
+0.4.1 (2013/08/06)
+
+* reorganised and exposed more haddocks
+
+0.4 (2013/08/05)
+
+* a new hakyll-based website, incorporating the old site
+* tested with GHC 7.6
+* input handlers now receive mouse position and modifier state
+  (inspired by Pradeep Kumar).  See fungentest.hs for examples.
+* more haddocks
+
+0.3 (2011/02/13, Simon Michael)
+
+* updated for GHC 6.12 & base 4
+* module names simplified
+* beginning of haddockification
+* docs moved into repo
+* published to darcsden, hackage, wiki, haskell-cafe, #haskell-game, reddit
+
+0.1-hackage (2008/09/17, Miloslav Raus)
+
+* first hackage release
+* updated for GHC 6.10
+* cabalised
+* Tested under Win32 & Linux/Intel. Known glitches: Flickering under linux
+  (at least on my shitty laptop). Weird pong paddle behavior under Win32.
+
+GHC 6.8 update (2008/02/26, Simon Michael)
+
+* updated for GHC 6.8
+* slight tweaks to examples
+* public darcs repo
+
+0.1 (2002, Andre Furtado)
+
+* first public release
