@@ -66,6 +66,7 @@ import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
 import Graphics.Rendering.OpenGL.GLU
 import Graphics.UI.GLUT
+import Control.Applicative (Applicative(..))
 import Control.Monad
 import Data.IORef
 import Text.Printf
@@ -153,6 +154,13 @@ bindST (IOG x) f =
 
 unitST :: a -> IOGame t s u v a
 unitST v = IOG (\s -> return (s,v))
+
+instance Functor (IOGame t s u v) where
+  fmap = liftM
+
+instance Applicative (IOGame t s u v) where
+  pure  = return
+  (<*>) = ap
 
 instance Monad (IOGame t s u v) where
   (>>=) = bindST
