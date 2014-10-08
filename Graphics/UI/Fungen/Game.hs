@@ -781,4 +781,3 @@ waitAux delay startTime = do
 	if (presentTime - startTime > delay)
 		then return ()
 		else waitAux delay startTime
-	
