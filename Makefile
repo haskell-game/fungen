@@ -34,7 +34,7 @@ sp:
 # DOC
 
 # called on each darcs commit
-commithook: website
+commithook: #website
 
 docs: website haddock
 
@@ -42,15 +42,14 @@ docs: website haddock
 haddock:
 	cabal configure && cabal haddock #--executables
 
-# build site with hakyll
-website: site
-	./site build
+# build site with "hakyll", my generic hakyll site build script
+# twice to work around a glitch
+site-build:
+	-hakyll build
+	hakyll build
 
-site: site.hs
-	ghc site.hs
-
-siteclean: site
-	./site clean
+site-clean: site
+	hakyll clean
 
 # preview docs
 

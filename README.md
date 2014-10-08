@@ -19,11 +19,11 @@ body {
 </style>
 
 <div style="float:right; margin:3em 0 1em 1em;">
-<img src="/site-files/logo.gif">
+<img src="/site/logo.gif">
 <br>
-<a href="http://hub.darcs.net/simon/fungen/examples/pong/pong.hs#22"><img border=0 src="/site-files/pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
+<a href="http://hub.darcs.net/simon/fungen/examples/pong/pong.hs#22"><img border=0 src="/site/pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
 <br>
-<a href="http://hub.darcs.net/simon/fungen/examples/worms/worms.hs#22"><img border=0 src="/site-files/worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
+<a href="http://hub.darcs.net/simon/fungen/examples/worms/worms.hs#22"><img border=0 src="/site/worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
 </div>
 
 # <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
@@ -59,7 +59,7 @@ you'd like to take it and run with it, or co-maintain, let's chat! I'm
  \
 **Docs:**
  [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html),
- Andre's [pong tutorial](site-files/example.html),
+ Andre's [pong tutorial](site/example.html),
  <!-- New version of the [pong tutorial](TUTORIAL.html) \ -->
  <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
  Stack Overflow [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen), \
@@ -210,7 +210,7 @@ and this todo list:
 > Would you like to suggest a feature? Feel free to do it. Would you like to
 > implement a feature? Please do it! Keep in touch.
 
-and this [old windows code with sound support](/site-files/FunGEn0.1-Win32.zip).
+and this [old windows code with sound support](/site/FunGEn0.1-Win32.zip).
 
 
 ---
