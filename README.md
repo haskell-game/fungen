@@ -52,6 +52,8 @@ you'd like to take it and run with it, or co-maintain, let's chat! I'm
 
 **Home:**     <http://joyful.com/fungen> \
 **Hackage:**  <http://hackage.haskell.org/package/FunGEn> \
+<!-- **Changelog:**  <http://hackage.haskell.org/package/FunGEn/changelog> \ -->
+**Changelog:**  <http://hub.darcs.net/simon/fungen/CHANGES> \
 **Code:**     <http://hub.darcs.net/simon/fungen> \
 **Discussion & help:**
  [#haskell-game](http://www.haskell.org/haskellwiki/IRC_channel) IRC channel,
@@ -129,54 +131,6 @@ binding to one of the most famous graphics libraries around the world
 possible to call OpenGL/GLUT routines (which were written in the C
 language) when programming in Haskell. You can find more info on HOpenGL
 in my HOpenGL Tutorial site, or in its official site.
-
----
-
-## Release notes
-
-### 0.4.2 (2013/08/07)
-
-* add q as quit key to examples
-* fix buggy input when holding down keys on windows
-
-### 0.4.1 (2013/08/06)
-
-* reorganised and exposed more haddocks
-
-### 0.4 (2013/08/05)
-
-* a new hakyll-based website, incorporating the old site
-* tested with GHC 7.6
-* input handlers now receive mouse position and modifier state
-  (inspired by Pradeep Kumar).  See fungentest.hs for examples.
-* more haddocks
-
-### 0.3 (2011/02/13)
-GHC 6.12-compatible 0.3 [released](http://thread.gmane.org/gmane.comp.lang.haskell.cafe/86330) on darcsden & hackage by Simon Michael:
-
-- updated for GHC 6.12 & base 4
-- module names simplified
-- beginning of haddockification
-- docs moved into repo
-- published to darcsden, hackage, wiki, haskell-cafe, #haskell-game, reddit
-
-### 0.1-hackage (2008/09/17)
-GHC 6.10-compatible 0.1 released on hackage by Miloslav Raus:
-
-- updated for GHC 6.10
-- cabalised
-- Tested under Win32 & Linux/Intel. Known glitches: Flickering under linux
-  (at least on my shitty laptop). Weird pong paddle behavior under Win32.
-
-### GHC 6.8 update (2008/02/26)
-GHC 6.8-compatible update by Simon Michael:
-
-- updated for GHC 6.8
-- slight tweaks to examples
-- public darcs repo
-
-### 0.1 (2002)
-First public release by Andre Furtado:
 
 ---
 
