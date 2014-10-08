@@ -1,3 +1,11 @@
+0.4.4
+
+* add missing files to cabal file (Samuel Gélineau)
+
+* support & require latest OpenGL 2.9
+
+* make IOGame also a Functor and Applicative, for ghc 7.10
+
 0.4.3
 
 * set upper bound on OpenGL to avoid build failure with OpenGL 2.9
