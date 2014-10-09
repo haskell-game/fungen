@@ -34,13 +34,18 @@ sp:
 # DOC
 
 # called on each darcs commit
-commithook: #website
+commithook: #docs
 
-docs: website haddock
+docs: haddock site-build
 
 # build haddock docs
 haddock:
 	cabal configure && cabal haddock #--executables
+
+# preview haddock docs
+VIEWHTML=open
+haddock-view: haddock
+	$(VIEWHTML) dist/doc/html/FunGEn/index.html
 
 # build site with "hakyll", my generic hakyll site build script
 # twice to work around a glitch
@@ -50,17 +55,6 @@ site-build:
 
 site-clean: site
 	hakyll clean
-
-# preview docs
-
-VIEWHTML=open
-
-viewhaddock: docs
-	$(VIEWHTML) dist/doc/html/FunGEn/index.html
-
-sitepreview: site
-	$(VIEWHTML) http://localhost:8002/
-	./site preview 8002
 
 ######################################################################
 # RELEASE
