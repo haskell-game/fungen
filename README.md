@@ -19,11 +19,11 @@ body {
 </style>
 
 <div style="float:right; margin:3em 0 1em 1em;">
-<img src="/site/logo.gif">
+<a href="https://github.com/simonmichael/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="/site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 <br>
-<a href="https://github.com/simonmichael/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="/site/pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
+<a href="https://github.com/simonmichael/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="/site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
 <br>
-<a href="https://github.com/simonmichael/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="/site/worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
+<a href="https://github.com/simonmichael/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="/site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
 </div>
 
 # <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
@@ -33,9 +33,7 @@ OpenGL/GLUT-based, non-FRP game engine/framework written in
 Haskell. Created by Andre Furtado in 2002, it's the oldest Haskell
 game engine, and with very few dependencies and two example games,
 it's one of the easiest ways to get started with Haskell game
-development.
-
-The FunGEn library provides:
+development. It provides:
 
 * Initialization, updating, removing, rendering and grouping
   routines for game objects
@@ -57,50 +55,46 @@ On 2014/10/9 I moved it from darcs hub to github.
 **Hackage:**   <http://hackage.haskell.org/package/FunGEn> \
 **Changelog:** <http://hackage.haskell.org/package/FunGEn/changelog> \
 **Code:**      <https://github.com/simonmichael/fungen> \
-**Discussion & help:**
- [#haskell-game](http://www.haskell.org/haskellwiki/IRC_channel) IRC channel,
- [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
- \
-**Docs:**
- [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html),
- Andre's [pong tutorial](site/example.html),
- <!-- New version of the [pong tutorial](TUTORIAL.html) \ -->
- <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
- Stack Overflow [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen), \
- Haskell wiki [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1) \
+\
+**Docs:**\
+&nbsp; (Latest available) [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html) \
+&nbsp; Andre's original [pong tutorial](site/example.html) \
+&nbsp; Haskell wiki [Game_Development](http://www.haskell.org/haskellwiki/Game_Development) \
+&nbsp; Haskell wiki [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1) \
+<!-- Updated [pong tutorial](TUTORIAL.html) \ -->
+<!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
+\
+**Discussion & help:**\
+&nbsp; [#haskell-game](http://ircbrowse.net/day/haskell-game/today/recent) IRC channel
+       ([join](http://webchat.freenode.net/?channels=haskell-game)) \
+&nbsp; [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow \
+&nbsp; [haskellgamedev](http://www.reddit.com/r/haskellgamedev) reddit \
+&nbsp; [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list \
 
 
 ## Getting started
 
-**Install from hackage:**
+**Install from hackage, run the examples:**
 
 ```
 $ cabal update
 $ [cabal sandbox init]    # if needed, to avoid dependency problems
 $ cabal install FunGEn
-```
-
-**
-[Run](https://github.com/simonmichael/fungen/blob/master/examples/helloworld.hs)
-[the](https://github.com/simonmichael/fungen/blob/master/examples/pong/pong.hs)
-[examples](https://github.com/simonmichael/fungen/blob/master/examples/worms/worms.hs):
-**
-```
-$ fungen-hello
+$ fungen-hello            # make sure ~/.cabal/bin or ./.cabal-sandbox/bin are in your PATH
 $ fungen-pong
 $ fungen-worms
 ```
 
 **Contribute patches:**
 ```
-fork https://github.com/simonmichael/fungen
+(Fork https://github.com/simonmichael/fungen)
 $ git clone https://github.com/MYUSERNAME/fungen.git
 $ cd fungen
 $ cabal sandbox init         # if needed, to avoid dependency problems
 $ cabal install              # install library and examples' data files
-edit examples/pong/pong.hs
+(Edit examples/pong/pong.hs)
 $ cabal build fungen-pong && dist/build/fungen-pong/fungen-pong
-commit, push, send pull requests...
+(Commit, push, send pull requests)
 ```
 
 
