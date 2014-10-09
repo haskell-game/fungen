@@ -15,6 +15,7 @@ module Main where
 import Text.Printf
 import Graphics.UI.Fungen
 import Graphics.Rendering.OpenGL (GLdouble)
+import Paths_FunGEn (getDataFileName)
 
 data GameAttribute = GA Int Int Int (GLdouble,GLdouble) Int
 data ObjectAttribute = NoObjectAttribute | Tail Int
@@ -73,7 +74,7 @@ free3   = 16
 
 main :: IO ()
 main = do
-  let winConfig = ((100,50),(780,600),"WORMS - by Andre Furtado")
+  let winConfig = ((200,100),(780,600),"WORMS - by Andre Furtado")
 
       gameMap = multiMap [(tileMap map1 tileSize tileSize),
                           (tileMap map2 tileSize tileSize),
@@ -94,7 +95,8 @@ main = do
               ,(Char 'q',            Press, \_ _ -> funExit)
               ]
   
-  funInit winConfig gameMap groups (LevelStart 1) gameAttribute input gameCycle (Timer 150) bmpList
+  bmpList' <- mapM (\(a,b) -> do { a' <- getDataFileName ("examples/worms/"++a); return (a', b)}) bmpList
+  funInit winConfig gameMap groups (LevelStart 1) gameAttribute input gameCycle (Timer 150) bmpList'
 
 createMsgs :: [WormsObject]
 createMsgs =

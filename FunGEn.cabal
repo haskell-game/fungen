@@ -10,33 +10,15 @@ category:           Game
 synopsis:           FUNctional Game ENgine
 description:        A lightweight, cross-platform, OpenGL/GLUT-based game engine
 stability:          alpha
-cabal-version:      >= 1.6
+cabal-version:      >= 1.8
 build-type:         Simple
 tested-with:        GHC==7.8.2
 extra-source-files: 
-                    README.md, 
-                    CHANGES, 
-                    examples/pong/hit.wav, 
-                    examples/pong/pong.hs, 
-                    examples/pong/tex.bmp,
-                    examples/worms/border1.bmp, 
-                    examples/worms/border2.bmp, 
-                    examples/worms/border3.bmp,
-                    examples/worms/congratulations.bmp, 
-                    examples/worms/food.bmp, 
-                    examples/worms/free1.bmp,
-                    examples/worms/free2.bmp, 
-                    examples/worms/free3.bmp, 
-                    examples/worms/gameover.bmp,
-                    examples/worms/heade.bmp, 
-                    examples/worms/heads.bmp, 
-                    examples/worms/headn.bmp,
-                    examples/worms/headw.bmp, 
-                    examples/worms/level1.bmp, 
-                    examples/worms/level2.bmp,
-                    examples/worms/level3.bmp, 
-                    examples/worms/segment.bmp, 
-                    examples/worms/worms.hs
+                    README.md,
+                    CHANGES
+data-files:
+                    examples/pong/*.bmp,
+                    examples/worms/*.bmp
 
 library
   ghc-options:      -W
@@ -59,4 +41,34 @@ library
                     base   == 4.*
                    ,OpenGL == 2.9.*
                    ,GLUT   == 2.5.*
+                   ,random
+
+executable fungen-hello
+  ghc-options: -W
+  hs-source-dirs: examples
+  main-is:          hello.hs
+  build-depends:    FunGEn
+                   ,base
+                   ,OpenGL
+                   ,GLUT
+                   ,random
+
+executable fungen-pong
+  ghc-options: -W
+  hs-source-dirs: examples
+  main-is:          pong/pong.hs
+  build-depends:    FunGEn == 0.4.*
+                   ,base
+                   ,OpenGL
+                   ,GLUT
+                   ,random
+
+executable fungen-worms
+  ghc-options: -W
+  hs-source-dirs: examples
+  main-is:          worms/worms.hs
+  build-depends:    FunGEn == 0.4.*
+                   ,base
+                   ,OpenGL
+                   ,GLUT
                    ,random

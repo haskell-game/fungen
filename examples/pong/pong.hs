@@ -14,6 +14,7 @@ module Main where
 
 import Graphics.UI.Fungen
 import Graphics.Rendering.OpenGL (GLdouble)
+import Paths_FunGEn (getDataFileName)
 
 data GameAttribute = Score Int
  
@@ -24,8 +25,9 @@ h = fromIntegral height :: GLdouble
 
 main :: IO ()
 main = do
-  let winConfig = ((100,20),(width,height),"A brief example!")
-      bmpList = [("tex.bmp", Nothing)]
+  texbmp <- getDataFileName "examples/pong/tex.bmp"
+  let winConfig = ((100,80),(width,height),"A brief example!")
+      bmpList = [(texbmp, Nothing)]
       gameMap = textureMap 0 30 30 w h
       bar     = objectGroup "barGroup"  [createBar]
       ball    = objectGroup "ballGroup" [createBall]
