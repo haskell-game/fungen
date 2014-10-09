@@ -1,3 +1,11 @@
+0.4.6.1 2014/10/9
+
+* update changelog
+
+0.4.6 2014/10/9
+
+* move to github, enable issue tracker
+
 0.4.5 2014/10/8
 
 * add executables to run examples (fungen-hello, fungen-pong, fungen-worms)
