@@ -80,7 +80,10 @@ gameCycle = do
   col3 <- objectTopMapCollision ball
   when col3 (reverseYSpeed ball)
   col4 <- objectBottomMapCollision ball
-  when col4 (do reverseYSpeed ball) -- (funExit)
+  when col4 $ do
+    -- funExit
+    setGameAttribute (Score 0)
+    reverseYSpeed ball
 
   bar <- findObject "bar" "barGroup"
   col5 <- objectsCollision ball bar
