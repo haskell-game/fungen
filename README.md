@@ -21,18 +21,21 @@ body {
 <div style="float:right; margin:3em 0 1em 1em;">
 <img src="/site/logo.gif">
 <br>
-<a href="http://hub.darcs.net/simon/fungen/examples/pong/pong.hs#22"><img border=0 src="/site/pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
+<a href="https://github.com/simonmichael/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="/site/pong.png" title="The pong example - click to see code" style="margin-top:2em;"></a>
 <br>
-<a href="http://hub.darcs.net/simon/fungen/examples/worms/worms.hs#22"><img border=0 src="/site/worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
+<a href="https://github.com/simonmichael/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="/site/worms.png" title="The worms (snake) example - click to see code" style="margin-top:1em;"></a>
 </div>
 
 # <span class="a">Fun<span class="b">ctional</span> G<span class="b">ame</span> En<span class="b">gine</span></span>
 
 FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
-OpenGL/GLUT-based, imperative game engine/framework written in
-Haskell.  With very few dependencies and two example games, it's one
-of the easiest ways to get started with Haskell game development.
-It provides:
+OpenGL/GLUT-based, non-FRP game engine/framework written in
+Haskell. Created by Andre Furtado in 2002, it's the oldest Haskell
+game engine, and with very few dependencies and two example games,
+it's one of the easiest ways to get started with Haskell game
+development.
+
+The FunGEn library provides:
 
 * Initialization, updating, removing, rendering and grouping
   routines for game objects
@@ -45,16 +48,15 @@ It provides:
 * Some debugging and game performance evaluation facilities
 <!-- * Sound support (windows only, not in current release) -->
 
-Andre Furtado created FunGEn and I
-([Simon Michael](http://joyful.com)) maintain it sporadically. If
-you'd like to take it and run with it, or co-maintain, let's chat! I'm
-`sm` on the #haskell-game IRC channel.
+I ([Simon Michael](http://joyful.com)) provide basic maintenance for
+this package. If you'd like to take it and run with it, or
+co-maintain, contact me. I'm `sm` on the #haskell-game IRC channel.
+On 2014/10/9 I moved it from darcs hub to github.
 
-**Home:**     <http://joyful.com/fungen> \
-**Hackage:**  <http://hackage.haskell.org/package/FunGEn> \
-<!-- **Changelog:**  <http://hackage.haskell.org/package/FunGEn/changelog> \ -->
-**Changelog:**  <http://hub.darcs.net/simon/fungen/raw-file/CHANGES> \
-**Code:**     <http://hub.darcs.net/simon/fungen> \
+**Home:**      <http://joyful.com/fungen> \
+**Hackage:**   <http://hackage.haskell.org/package/FunGEn> \
+**Changelog:** <http://hackage.haskell.org/package/FunGEn/changelog> \
+**Code:**      <https://github.com/simonmichael/fungen> \
 **Discussion & help:**
  [#haskell-game](http://www.haskell.org/haskellwiki/IRC_channel) IRC channel,
  [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
@@ -74,30 +76,33 @@ you'd like to take it and run with it, or co-maintain, let's chat! I'm
 
 ```
 $ cabal update
+$ [cabal sandbox init]    # if needed, to avoid dependency problems
 $ cabal install FunGEn
 ```
 
-**Or, install source and
-[run](http://hub.darcs.net/simon/fungen/examples/helloworld.hs)
-[the](http://hub.darcs.net/simon/fungen/examples/pong/pong.hs)
-[examples](http://hub.darcs.net/simon/fungen/examples/worms/worms.hs):**
-
+**
+[Run](https://github.com/simonmichael/fungen/blob/master/examples/helloworld.hs)
+[the](https://github.com/simonmichael/fungen/blob/master/examples/pong/pong.hs)
+[examples](https://github.com/simonmichael/fungen/blob/master/examples/worms/worms.hs):
+**
 ```
-$ darcs get http://hub.darcs.net/simon/fungen
-$ cd fungen
-$ cabal install
-$ (cd examples; ghc helloworld; ./helloworld)
-$ (cd examples/pong; ghc pong; ./pong)
-$ (cd examples/worms; ghc worms; ./worms)
+$ fungen-hello
+$ fungen-pong
+$ fungen-worms
 ```
-
-(darcs is like git but simpler. If your system doesn't provide it, get it [here](http://darcs.net/Binaries).)
 
 **Contribute patches:**
+```
+fork https://github.com/simonmichael/fungen
+$ git clone https://github.com/MYUSERNAME/fungen.git
+$ cd fungen
+$ cabal sandbox init         # if needed, to avoid dependency problems
+$ cabal install              # install library and examples' data files
+edit examples/pong/pong.hs
+$ cabal build fungen-pong && dist/build/fungen-pong/fungen-pong
+commit, push, send pull requests...
+```
 
-- log in to hub.darcs.net and fork <http://hub.darcs.net/simon/fungen>
-- push patches to your branch
-- give me a "pull request" on #haskell-game
 
 ---
 
