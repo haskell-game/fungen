@@ -46,10 +46,8 @@ development. It provides:
 * Some debugging and game performance evaluation facilities
 <!-- * Sound support (windows only, not in current release) -->
 
-I ([Simon Michael](http://joyful.com)) provide basic maintenance for
-this package. If you'd like to take it and run with it, or
-co-maintain, contact me. I'm `sm` on the #haskell-game IRC channel.
-On 2014/10/9 I moved it from darcs hub to github.
+[Simon Michael](http://joyful.com)) provides basic maintenance for
+this package. If you'd like to take it over, contact me (`sm` on the #haskell-game IRC channel).
 
 **Home:**      <http://joyful.com/fungen> \
 **Hackage:**   <http://hackage.haskell.org/package/FunGEn> \
