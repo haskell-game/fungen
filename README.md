@@ -46,7 +46,7 @@ development. It provides:
 * Some debugging and game performance evaluation facilities
 <!-- * Sound support (windows only, not in current release) -->
 
-[Simon Michael](http://joyful.com)) provides basic maintenance for
+[Simon Michael](http://joyful.com) provides basic maintenance for
 this package. If you'd like to take it over, contact me (`sm` on the #haskell-game IRC channel).
 
 **Home:**      <http://joyful.com/fungen> \
