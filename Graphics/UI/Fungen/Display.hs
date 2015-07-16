@@ -37,7 +37,7 @@ displayIOGame :: IOGame t s u v () -> IOGame t s u v ()
 displayIOGame gameCycle = do
         (_,_,objectsMoving) <- getGameFlags
         when objectsMoving moveAllObjects
-	gameCycle
+        gameCycle
         (mapDrawing,objectsDrawing,_) <- getGameFlags
         when mapDrawing drawMap
         when objectsDrawing drawAllObjects

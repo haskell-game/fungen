@@ -116,7 +116,7 @@ isMultiMap _ = False
 
 updateCurrentIndex :: GameMap t -> Int -> GameMap t
 updateCurrentIndex (MultiMap mapList _) i | (i >= (length mapList)) = error "Map.updateMultiMapIndex error: map index out of range!"
-					  | otherwise = (MultiMap mapList i)
+                                          | otherwise = (MultiMap mapList i)
 updateCurrentIndex _ _ = error "Map.updateCurrentIndex error: the game map is not a MultiMap!"
 
 -----------------------------
@@ -142,14 +142,14 @@ tileMap matrix tX tY | matrixOk matrix = TileMap matrix (tX,tY) (0,0) (0,0) (sX,
 multiMap :: [(GameMap t)] -> Int -> GameMap t
 multiMap [] _ = error "Map.multiMap  error: the MultiMap map list should not be empty!"
 multiMap mapList currentMap | (currentMap >= (length mapList)) = error "Map.multiMap error: map index out of range!"
-			    | (mapListContainsMultiMap mapList) = error "Map.multiMap error: a MultiMap should not contain another MultiMap!"
-			    | otherwise = MultiMap mapList currentMap
+                            | (mapListContainsMultiMap mapList) = error "Map.multiMap error: a MultiMap should not contain another MultiMap!"
+                            | otherwise = MultiMap mapList currentMap
 
 -- checks if a GameMap list contains a multimap (internal use only!)
 mapListContainsMultiMap :: [(GameMap t)] -> Bool
 mapListContainsMultiMap [] = False
 mapListContainsMultiMap (a:as) | (isMultiMap a) = True
-			       | otherwise = mapListContainsMultiMap as
+                               | otherwise = mapListContainsMultiMap as
 
 -- checks if the tile matrix is a square matrix
 matrixOk :: TileMatrix t -> Bool

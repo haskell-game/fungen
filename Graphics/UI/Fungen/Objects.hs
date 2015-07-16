@@ -44,7 +44,7 @@ import Graphics.UI.Fungen.Util
 import Graphics.Rendering.OpenGL hiding (Primitive)
 
 data GameObject t = GO {
-    objId	   :: Integer,
+    objId          :: Integer,
     objName        :: String,
     objManagerName :: String,
     objPicture     :: GameObjectPicture,
@@ -56,9 +56,9 @@ data GameObject t = GO {
     }
 
 data ObjectManager t = OM {
-    mngName    :: String,		-- name of the manager
-    mngCounter :: Integer,		-- next current avaible index for a new object
-    mngObjects :: [(GameObject t)]	-- the SET of objects
+    mngName    :: String,               -- name of the manager
+    mngCounter :: Integer,              -- next current avaible index for a new object
+    mngObjects :: [(GameObject t)]      -- the SET of objects
     }
 
 data GamePrimitive
@@ -163,17 +163,17 @@ updateObjectManagerObjects objs mng = mng {mngObjects = objs}
 ----------------------------------------
 object :: String -> ObjectPicture -> Bool -> (GLdouble,GLdouble) -> (GLdouble,GLdouble) -> t -> GameObject t
 object name pic asleep pos speed oAttrib = let (picture, size) = createPicture pic in
-			GO {
-			objId          = 0,
-			objName        = name,
-			objManagerName = "object not grouped yet!",
-			objPicture     = picture,
-			objAsleep      = asleep,
-			objSize        = size,
-			objPosition    = pos,
-			objSpeed       = speed,
-			objAttribute   = oAttrib
-			}
+                        GO {
+                        objId          = 0,
+                        objName        = name,
+                        objManagerName = "object not grouped yet!",
+                        objPicture     = picture,
+                        objAsleep      = asleep,
+                        objSize        = size,
+                        objPosition    = pos,
+                        objSpeed       = speed,
+                        objAttribute   = oAttrib
+                        }
 
 createPicture :: ObjectPicture -> (GameObjectPicture,Point2D)
 createPicture (Basic (Polyg points r g b fillMode))  = (B (P (point2DtoVertex3 points) (Color4 r g b 1.0) fillMode),findSize points)
@@ -200,13 +200,13 @@ objectGroupAux (o:os) managerName oId = (o {objId = oId, objManagerName = manage
 addObjectsToManager :: [(GameObject t)] -> String -> [(ObjectManager t)] -> [(ObjectManager t)]
 addObjectsToManager _ managerName [] = error ("Objects.addObjectsToManager error: object manager " ++ managerName ++ " does not exists!")
 addObjectsToManager objs managerName (m:ms) | (getObjectManagerName m == managerName) = (addObjectsToManagerAux objs m):ms
-					    | otherwise = m:(addObjectsToManager objs managerName ms)
+                                            | otherwise = m:(addObjectsToManager objs managerName ms)
 
 
 addObjectsToManagerAux :: [(GameObject t)] -> ObjectManager t -> ObjectManager t
 addObjectsToManagerAux objs mng = let counter = getObjectManagerCounter mng
-				      newObjects = adjustNewObjects objs (getObjectManagerCounter mng) (getObjectManagerName mng)
-				  in mng {mngObjects = newObjects ++ (getObjectManagerObjects mng), mngCounter = counter + (toEnum (length objs))}
+                                      newObjects = adjustNewObjects objs (getObjectManagerCounter mng) (getObjectManagerName mng)
+                                  in mng {mngObjects = newObjects ++ (getObjectManagerObjects mng), mngCounter = counter + (toEnum (length objs))}
 
 adjustNewObjects :: [(GameObject t)] -> Integer -> String -> [(GameObject t)]
 adjustNewObjects [] _ _ = []
@@ -267,12 +267,12 @@ findObjectFromId o mngs = findObjectFromIdAux (getGameObjectId o) (getGameObject
 findObjectFromIdAux :: Integer -> String ->  [(ObjectManager t)] -> GameObject t
 findObjectFromIdAux _ managerName [] = error ("Objects.findObjectFromIdAux error: object group " ++ managerName ++ " not found!")
 findObjectFromIdAux objectId managerName (m:ms) | (managerName == getObjectManagerName m) = searchFromId objectId (getObjectManagerObjects m)
-                     				| otherwise = findObjectFromIdAux objectId managerName ms
+                                                | otherwise = findObjectFromIdAux objectId managerName ms
 
 searchFromId :: Integer -> [(GameObject t)] -> GameObject t
 searchFromId _ [] = error ("Objects.searchFromId error: object not found!")
 searchFromId objectId (o:os) | (objectId == getGameObjectId o) = o
-			     | otherwise = searchFromId objectId os
+                             | otherwise = searchFromId objectId os
 
 
 searchObjectManager :: String -> [(ObjectManager t)] -> ObjectManager t
@@ -298,7 +298,7 @@ updateObject :: (GameObject t -> GameObject t) -> Integer -> String -> [(ObjectM
 updateObject _ _ managerName [] = error ("Objects.updateObject error: object manager: " ++ managerName ++ " not found!")
 updateObject f objectId managerName (m:ms) | (getObjectManagerName m == managerName) = (updateObjectManagerObjects newObjects m):ms
                                            | otherwise = m:(updateObject f objectId managerName ms)
-                        		   where newObjects = updateObjectAux f objectId (getObjectManagerObjects m)
+                                           where newObjects = updateObjectAux f objectId (getObjectManagerObjects m)
 
 updateObjectAux :: (GameObject t -> GameObject t) -> Integer -> [(GameObject t)] -> [(GameObject t)]
 updateObjectAux _ _ [] = error ("Objects.updateObjectAux error: object not found!")

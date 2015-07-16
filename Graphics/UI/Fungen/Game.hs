@@ -64,7 +64,6 @@ import Graphics.UI.Fungen.Map
 import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
-import Control.Applicative (Applicative(..))
 import Control.Monad
 import Data.IORef
 import Text.Printf
@@ -113,17 +112,17 @@ import Text.Printf
 -- * @fpsInfo       :: IORef (Int,Int,Float)     -- only for debugging@
 -- 
 data Game t s u v = Game {
-	gameMap       :: IORef (GameMap v), -- ^ a map (background)
-    	gameState     :: IORef u,           -- ^ initial game state
-	gameFlags     :: IORef GameFlags,   -- ^ initial game flags
-	objManagers   :: IORef [(ObjectManager s)], -- ^ some object managers
-	textList      :: IORef [Text],              -- ^ some texts
-	quadricObj    :: QuadricPrimitive,          -- ^ a quadric thing
-	windowConfig  :: IORef WindowConfig,        -- ^ a config for the main window
-	gameAttribute :: IORef t,                   -- ^ a game attribute
-	pictureList   :: IORef [TextureObject],     -- ^ some pictures
-	fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
-	}
+        gameMap       :: IORef (GameMap v), -- ^ a map (background)
+        gameState     :: IORef u,           -- ^ initial game state
+        gameFlags     :: IORef GameFlags,   -- ^ initial game flags
+        objManagers   :: IORef [(ObjectManager s)], -- ^ some object managers
+        textList      :: IORef [Text],              -- ^ some texts
+        quadricObj    :: QuadricPrimitive,          -- ^ a quadric thing
+        windowConfig  :: IORef WindowConfig,        -- ^ a config for the main window
+        gameAttribute :: IORef t,                   -- ^ a game attribute
+        pictureList   :: IORef [TextureObject],     -- ^ some pictures
+        fpsInfo       :: IORef (Int,Int,Float)  -- only for debugging
+        }
 
 -- | IOGame is the monad in which game actions run. An IOGame action
 -- takes a Game (with type parameters @t s u v@), performs some IO,
@@ -269,7 +268,7 @@ createGame gMap objectManagers winConf gState gAttrib filePicList = do
             windowConfig  = gW,
             gameAttribute = gA,
             pictureList   = gP,
-            fpsInfo 	  = gFPS
+            fpsInfo       = gFPS
             })
 
 -- | loads all of the pictures used in the game
@@ -419,17 +418,17 @@ getObjectsFromGroup mngName = do
 -- | adds an object to a previously created group
 addObjectsToGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
 addObjectsToGroup objs managerName = do
-	-- manager <- findObjectManager managerName
-	managers <- getObjectManagers
-	let newManagers = addObjectsToManager objs managerName managers 
-	setObjectManagers newManagers
+        -- manager <- findObjectManager managerName
+        managers <- getObjectManagers
+        let newManagers = addObjectsToManager objs managerName managers 
+        setObjectManagers newManagers
 
 -- | adds an object to a new group
 addObjectsToNewGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
 addObjectsToNewGroup objs newMngName = do
-	let newManager = objectGroup newMngName objs
-	managers <- getObjectManagers
-	setObjectManagers (newManager:managers)
+        let newManager = objectGroup newMngName objs
+        managers <- getObjectManagers
+        setObjectManagers (newManager:managers)
 
 -- | returns an object manager of the game, given its name (internal use)
 findObjectManager :: String -> IOGame t s u v (ObjectManager s)
@@ -506,8 +505,8 @@ setObjectSpeed speed obj = replaceObject obj (updateObjectSpeed speed)
 -- | changes the current picture of a multitextured object
 setObjectCurrentPicture :: Int -> GameObject s -> IOGame t s u v ()
 setObjectCurrentPicture n obj = do
-	picList <- getPictureList
-	replaceObject obj (updateObjectPicture n ((length picList) - 1))
+        picList <- getPictureList
+        replaceObject obj (updateObjectPicture n ((length picList) - 1))
 
 -- | changes the attribute of an object, given its new attribute
 setObjectAttribute :: s -> GameObject s -> IOGame t s u v ()
@@ -757,15 +756,15 @@ randomDouble (x,y) = liftIOtoIOGame $ randDouble (x,y)
 -- | shows the frame rate (or frame per seconds) 
 showFPS :: BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 showFPS font pos r g b = do
-	(framei,timebasei,fps) <- getFpsInfo
-	timei <- getElapsedTime
-	let frame = (toEnum (framei + 1)) :: Float
-	    timebase = (toEnum timebasei) :: Float
-	    time = (toEnum timei) :: Float
-	if (timei - timebasei > 1000)
-		then setFpsInfo (0,timei,(frame*(toEnum 1000)/(time-timebase)))
-		else setFpsInfo ((framei + 1),timebasei,fps)
-	printOnScreen (printf "%.1f" fps) font pos r g b
+        (framei,timebasei,fps) <- getFpsInfo
+        timei <- getElapsedTime
+        let frame = (toEnum (framei + 1)) :: Float
+            timebase = (toEnum timebasei) :: Float
+            time = (toEnum timei) :: Float
+        if (timei - timebasei > 1000)
+                then setFpsInfo (0,timei,(frame*(toEnum 1000)/(time-timebase)))
+                else setFpsInfo ((framei + 1),timebasei,fps)
+        printOnScreen (printf "%.1f" fps) font pos r g b
 
 -- | get the elapsed time of the game
 getElapsedTime :: IOGame t s u v Int
@@ -774,16 +773,16 @@ getElapsedTime = liftIOtoIOGame $ get elapsedTime
 -- | delay for N  seconds while continuing essential game functions
 wait :: Int -> IOGame t s u v ()
 wait delay = do
-	printText 				    -- force text messages to be printed (is not working properly!)
-	(framei,timebasei,fps) <- getFpsInfo
-	setFpsInfo (framei,(timebasei + delay),fps) -- helps FPS info to be displayed correctly (if requested)
-	startTime <- getElapsedTime
-	
-	waitAux delay startTime
+        printText                                   -- force text messages to be printed (is not working properly!)
+        (framei,timebasei,fps) <- getFpsInfo
+        setFpsInfo (framei,(timebasei + delay),fps) -- helps FPS info to be displayed correctly (if requested)
+        startTime <- getElapsedTime
+        
+        waitAux delay startTime
 
 waitAux :: Int -> Int -> IOGame t s u v ()
 waitAux delay startTime = do
-	presentTime <- getElapsedTime
-	if (presentTime - startTime > delay)
-		then return ()
-		else waitAux delay startTime
+        presentTime <- getElapsedTime
+        if (presentTime - startTime > delay)
+                then return ()
+                else waitAux delay startTime
