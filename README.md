@@ -77,7 +77,7 @@ this package. If you'd like to take it over, contact me (`sm` on the #haskell-ga
 ```
 $ cabal update
 $ [cabal sandbox init]    # if needed, to avoid dependency problems
-$ cabal install FunGEn -w ghc-7.8.4   # the OpenGL dep has some issue with newer GHC
+$ cabal install FunGEn
 $ fungen-hello            # make sure ~/.cabal/bin or ./.cabal-sandbox/bin are in your PATH
 $ fungen-pong
 $ fungen-worms
@@ -89,9 +89,9 @@ $ fungen-worms
 $ git clone https://github.com/MYUSERNAME/fungen.git
 $ cd fungen
 $ cabal sandbox init         # if needed, to avoid dependency problems
-$ cabal install -w ghc-7.8.4              # install library and examples' data files
+$ cabal install              # install library and examples' data files
 (Edit examples/pong/pong.hs)
-$ cabal configure -w ghc-7.8.4
+$ cabal configure
 $ cabal build fungen-pong && dist/build/fungen-pong/fungen-pong
 (Commit, push, send pull requests)
 ```
