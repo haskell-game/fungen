@@ -20,12 +20,18 @@ description:
 
     * Initialization, updating, removing, rendering and grouping
       routines for game objects
+
     * Definition of a game background (or map), including texture-based
       maps and tile maps
+
     * Reading and intepretation of the player's keyboard and mouse input
+
     * Collision detection
+
     * Time-based functions and pre-defined game actions
+
     * Loading and displaying of 24-bit bitmap files
+
     * Some debugging and game performance evaluation facilities
 
     This package receives only basic maintenance (see home page).
