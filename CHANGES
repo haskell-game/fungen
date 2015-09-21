@@ -1,3 +1,9 @@
+1.0 2015/9/21
+
+* support GHC 7.10
+* support stack
+* repo moved to haskell-game organisation
+
 0.4.6.1 2014/10/9
 
 * update changelog

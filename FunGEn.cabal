@@ -1,5 +1,5 @@
 name:               FunGEn
-version:            0.4.6.1
+version:            1.0
 copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
 license:            BSD3
 license-file:       LICENSE
@@ -36,7 +36,7 @@ description:
 
     This package receives only basic maintenance (see home page).
 
-stability:          alpha
+stability:          beta
 cabal-version:      >= 1.8
 build-type:         Simple
 tested-with:        GHC==7.8.4, GHC==7.10.2
@@ -49,7 +49,7 @@ data-files:
 
 source-repository head
   type:     git
-  location: https://github.com/simonmichael/fungen
+  location: https://github.com/haskell-game/fungen
 
 library
   ghc-options:      -W
@@ -69,7 +69,7 @@ library
                     Graphics.UI.GLUT.Input
 
   build-depends:
-                    base   == 4.*
+                    base == 4.*
                    ,base-compat
                    ,OpenGL <= 2.14
                    ,GLUT <= 2.8

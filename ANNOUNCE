@@ -1,67 +1,75 @@
-I'm pleased to announce the hackage release of FunGEn 0.4!  
-(Actually 0.4.2 as my 0.4 announcement did not reach the mail lists.)
+I'm pleased to announce the release of FunGEn 1.0 !
 
-FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
-OpenGL/GLUT-based, imperative game engine/framework.  With very few
-dependencies and two example games, it's one of the easiest ways to
-get started with game development in Haskell.
+What is it ?
 
-FunGEn was probably the first Haskell game framework, created by Andre
-Furtado in 2002 (!). Here's his original feature list:
+FunGEn (Functional Game Engine) is the oldest game engine in Haskell.
+It was created by Andre Furtado in 2002, has never been used since,
+and yet it is arguably still the easiest and most practical way to
+make a video game using Haskell. It is BSD-licensed, installs easily
+on unix, mac and windows, does not use FRP, and comes with two
+playable example games.
 
-* Initialization, updating, removing, rendering and grouping
+What does it do ?
+
+Here's Andre's original feature list:
+
+- Initialization, updating, removing, rendering and grouping
   routines for game objects;
 
-* Definition of a game background (or map), including texture-based
+- Definition of a game background (or map), including texture-based
   maps and tile maps;
 
-* Reading and intepretation of the player's keyboard input;
+- Reading and intepretation of the player's keyboard input;
 
-* Collision detection;
+- Collision detection;
 
-* Time-based functions and pre-defined game actions;
+- Time-based functions and pre-defined game actions;
 
-* Loading and displaying of 24-bit bitmap files;
+- Loading and displaying of 24-bit bitmap files;
 
-* Some debugging and game performance evaluation facilities;
+- Some debugging and game performance evaluation facilities;
 
-* Sound support (actually for windows platforms only... :-[ )
+- Sound support (actually for windows platforms only... :-[ )
 
-What's new in 0.4.x:
+What's new in 1.0 ?
 
-* a new hakyll-based website, incorporating the old site content
-* new haddock documentation
-* tested with GHC 7.6
-* fixed buggy input when holding down keys on windows
-* input handlers now receive mouse position and modifier state
-  (inspired by Pradeep Kumar; see fungentest.hs for examples)
-* added q as quit key in examples
+- supports GHC 7.10
 
-Home:    http://joyful.com/fungen
-Hackage: http://hackage.haskell.org/package/FunGEn
-Code:    http://hub.darcs.net/simon/fungen
+- supports stack
 
-Install from hackage: 
+- the repo (and project) has moved to the haskell-game organization on Github
+
+How to install
 
 $ cabal update
 $ cabal install FunGEn
+# ensure ~/.cabal/bin or windows equiv. is in your PATH
 
-Install source and run examples:
+or 
 
-$ darcs get http://hub.darcs.net/simon/fungen
+$ git clone https://github.com/haskell-game/fungen
 $ cd fungen
-$ cabal install
-$ (cd examples/pong; ghc pong; ./pong)
-$ (cd examples/worms; ghc worms; ./worms)
+$ stack install
 
-Contribute patches:
+How to run the examples
 
-- log in to hub.darcs.net and fork http://hub.darcs.net/simon/fungen
-- push changes to your branch
-- give me a "pull request" on #haskell-game
+$ fungen-hello
+$ fungen-pong
+$ fungen-worms
 
-I have maintained FunGEn very sporadically. If you'd like to take it
-and run with it, or co-maintain, let's chat! I'm sm on the
-#haskell-game IRC channel.
+More info
 
--Simon
+http://hackage.haskell.org/package/FunGEn
+https://github.com/haskell-game/fungen
+http://joyful.com/fungen - old home page
+
+Why ?
+
+I think FunGEn still has some value, for building games and also as an
+example of how to structure games in haskell. I don't have time to do
+much with it, so I've moved it to the haskell-game organization, where
+all org members now have push access.  I'd like it to be as open as
+possible to contributors, and am seeking a new or co- maintainer.
+
+Best,
+-Simon (sm on #haskell-game)
