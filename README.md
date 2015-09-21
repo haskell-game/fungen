@@ -51,18 +51,18 @@ this package. If you'd like to take it over, contact me (`sm` on the #haskell-ga
 
 **Home:**      <http://joyful.com/fungen> \
 **Hackage:**   <http://hackage.haskell.org/package/FunGEn> \
-**Changelog:** <http://hackage.haskell.org/package/FunGEn/changelog> \
-**Code:**      <https://github.com/simonmichael/fungen> \
+**Code:**      <https://github.com/haskell-game/fungen> \
 \
 **Docs:**\
-&nbsp; (Latest available) [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.2/doc/html/Graphics-UI-Fungen.html) \
+&nbsp; [Changelog](http://hackage.haskell.org/package/FunGEn/changelog) \
+&nbsp; [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.6.1/doc/html/Graphics-UI-Fungen.html) \
 &nbsp; Andre's original [pong tutorial](site/example.html) \
 &nbsp; Haskell wiki [Game_Development](http://www.haskell.org/haskellwiki/Game_Development) \
 &nbsp; Haskell wiki [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1) \
 <!-- Updated [pong tutorial](TUTORIAL.html) \ -->
 <!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) \ -->
 \
-**Discussion & help:**\
+**Community:**\
 &nbsp; [#haskell-game](http://ircbrowse.net/day/haskell-game/today/recent) IRC channel
        ([join](http://webchat.freenode.net/?channels=haskell-game)) \
 &nbsp; [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow \
@@ -71,35 +71,27 @@ this package. If you'd like to take it over, contact me (`sm` on the #haskell-ga
 
 
 ## Getting started
-
-**Install from hackage, run the examples:**
-
 ```
 $ cabal update
 $ [cabal sandbox init]    # if needed, to avoid dependency problems
-$ cabal install FunGEn
-$ fungen-hello            # make sure ~/.cabal/bin or ./.cabal-sandbox/bin are in your PATH
+$ cabal install FunGEn    # & make sure ~/.cabal/bin or ./.cabal-sandbox/bin or windows equiv. are in your PATH
+$ fungen-hello
 $ fungen-pong
 $ fungen-worms
 ```
-
-**Contribute patches:**
+or
 ```
-(Fork https://github.com/simonmichael/fungen)
-$ git clone https://github.com/MYUSERNAME/fungen.git
+$ git clone http://github.com/haskell-game/fungen
 $ cd fungen
-$ cabal sandbox init         # if needed, to avoid dependency problems
-$ cabal install              # install library and examples' data files
-(Edit examples/pong/pong.hs)
-$ cabal configure
-$ cabal build fungen-pong && dist/build/fungen-pong/fungen-pong
-(Commit, push, send pull requests)
-```
+$ stack install
+$ fungen-hello
+$ fungen-pong
+$ fungen-worms
+``````
 
+## History
 
----
-
-## FAQ
+Andre's 2002 site included this Q & A:
 
 **What is a game engine?**
 
@@ -130,11 +122,7 @@ possible to call OpenGL/GLUT routines (which were written in the C
 language) when programming in Haskell. You can find more info on HOpenGL
 in my HOpenGL Tutorial site, or in its official site.
 
----
-
-## To do
-
-Andre's 2002 site included this message:
+and this:
 
 > Current Status: Some feedback indicated that the first version of FunGEn was not as "functional" as it was desired: some game issues were still being dealt through an imperative fashion. This way, the authors of this project decided to change the game engine philosophy: programmers should describe a game as a set of "specifications" rather than defining its behavior imperatively. One plausible alternative for accomplishing this task
 > is porting the Clean Game Library (CGL) to Haskell, adding some FunGEn specific features. Hence, this is the actual status of the FunGEn project: it is being rebuilt in order to provide game programming mechanisms following the CGL
@@ -162,14 +150,7 @@ and this todo list:
 > Would you like to suggest a feature? Feel free to do it. Would you like to
 > implement a feature? Please do it! Keep in touch.
 
-and this [old windows code with sound support](/site/FunGEn0.1-Win32.zip).
-
-
----
-
-## Credits
-
-Andre's 2002 credits:
+and these credits:
 
 > FunGEn was created by Andre Furtado, Computation Science graduation
 > student at the Informatics Center (CIn) of the Federal University of
@@ -193,5 +174,3 @@ Andre's 2002 credits:
 > or FITNESS FOR A PARTICULAR PURPOSE. I would thank you if you cite my name
 > and this site if you are going to use FunGEn for other things besides home
 > programming.
-
----
