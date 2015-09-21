@@ -55,7 +55,7 @@ this package. If you'd like to take it over, contact me (`sm` on the #haskell-ga
 \
 **Docs:**\
 &nbsp; [Changelog](http://hackage.haskell.org/package/FunGEn/changelog) \
-&nbsp; [API docs](http://hackage.haskell.org/packages/archive/FunGEn/0.4.6.1/doc/html/Graphics-UI-Fungen.html) \
+&nbsp; [API docs](https://hackage.haskell.org/package/FunGEn/docs/Graphics-UI-Fungen.html) \
 &nbsp; Andre's original [pong tutorial](site/example.html) \
 &nbsp; Haskell wiki [Game_Development](http://www.haskell.org/haskellwiki/Game_Development) \
 &nbsp; Haskell wiki [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1) \
@@ -93,34 +93,34 @@ $ fungen-worms
 
 Andre's 2002 site included this Q & A:
 
-**What is a game engine?**
-
-A game engine can be considered as a library that provides game facilities
-to a game programmer. When using a game engine, the programmer must
-specify when the game events happen, rather than how they are
-implemented. A same functionality may have its implementation varying from
-platform to platform, in the case the engine is platform-independent. The
-main advantage of a game engine is that it can be reused to the
-development of many different kind of games, in an automated way, saving a
-lot of programming time.
-
-**Why Haskell?**
-
-We believe that Haskell is a great language to develop games, because of
-its high level of abstraction and the generation of a more concise,
-elegant and shorter code. This is great for code maintenance and
-understanding. Combining the power of Haskell with the facilities provided
-by game engines seems a promising project. You can find more info on
-Haskell in its official site.
-
-**What is HOpenGL?**
-
-HOpenGL stands for Haskell Open Graphics Library. Actually, it is a
-binding to one of the most famous graphics libraries around the world
-(OpenGL) and its auxiliary toolkit (GLUT). In other words, it makes
-possible to call OpenGL/GLUT routines (which were written in the C
-language) when programming in Haskell. You can find more info on HOpenGL
-in my HOpenGL Tutorial site, or in its official site.
+> **What is a game engine?**
+> 
+> A game engine can be considered as a library that provides game facilities
+> to a game programmer. When using a game engine, the programmer must
+> specify when the game events happen, rather than how they are
+> implemented. A same functionality may have its implementation varying from
+> platform to platform, in the case the engine is platform-independent. The
+> main advantage of a game engine is that it can be reused to the
+> development of many different kind of games, in an automated way, saving a
+> lot of programming time.
+> 
+> **Why Haskell?**
+> 
+> We believe that Haskell is a great language to develop games, because of
+> its high level of abstraction and the generation of a more concise,
+> elegant and shorter code. This is great for code maintenance and
+> understanding. Combining the power of Haskell with the facilities provided
+> by game engines seems a promising project. You can find more info on
+> Haskell in its official site.
+> 
+> **What is HOpenGL?**
+> 
+> HOpenGL stands for Haskell Open Graphics Library. Actually, it is a
+> binding to one of the most famous graphics libraries around the world
+> (OpenGL) and its auxiliary toolkit (GLUT). In other words, it makes
+> possible to call OpenGL/GLUT routines (which were written in the C
+> language) when programming in Haskell. You can find more info on HOpenGL
+> in my HOpenGL Tutorial site, or in its official site.
 
 and this:
 
