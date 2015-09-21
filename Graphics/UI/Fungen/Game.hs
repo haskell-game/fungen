@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_HADDOCK hide #-}
 {- | 
 This FunGEn module contains some important game routines.
@@ -64,7 +65,9 @@ import Graphics.UI.Fungen.Map
 import Graphics.UI.Fungen.Objects
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative (Applicative(..))
+#endif
 import Control.Monad
 import Data.IORef
 import Text.Printf
