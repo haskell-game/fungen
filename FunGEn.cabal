@@ -71,8 +71,8 @@ library
   build-depends:
                     base == 4.*
                    ,base-compat
-                   ,OpenGL <= 2.14
-                   ,GLUT <= 2.8
+                   ,OpenGL
+                   ,GLUT
                    ,random
 
 executable fungen-hello

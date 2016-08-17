@@ -1,9 +1,3 @@
 packages:
 - '.'
-resolver: lts-3.6
-extra-deps:
-- GLURaw-1.5.0.1
-- GLUT-2.7.0.2
-- ObjectName-1.1.0.0
-- OpenGL-2.13.0.0
-- OpenGLRaw-2.5.4.0
+resolver: lts-6.12
