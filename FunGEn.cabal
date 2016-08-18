@@ -1,5 +1,5 @@
 name:               FunGEn
-version:            1.0
+version:            1.0.1
 copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
 license:            BSD3
 license-file:       LICENSE
@@ -39,7 +39,7 @@ description:
 stability:          beta
 cabal-version:      >= 1.8
 build-type:         Simple
-tested-with:        GHC==7.8.4, GHC==7.10.2
+tested-with:        GHC==7.10.3
 extra-source-files: 
                     README.md,
                     CHANGES
@@ -79,7 +79,7 @@ executable fungen-hello
   ghc-options: -W
   hs-source-dirs: examples
   main-is:          hello.hs
-  build-depends:    FunGEn
+  build-depends:    FunGEn == 1.0.*
                    ,base
                    ,OpenGL
                    ,GLUT
