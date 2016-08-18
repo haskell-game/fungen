@@ -39,7 +39,7 @@ description:
 stability:          beta
 cabal-version:      >= 1.8
 build-type:         Simple
-tested-with:        GHC==7.10.3
+tested-with:        GHC==7.10.3, GHC==8.0
 extra-source-files: 
                     README.md,
                     CHANGES
