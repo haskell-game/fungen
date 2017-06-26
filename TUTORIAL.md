@@ -203,7 +203,7 @@ Now we have a lot of local definitions, each one doing a different thing:
 - Initialization of the game special attribute, or score (initScore);
 - Specification of the keys that will be interpreted in our game and their respective event actions (input).
 
-What should we do with them? Call function funInit! Here you have it (the 3 other parameters will be explained below): 
+What should we do with them? Call function funInit! Here you have it (the 3 other parameters will be explained below):
 
         funInit winConfig gameMap [bar,ball] () initScore input gameCycle (Timer 40) bmpList
 
@@ -248,7 +248,7 @@ moving to the top left corner (FunGEn is responsible for moving all game
 objects, according to their speed and position). After the first game
 cycle, the new ball position will be (120,130), for example.
 
-All of this object creation is done by the following code: 
+All of this object creation is done by the following code:
 
     createBall :: PongObject
     createBall = let ballPic = Basic (Circle 3.0 0.0 1.0 0.0 Filled)
@@ -295,8 +295,8 @@ is to find (retrieve) the bar object from the game and increment its
 position (let's increment it by 5 units). The following code does this
 task:
 
-    moveBarToRight :: PongAction ()
-    moveBarToRight = do
+    moveBarToRight :: Modifiers -> Position -> PongAction ()
+    moveBarToRight _ _ = do
         obj <- findObject "bar" "barGroup"
         (pX,pY) <- getObjectPosition obj
         (sX,_)  <- getObjectSize obj
@@ -326,8 +326,8 @@ difference is that now we need to avoid the bar from moving to beyond the
 left window boundary. The final check is then modified; the code for this
 function is:
 
-    moveBarToLeft :: PongAction ()
-    moveBarToLeft = do
+    moveBarToLeft :: Modifiers -> Position -> PongAction ()
+    moveBarToLeft _ _ = do
         obj <- findObject "bar" "barGroup"
         (pX,pY) <- getObjectPosition obj
         (sX,_)  <- getObjectSize obj
