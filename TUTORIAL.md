@@ -344,7 +344,7 @@ screen. Hence, the beginning of this fuction would be:
     gameCycle :: PongAction ()
     gameCycle = do
         (Score n) <- getGameAttribute
-        printOnScreen (show n) BitmapTimesRoman24 (0,0) 1.0 1.0 1.0
+        printOnScreen (show n) TimesRoman24 (0,0) 1.0 1.0 1.0
 
 Both getGameAttribute and printOnScreen functions are FunGEn pre-defined
 functions. The first retrieves the game special attribute, and the later
