@@ -21,7 +21,7 @@ import module FunGEn:
 
     module Main where
 
-    import FunGEn
+    import Graphics.UI.Fungen
 
 Now it is necessary to define an algebraic data type for the game special
 attributes (in this case, the score, which is represented by an Int type):
