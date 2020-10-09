@@ -67,6 +67,8 @@ library
                     Graphics.UI.Fungen.Types,
                     Graphics.UI.Fungen.Util,
                     Graphics.UI.GLUT.Input
+  other-modules:    Paths_FunGEn
+  autogen-modules:  Paths_FunGEn
 
   build-depends:
                     base == 4.*
@@ -79,6 +81,8 @@ executable fungen-hello
   ghc-options: -W
   hs-source-dirs: examples
   main-is:          hello.hs
+  other-modules:    Paths_FunGEn
+  autogen-modules:  Paths_FunGEn
   build-depends:    FunGEn == 1.0.*
                    ,base
                    ,OpenGL
@@ -89,6 +93,8 @@ executable fungen-pong
   ghc-options: -W
   hs-source-dirs: examples
   main-is:          pong/pong.hs
+  other-modules:    Paths_FunGEn
+  autogen-modules:  Paths_FunGEn
   build-depends:    FunGEn == 1.0.*
                    ,base
                    ,OpenGL
@@ -99,6 +105,8 @@ executable fungen-worms
   ghc-options: -W
   hs-source-dirs: examples
   main-is:          worms/worms.hs
+  other-modules:    Paths_FunGEn
+  autogen-modules:  Paths_FunGEn
   build-depends:    FunGEn == 1.0.*
                    ,base
                    ,OpenGL
