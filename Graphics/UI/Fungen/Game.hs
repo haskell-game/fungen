@@ -167,6 +167,9 @@ instance Monad (IOGame t s u v) where
   (>>=) = bindST
   return = unitST
 
+instance MonadFail (IOGame t s u v) where
+  fail s = liftIOtoIOGame (fail s)
+
 runIOGame :: IOGame t s u v a -> Game t s u v -> IO (Game t s u v,a)  -- (a,Game t s u v) the state tuple
 runIOGame (IOG f) g = f g
 
