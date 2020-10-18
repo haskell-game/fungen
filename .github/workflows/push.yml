@@ -96,19 +96,19 @@ jobs:
       run: |
         $stack setup --install-ghc
 
-    # - name: Install haskell deps
-    #   env:
-    #     stack: ${{ matrix.plan.stack }}
-    #   run: |
-    #     $stack build --only-dependencies
+    - name: Install haskell deps
+      env:
+        stack: ${{ matrix.plan.stack }}
+      run: |
+        $stack build --only-dependencies
 
-    # - name: Build fast
-    #   env:
-    #     stack: ${{ matrix.plan.stack }}
-    #   run: |
-    #     $stack build --fast --ghc-options=-Werror --force-dirty
-    #     # --ghc-options=-fforce-recomp   # needed occasionally to clear out stale compiled modules
-    #     #  --pedantic
+    - name: Build fast
+      env:
+        stack: ${{ matrix.plan.stack }}
+      run: |
+        $stack build --fast --ghc-options=-Werror --force-dirty
+        # --ghc-options=-fforce-recomp   # needed occasionally to clear out stale compiled modules
+        #  --pedantic
 
     # - name: Install shelltestrunner
     #   env:
