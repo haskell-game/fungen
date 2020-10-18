@@ -44,7 +44,7 @@ cabal-version:  >= 1.10
 
 extra-source-files:
     README.md
-    CHANGES
+    CHANGES.md
     TUTORIAL.md
     site/brief.gif
     site/example.html

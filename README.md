@@ -39,7 +39,7 @@ $ fungen-pong
 $ fungen-worms
 ```
 ### Latest unreleased:
-([changes](https://github.com/haskell-game/fungen/blob/master/CHANGES#L1))
+([changes](https://github.com/haskell-game/fungen/blob/master/CHANGES.md#L1))
 ```
 $ git clone http://github.com/haskell-game/fungen
 $ cd fungen
@@ -55,7 +55,7 @@ $ stack exec fungen-worms
 - https://github.com/haskell-game/fungen#readme
 - Andre's tutorial, [original](site/example.html) or [reformatted](TUTORIAL.md) version
 - [Haddock API docs](https://hackage.haskell.org/package/FunGEn/docs/Graphics-UI-Fungen.html)
-- [Changelog](CHANGES)
+- [Changelog](CHANGES.md)
 - [Hackage package](http://hackage.haskell.org/package/FunGEn)
 - [FunGEn](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
 - [#haskell-game](http://webchat.freenode.net/?channels=haskell-game) IRC channel
