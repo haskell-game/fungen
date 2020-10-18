@@ -82,7 +82,7 @@ library
   build-depends:
       GLUT
     , OpenGL
-    , base ==4.*
+    , base >=4.9 && <5
     , base-compat
     , random
   exposed-modules:
