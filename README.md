@@ -18,9 +18,16 @@ development. It provides:
 * Time-based functions and pre-defined game actions
 * Loading and displaying of 24-bit bitmap files
 * Some debugging and game performance evaluation facilities
-<!-- * Sound support (windows only, not in current release) -->
 
-[Simon Michael](http://joyful.com) provides infrequent basic maintenance for
+Limitations:
+
+* No sound support 
+  (consider adding 
+  [OpenAL](http://hackage.haskell.org/package/OpenAL), 
+  [elerea](http://hackage.haskell.org/package/elerea), or 
+  [sdl2-mixer](http://hackage.haskell.org/package/sdl2-mixer))
+
+[Simon Michael](http://joyful.com) provides infrequent maintenance for
 this package. If you'd like to take it over, contact me (`sm` on the #haskell-game IRC channel).
 
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
