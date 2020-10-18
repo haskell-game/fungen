@@ -109,7 +109,7 @@ executable fungen-hello
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.0.*
+      FunGEn ==1.1.*
     , GLUT
     , OpenGL
     , base
@@ -124,7 +124,7 @@ executable fungen-pong
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.0.*
+      FunGEn ==1.1.*
     , GLUT
     , OpenGL
     , base
@@ -139,7 +139,7 @@ executable fungen-worms
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.0.*
+      FunGEn ==1.1.*
     , GLUT
     , OpenGL
     , base
