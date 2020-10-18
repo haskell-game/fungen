@@ -1,7 +1,5 @@
 # **FunGEn** (**Fun**ctional **G**ame **En**gine)
 
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 
 FunGEn is a BSD-licensed, cross-platform,
@@ -25,6 +23,8 @@ development. It provides:
 [Simon Michael](http://joyful.com) provides infrequent basic maintenance for
 this package. If you'd like to take it over, contact me (`sm` on the #haskell-game IRC channel).
 
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
 
 ## Install
 ### Latest released:
