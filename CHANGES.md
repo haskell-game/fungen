@@ -1,6 +1,6 @@
 ## 1.1.1 2020-10-18
 
-* restore support for GHC 8.6 and perhaps older versions
+* restore support for GHC 8.0 - 8.6, fix hackage haddock docs
 
 ## 1.1 2020-10-18
 
