@@ -1,6 +1,7 @@
 # FunGEn pong tutorial
 
-This is a markdown reconstruction of the original HTML tutorial.
+This is a markdown reconstruction of the 
+[original HTML tutorial](https://htmlpreview.github.io/?https://github.com/haskell-game/fungen/blob/master/site/example.html).
 
 Here we'll develop, step by step, a small version of a very famous game
 called Pong. The player will use the left and right arrow keys to move a
@@ -95,7 +96,7 @@ are we going to use the texture, the horizontal and vertical size of the
 texture and, finally, the size of the map. Suppose the file tex.bmp
 contains the following texture and that we'll use it in our map:
 
-<img src="/site-files/tex.bmp" />
+<img src="site/tex.bmp" />
 
 Suppose also that each copy of this texture will have a size of 50, both
 horizontally and vertically. This means that its width will occupy (50/250
