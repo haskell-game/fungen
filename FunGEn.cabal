@@ -1,32 +1,32 @@
 name:           FunGEn
 version:        1.1
-synopsis:       A lightweight, cross-platform, OpenGL/GLUT-based game engine.
+synopsis:       A lightweight, cross-platform, OpenGL-based game engine.
 description:
     FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
-    OpenGL/GLUT-based, non-FRP game engine/framework written in
-    Haskell. Created by Andre Furtado in 2002, it's the oldest Haskell
+    OpenGL-based, non-FRP game engine written in Haskell. 
+    Created by Andre Furtado in 2002, it's the oldest Haskell
     game engine, and with very few dependencies and two example games,
     it's one of the easiest ways to get started with Haskell game
     development.
-
+    .
     The FunGEn library provides:
-
+    .
     * Initialization, updating, removing, rendering and grouping
       routines for game objects
-
+    .
     * Definition of a game background (or map), including texture-based
       maps and tile maps
-
+    .
     * Reading and intepretation of the player's keyboard and mouse input
-
+    .
     * Collision detection
-
+    .
     * Time-based functions and pre-defined game actions
-
+    .
     * Loading and displaying of 24-bit bitmap files
-
+    .
     * Some debugging and game performance evaluation facilities
-
+    .
     This package receives only basic maintenance (see home page).
 
 category:       Game
