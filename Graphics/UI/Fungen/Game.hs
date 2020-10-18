@@ -68,7 +68,13 @@ import Graphics.UI.GLUT
 #if !MIN_VERSION_base(4,8,0)
 import Control.Applicative (Applicative(..))
 #endif
+#if MIN_VERSION_base(4,13,0)
 import Control.Monad
+#else
+import Prelude hiding (fail)
+import Control.Monad.Fail (MonadFail(fail))
+import Control.Monad (ap,liftM)
+#endif
 import Data.IORef
 import Text.Printf
 
