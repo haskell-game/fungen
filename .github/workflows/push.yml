@@ -1,0 +1,123 @@
+# Runs on notable pushes to master.
+
+name: push CI
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/push.yml'
+      - 'stack*.yaml'
+      - '*.cabal'
+      - '**.hs'
+      - '!**.md'
+      - '!**.png'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        plan:
+        # - { ghc: "80" , stack: "stack --stack-yaml=stack8.0.yaml" }
+        # - { ghc: "82" , stack: "stack --stack-yaml=stack8.2.yaml" }
+        # - { ghc: "84" , stack: "stack --stack-yaml=stack8.4.yaml" }
+        # - { ghc: "86" , stack: "stack --stack-yaml=stack8.6.yaml" }
+        - { ghc: "88" , stack: "stack --stack-yaml=stack.yaml" }
+        # - { ghc: "810"  , stack: "stack --stack-yaml=stack8.10.yaml" }
+
+    steps:
+
+    - name: Check out
+      uses: actions/checkout@v2
+      # deep clone so we can restore timestamps (see below)
+      with:
+        fetch-depth: 0
+
+    # Restore timestamps to help stack not rebuild unchanged files.
+    # https://stackoverflow.com/questions/60906336
+    # https://stackoverflow.com/a/36243002/84401
+    # https://www.reddit.com/r/haskell/comments/g00ldn/haskell_stack_on_github_actions/
+    - name: Restore source file timestamps
+      run: |
+        git ls-tree -r --name-only HEAD | while read filename; do
+          TS="$(git log -1 --format="%ct" -- ${filename})"
+          touch "${filename}" -mt "$(date --date="@$TS" "+%Y%m%d%H%M.%S")"
+        done
+      # help emacs highlighter: "
+
+    # things to be cached/restored:
+
+    - name: Cache stack global package db
+      id:   stack-global
+      uses: actions/cache@v2
+      with:
+        path: ~/.stack
+        key: ${{ runner.os }}-stack-global-${{ matrix.plan.ghc }}-${{ hashFiles('**.yaml') }}
+        restore-keys: |
+             ${{ runner.os }}-stack-global-${{ matrix.plan.ghc }}
+
+    - name: Cache stack-installed programs in ~/.local/bin
+      id:   stack-programs
+      uses: actions/cache@v2
+      with:
+        path: ~/.local/bin
+        key: ${{ runner.os }}-stack-programs-${{ matrix.plan.ghc }}-${{ hashFiles('**.yaml') }}
+        restore-keys: |
+             ${{ runner.os }}-stack-programs-${{ matrix.plan.ghc }}
+
+    - name: Cache .stack-work
+      uses: actions/cache@v2
+      with:
+        path: .stack-work
+        key: ${{ runner.os }}-stack-work-${{ matrix.plan.ghc }}-${{ hashFiles('**.yaml') }}
+        restore-keys: |
+             ${{ runner.os }}-stack-work-${{ matrix.plan.ghc }}
+
+    # actions:
+
+    - name: Install stack
+      curl -L https://get.haskellstack.org/stable/linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C $INSTALLDIR '*/stack'
+      mkdir -p ~/.local/bin
+      export PATH=~/.local/bin:$PATH
+      if [[ ! -x ~/.local/bin/stack ]]; then curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'; chmod a+x ~/.local/bin/stack; fi
+      run: |
+        $stack --version
+      env:
+        stack: ${{ matrix.plan.stack }}
+
+    - name: Install GHC
+      env:
+        stack: ${{ matrix.plan.stack }}
+      run: |
+        $stack setup --install-ghc
+
+    - name: Install haskell deps
+      env:
+        stack: ${{ matrix.plan.stack }}
+      run: |
+        $stack build --only-dependencies
+
+    - name: Build fast
+      env:
+        stack: ${{ matrix.plan.stack }}
+      run: |
+        $stack build --fast --ghc-options=-Werror --force-dirty
+        # --ghc-options=-fforce-recomp   # needed occasionally to clear out stale compiled modules
+        #  --pedantic
+
+    # - name: Install shelltestrunner
+    #   env:
+    #     stack: ${{ matrix.plan.stack }}
+    #   run: |
+    #     export PATH=~/.local/bin:$PATH
+    #     if [[ ! -x ~/.local/bin/shelltest ]]; then $stack install shelltestrunner-1.9; fi
+    #     shelltest --version
+
+    # - name: Test functional tests (excluding addons)
+    #   env:
+    #     stack: ${{ matrix.plan.stack }}
+    #   run: |
+    #     export PATH=~/.local/bin:$PATH
+    #     COLUMNS=80 $stack exec -- shelltest --execdir -j16 tests -x /bin -x /addons
