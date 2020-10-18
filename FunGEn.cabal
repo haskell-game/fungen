@@ -1,5 +1,5 @@
 name:           FunGEn
-version:        1.0.1.99
+version:        1.1
 synopsis:       A lightweight, cross-platform, OpenGL/GLUT-based game engine.
 description:
     FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
