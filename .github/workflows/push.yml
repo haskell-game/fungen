@@ -79,7 +79,7 @@ jobs:
 
     - name: Install OpenGL
       run: |
-        apt install -y libopengl0
+        sudo apt install -y libopengl0
 
     - name: Install stack
       run: |
