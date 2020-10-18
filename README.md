@@ -32,7 +32,7 @@ this package. If you'd like to take it over, contact me (`sm` on the #haskell-ga
 ```
 $ stack install FunGEn  # or cabal
 ```
-Make sure `~/.local/bin` (stack) or `~/.cabal/bin` (cabal) or the windows equivalent are in your shell PATH, then:
+Make sure `~/.local/bin` (stack) or `~/.cabal/bin` (cabal) or the windows equivalent are in your shell PATH, then run the example games:
 ```
 $ fungen-hello
 $ fungen-pong
