@@ -18,6 +18,7 @@ development. It provides:
 * Time-based functions and pre-defined game actions
 * Loading and displaying of 24-bit bitmap files
 * Some debugging and game performance evaluation facilities
+* Supports GHC 8.0-8.10
 
 Limitations:
 
