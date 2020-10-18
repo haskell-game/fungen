@@ -3,8 +3,8 @@
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 
 FunGEn is a BSD-licensed, cross-platform,
-OpenGL/GLUT-based, non-FRP game engine/framework written in
-Haskell. Created by Andre Furtado in 2002, it's the oldest Haskell
+OpenGL/GLUT-based, non-FRP game engine written in Haskell. 
+Created by Andre Furtado in 2002, it's the oldest Haskell
 game engine, and with very few dependencies and two example games,
 it's one of the easiest ways to get started with Haskell game
 development. It provides:
