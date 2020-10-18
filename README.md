@@ -1,9 +1,8 @@
 # **FunGEn** (**Fun**ctional **G**ame **En**gine)
 
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
-</div>
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 
 FunGEn is a BSD-licensed, cross-platform,
 OpenGL/GLUT-based, non-FRP game engine/framework written in
@@ -23,12 +22,12 @@ development. It provides:
 * Some debugging and game performance evaluation facilities
 <!-- * Sound support (windows only, not in current release) -->
 
-[Simon Michael](http://joyful.com) provides basic maintenance for
+[Simon Michael](http://joyful.com) provides infrequent basic maintenance for
 this package. If you'd like to take it over, contact me (`sm` on the #haskell-game IRC channel).
 
 
 ## Install
-### Latest released
+### Latest released:
 ([changes](http://hackage.haskell.org/package/FunGEn/changelog))
 ```
 $ stack install FunGEn  # or cabal
@@ -39,7 +38,7 @@ $ fungen-hello
 $ fungen-pong
 $ fungen-worms
 ```
-### Latest unreleased
+### Latest unreleased:
 ([changes](https://github.com/haskell-game/fungen/blob/master/CHANGES#L1))
 ```
 $ git clone http://github.com/haskell-game/fungen
@@ -53,25 +52,25 @@ $ stack exec fungen-worms
 
 ## Docs
 
-- Home: <https://github.com/haskell-game/fungen>
-- Hackage: <http://hackage.haskell.org/package/FunGEn>
+- https://github.com/haskell-game/fungen#readme
 - Andre's tutorial, [original](site/example.html) or [reformatted](TUTORIAL.md) version
 - [Haddock API docs](https://hackage.haskell.org/package/FunGEn/docs/Graphics-UI-Fungen.html)
 - [Changelog](CHANGES)
-- Haskell wiki: [Game_Development](http://www.haskell.org/haskellwiki/Game_Development)
-- Haskell wiki: [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1)
+- [Hackage package](http://hackage.haskell.org/package/FunGEn)
 - [FunGEn](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
 - [#haskell-game](http://webchat.freenode.net/?channels=haskell-game) IRC channel
   <!-- ([log](http://ircbrowse.tomsmeding.com/day/haskell-game/today/recent)) -->
 - [/r/haskellgamedev](http://www.reddit.com/r/haskellgamedev) reddit
 - [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
-<!-- the [old site](http://www.cin.ufpe.br/~haskell/fungen) -->
+- Haskell wiki: [Game_Development](http://www.haskell.org/haskellwiki/Game_Development)
+- Haskell wiki: [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1)
+- [Andre's old site](http://www.cin.ufpe.br/~haskell/fungen)
 
 
 
 ## History
 
-Excerpts from Andre's original website in 2002:
+Excerpts from Andre's website in 2002:
 
 **What is a game engine?**
 
