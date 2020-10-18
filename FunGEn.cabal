@@ -1,13 +1,6 @@
-name:               FunGEn
-version:            1.0.1.99
-copyright:          (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
-license:            BSD3
-license-file:       LICENSE
-author:             Andre Furtado <awbf@cin.ufpe.br>
-maintainer:         Simon Michael <simon@joyful.com>
-homepage:           http://joyful.com/fungen
-category:           Game
-synopsis:           A lightweight, cross-platform, OpenGL/GLUT-based game engine.
+name:           FunGEn
+version:        1.0.1.99
+synopsis:       A lightweight, cross-platform, OpenGL/GLUT-based game engine.
 description:
     FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
     OpenGL/GLUT-based, non-FRP game engine/framework written in
@@ -36,79 +29,114 @@ description:
 
     This package receives only basic maintenance (see home page).
 
-stability:          beta
-cabal-version:      >= 1.8
-build-type:         Simple
-tested-with:        GHC==7.10.3, GHC==8.0, GHC==8.8.4, GHC==8.10.2
-extra-source-files: 
-                    README.md,
-                    CHANGES
+category:       Game
+stability:      beta
+homepage:       http://joyful.com/fungen
+bug-reports:    https://github.com/haskell-game/fungen/issues
+author:         Andre Furtado <awbf@cin.ufpe.br>
+maintainer:     Simon Michael <simon@joyful.com>
+copyright:      (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
+license:        BSD3
+license-file:   LICENSE
+tested-with:    GHC==7.10.3, GHC==8.0.2, GHC==8.2.2, GHC==8.8.4, GHC==8.10.2
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    CHANGES
+    README.md
+
 data-files:
-                    examples/pong/*.bmp,
-                    examples/worms/*.bmp
+    examples/pong/tex.bmp
+    examples/worms/border1.bmp
+    examples/worms/border2.bmp
+    examples/worms/border3.bmp
+    examples/worms/congratulations.bmp
+    examples/worms/food.bmp
+    examples/worms/free1.bmp
+    examples/worms/free2.bmp
+    examples/worms/free3.bmp
+    examples/worms/gameover.bmp
+    examples/worms/heade.bmp
+    examples/worms/headn.bmp
+    examples/worms/heads.bmp
+    examples/worms/headw.bmp
+    examples/worms/level1.bmp
+    examples/worms/level2.bmp
+    examples/worms/level3.bmp
+    examples/worms/segment.bmp
 
 source-repository head
-  type:     git
+  type: git
   location: https://github.com/haskell-game/fungen
 
 library
-  ghc-options:      -W
-  exposed-modules:  
-                    Graphics.UI.Fungen,
-                    Graphics.UI.Fungen.Display,
-                    Graphics.UI.Fungen.Game,
-                    Graphics.UI.Fungen.Init,
-                    Graphics.UI.Fungen.Input,
-                    Graphics.UI.Fungen.Loader,
-                    Graphics.UI.Fungen.Map,
-                    Graphics.UI.Fungen.Objects,
-                    Graphics.UI.Fungen.Text,
-                    Graphics.UI.Fungen.Timer,
-                    Graphics.UI.Fungen.Types,
-                    Graphics.UI.Fungen.Util,
-                    Graphics.UI.GLUT.Input
-  other-modules:    Paths_FunGEn
-  autogen-modules:  Paths_FunGEn
-
+  ghc-options: -W
   build-depends:
-                    base == 4.*
-                   ,base-compat
-                   ,OpenGL
-                   ,GLUT
-                   ,random
+      GLUT
+    , OpenGL
+    , base ==4.*
+    , base-compat
+    , random
+  exposed-modules:
+      Graphics.UI.Fungen
+      Graphics.UI.Fungen.Display
+      Graphics.UI.Fungen.Game
+      Graphics.UI.Fungen.Init
+      Graphics.UI.Fungen.Input
+      Graphics.UI.Fungen.Loader
+      Graphics.UI.Fungen.Map
+      Graphics.UI.Fungen.Objects
+      Graphics.UI.Fungen.Text
+      Graphics.UI.Fungen.Timer
+      Graphics.UI.Fungen.Types
+      Graphics.UI.Fungen.Util
+      Graphics.UI.GLUT.Input
+  other-modules:
+      Paths_FunGEn
+  default-language: Haskell2010
 
 executable fungen-hello
+  main-is: hello.hs
+  hs-source-dirs:
+      examples
   ghc-options: -W
-  hs-source-dirs: examples
-  main-is:          hello.hs
-  other-modules:    Paths_FunGEn
-  autogen-modules:  Paths_FunGEn
-  build-depends:    FunGEn == 1.0.*
-                   ,base
-                   ,OpenGL
-                   ,GLUT
-                   ,random
+  build-depends:
+      FunGEn ==1.0.*
+    , GLUT
+    , OpenGL
+    , base
+    , random
+  other-modules:
+      Paths_FunGEn
+  default-language: Haskell2010
 
 executable fungen-pong
+  main-is: pong/pong.hs
+  hs-source-dirs:
+      examples
   ghc-options: -W
-  hs-source-dirs: examples
-  main-is:          pong/pong.hs
-  other-modules:    Paths_FunGEn
-  autogen-modules:  Paths_FunGEn
-  build-depends:    FunGEn == 1.0.*
-                   ,base
-                   ,OpenGL
-                   ,GLUT
-                   ,random
+  build-depends:
+      FunGEn ==1.0.*
+    , GLUT
+    , OpenGL
+    , base
+    , random
+  other-modules:
+      Paths_FunGEn
+  default-language: Haskell2010
 
 executable fungen-worms
+  main-is: worms/worms.hs
+  hs-source-dirs:
+      examples
   ghc-options: -W
-  hs-source-dirs: examples
-  main-is:          worms/worms.hs
-  other-modules:    Paths_FunGEn
-  autogen-modules:  Paths_FunGEn
-  build-depends:    FunGEn == 1.0.*
-                   ,base
-                   ,OpenGL
-                   ,GLUT
-                   ,random
+  build-depends:
+      FunGEn ==1.0.*
+    , GLUT
+    , OpenGL
+    , base
+    , random
+  other-modules:
+      Paths_FunGEn
+  default-language: Haskell2010
