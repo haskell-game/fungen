@@ -33,6 +33,14 @@ Limitations:
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
 
 ## Install
+
+Install OpenGL/GLUT C libs, if not already installed on your system.
+Eg on Ubuntu/Debian:
+```
+$ sudo apt install freeglut3-dev
+```
+ If you don't know whether they are already installed, try the next step and watch for "missing C library" errors.
+
 ### Latest released:
 ([changes](http://hackage.haskell.org/package/FunGEn/changelog))
 ```
