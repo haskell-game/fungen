@@ -31,7 +31,7 @@ description:
 
 category:       Game
 stability:      beta
-homepage:       http://fungen.joyful.com
+homepage:       https://github.com/haskell-game/fungen
 bug-reports:    https://github.com/haskell-game/fungen/issues
 author:         Andre Furtado <awbf@cin.ufpe.br>
 maintainer:     Simon Michael <simon@joyful.com>
@@ -43,8 +43,15 @@ build-type:     Simple
 cabal-version:  >= 1.10
 
 extra-source-files:
-    CHANGES
     README.md
+    CHANGES
+    TUTORIAL.md
+    site/brief.gif
+    site/example.html
+    site/logo.gif
+    site/pong.png
+    site/tex.bmp
+    site/worms.png
 
 data-files:
     examples/pong/tex.bmp

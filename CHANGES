@@ -1,6 +1,7 @@
 unreleased
 
-* set up CI test
+* drop custom website, update readme
+* set up CI testing
 * update for GHC 8.8, 8.10
 
 1.0.1 2016/8/18
