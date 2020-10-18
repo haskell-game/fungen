@@ -53,18 +53,18 @@ $ stack exec fungen-worms
 ## Docs
 
 - https://github.com/haskell-game/fungen#readme
-- Andre's tutorial, [original](site/example.html) or [reformatted](TUTORIAL.md) version
+- Andre's tutorial, [original](https://htmlpreview.github.io/?https://github.com/haskell-game/fungen/blob/master/site/example.html) or [reformatted](TUTORIAL.md#fungen-pong-tutorial) version
 - [Haddock API docs](https://hackage.haskell.org/package/FunGEn/docs/Graphics-UI-Fungen.html)
 - [Changelog](CHANGES.md)
-- [Hackage package](http://hackage.haskell.org/package/FunGEn)
-- [FunGEn](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
+- [FunGEn package](http://hackage.haskell.org/package/FunGEn) on Hackage
+- [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
+- [Andre's old site](http://www.cin.ufpe.br/~haskell/fungen)
 - [#haskell-game](http://webchat.freenode.net/?channels=haskell-game) IRC channel
   <!-- ([log](http://ircbrowse.tomsmeding.com/day/haskell-game/today/recent)) -->
 - [/r/haskellgamedev](http://www.reddit.com/r/haskellgamedev) reddit
 - [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
 - Haskell wiki: [Game_Development](http://www.haskell.org/haskellwiki/Game_Development)
 - Haskell wiki: [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1)
-- [Andre's old site](http://www.cin.ufpe.br/~haskell/fungen)
 
 
 

@@ -1,8 +1,6 @@
 # FunGEn pong tutorial
 
-This is a reconstructed copy of the original tutorial, which was better formatted.
-<!-- You should probably read the better-styled -->
-<!-- [original](http://www.cin.ufpe.br/~haskell/fungen/example.html). -->
+This is a markdown reconstruction of the original HTML tutorial.
 
 Here we'll develop, step by step, a small version of a very famous game
 called Pong. The player will use the left and right arrow keys to move a
@@ -392,7 +390,7 @@ game execution continues at the same time.
 
 Ok, now we ARE DONE. When executed, our game would look like:
 
-<img src="/site-files/brief.gif" />
+<img src="site/brief.gif" />
 
 Please notice that, in our example, when the ball hits one of the sides of
 the bar, its horizontal speed won't change, so it will "enter" the
