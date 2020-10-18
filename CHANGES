@@ -1,3 +1,7 @@
+unreleased
+
+* update for GHC 8.8
+
 1.0.1 2016/8/18
 
 * add stack config for GHC 8
