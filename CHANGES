@@ -1,6 +1,7 @@
 unreleased
 
-* update for GHC 8.8
+* set up CI test
+* update for GHC 8.8, 8.10
 
 1.0.1 2016/8/18
 
