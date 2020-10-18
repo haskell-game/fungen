@@ -27,7 +27,7 @@ Limitations:
   [elerea](http://hackage.haskell.org/package/elerea), or 
   [sdl2-mixer](http://hackage.haskell.org/package/sdl2-mixer))
 
-[Simon Michael](http://joyful.com) (`sm` in #haskell-game) provides infrequent maintenance for this package. [Co]maintainers wanted!
+[Simon Michael](http://joyful.com) (`sm` in #haskell-game) provides infrequent maintenance for this package, and chat support in #haskell-game. There is no issue tracker and no email support. [Co]maintainers wanted!
 
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
 <a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
