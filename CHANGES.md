@@ -1,3 +1,7 @@
+## 1.1.1 2020-10-18
+
+* restore support for GHC 8.6 and perhaps older versions
+
 ## 1.1 2020-10-18
 
 * drop custom website, update readme
