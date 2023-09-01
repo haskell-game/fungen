@@ -1,18 +1,17 @@
 # **FunGEn** (**Fun**ctional **G**ame **En**gine)
 
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/hello.hs#L1"
+  ><img border=0 src="site/logo.gif" title="Click to see the hello world example" style="margin-top:2em;"></a>
 
-FunGEn is a BSD-licensed, cross-platform,
-OpenGL/GLUT-based, non-FRP game engine written in Haskell. 
-Created by Andre Furtado in 2002, it's the oldest Haskell
-game engine, and with very few dependencies and two example games,
-it's one of the easiest ways to get started with Haskell game
-development. It provides:
+FunGEn is a BSD-licensed, cross-platform, OpenGL-based game engine written in Haskell. 
+Created by Andre Furtado in 2002, it's the oldest Haskell game engine,
+and with very few dependencies and two example games,
+it's one of the easiest ways to get started with Haskell game development.
 
-* Initialization, updating, removing, rendering and grouping
-  routines for game objects
-* Definition of a game background (or map), including texture-based
-  maps and tile maps
+FunGEn provides:
+
+* Initialization, updating, removing, rendering and grouping routines for game objects
+* Definition of a game background (or map), including texture-based maps and tile maps
 * Reading and intepretation of the player's keyboard and mouse input
 * Collision detection
 * Time-based functions and pre-defined game actions
@@ -23,18 +22,26 @@ Limitations:
 
 * No sound support 
   (consider adding 
-  [OpenAL](http://hackage.haskell.org/package/OpenAL), 
-  [elerea](http://hackage.haskell.org/package/elerea), or 
-  [sdl2-mixer](http://hackage.haskell.org/package/sdl2-mixer))
+  [OpenAL](https://hackage.haskell.org/package/OpenAL), 
+  [elerea](https://hackage.haskell.org/package/elerea), or 
+  [sdl2-mixer](https://hackage.haskell.org/package/sdl2-mixer))
 
-[Simon Michael](http://joyful.com) (`sm` in #haskell-game) provides infrequent maintenance for this package, and chat support in #haskell-game. There is no issue tracker and no email support. [Co]maintainers wanted!
+[Simon Michael](https://joyful.com) provides infrequent maintenance for this package,
+and chat support in #haskell-game on Matrix or Libera IRC (nick: `sm`). 
+There is no issue tracker and no email support.
 
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
-<a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
+I don't have time to do more with it, but this package is still useful
+and could attract users, given a little TLC and a slick home page.
+Would you like to take it over ? Maintainers or co-maintainers wanted!
+
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/pong/pong.hs#L1"
+  ><img border=0 src="site/pong.png" title="Click to see the pong example" style="margin-top:2em;"></a>
+<a href="https://github.com/haskell-game/fungen/blob/master/examples/worms/worms.hs#L1"
+  ><img border=0 src="site/worms.png" title="Click to see the worms (snake) example" style="margin-top:1em;"></a>
 
 ## Install
 
-Install OpenGL/GLUT C libs, if not already installed on your system.
+Install the OpenGL C libraries, if not already installed on your system.
 Eg on Ubuntu/Debian:
 ```
 $ sudo apt install freeglut3-dev
@@ -42,22 +49,27 @@ $ sudo apt install freeglut3-dev
  If you don't know whether they are already installed, try the next step and watch for "missing C library" errors.
 
 ### Latest released:
-([changes](http://hackage.haskell.org/package/FunGEn/changelog))
+
+([changes](https://hackage.haskell.org/package/FunGEn/changelog))
 ```
-$ stack install FunGEn  # or cabal
+$ stack install FunGEn    # or cabal install
 ```
 Make sure `~/.local/bin` (stack) or `~/.cabal/bin` (cabal) or the windows equivalent are in your shell PATH, then run the example games:
+
 ```
 $ fungen-hello
 $ fungen-pong
 $ fungen-worms
 ```
+
 ### Latest unreleased:
+
 ([changes](https://github.com/haskell-game/fungen/blob/master/CHANGES.md#L1))
+
 ```
-$ git clone http://github.com/haskell-game/fungen
+$ git clone https://github.com/haskell-game/fungen
 $ cd fungen
-$ stack build  # or cabal
+$ stack build    # or cabal build
 $ stack exec fungen-hello
 $ stack exec fungen-pong
 $ stack exec fungen-worms
@@ -67,19 +79,17 @@ $ stack exec fungen-worms
 ## Docs
 
 - https://github.com/haskell-game/fungen#readme
+- [Changelog](CHANGES.md)
 - Andre's tutorial, [original](https://htmlpreview.github.io/?https://github.com/haskell-game/fungen/blob/master/site/example.html) or [reformatted](TUTORIAL.md#fungen-pong-tutorial) version
 - [Haddock API docs](https://hackage.haskell.org/package/FunGEn/docs/Graphics-UI-Fungen.html)
-- [Changelog](CHANGES.md)
-- [FunGEn package](http://hackage.haskell.org/package/FunGEn) on Hackage
-- [FunGEn questions](http://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
-- [Andre's old site](http://www.cin.ufpe.br/~haskell/fungen)
-- [#haskell-game](http://webchat.freenode.net/?channels=haskell-game) IRC channel
-  <!-- ([log](http://ircbrowse.tomsmeding.com/day/haskell-game/today/recent)) -->
-- [/r/haskellgamedev](http://www.reddit.com/r/haskellgamedev) reddit
-- [haskell-cafe](http://www.haskell.org/haskellwiki/Mailing_lists) mail list
-- Haskell wiki: [Game_Development](http://www.haskell.org/haskellwiki/Game_Development)
-- Haskell wiki: [OpenGL tutorial](http://www.haskell.org/haskellwiki/OpenGLTutorial1)
-
+- [FunGEn package](https://hackage.haskell.org/package/FunGEn) on Hackage
+- [FunGEn questions](https://stackoverflow.com/search?tab=newest&q=fungen) on Stack Overflow
+- [Andre's old site](https://www.cin.ufpe.br/~haskell/fungen)
+- #haskell-game chat on Matrix or on Libera IRC (currently separate, not bridged)
+- [/r/haskellgamedev](https://www.reddit.com/r/haskellgamedev) reddit
+- [haskell-cafe](https://www.haskell.org/haskellwiki/Mailing_lists) mail list
+- Haskell wiki: [Game_Development](https://www.haskell.org/haskellwiki/Game_Development)
+- Haskell wiki: [OpenGL tutorial](https://www.haskell.org/haskellwiki/OpenGLTutorial1)
 
 
 ## History
