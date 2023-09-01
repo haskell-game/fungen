@@ -19,7 +19,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 module Graphics.UI.Fungen.Game (
   Game, IOGame,
   -- ** creating
-  createGame, 
+  createGame,
   -- ** IO utilities
   runIOGame, runIOGameM, liftIOtoIOGame, liftIOtoIOGame',
   -- ** game state
@@ -116,7 +116,7 @@ data Game t s u v = Game {
         gameMap       :: IORef (GameMap v), -- ^ a map (background)
         gameState     :: IORef u,           -- ^ initial game state
         gameFlags     :: IORef GameFlags,   -- ^ initial game flags
-        objManagers   :: IORef [(ObjectManager s)], -- ^ some object managers
+        objManagers   :: IORef [ObjectManager s], -- ^ some object managers
         textList      :: IORef [Text],              -- ^ some texts
         quadricObj    :: QuadricPrimitive,          -- ^ a quadric thing
         windowConfig  :: IORef WindowConfig,        -- ^ a config for the main window
@@ -148,7 +148,7 @@ type GameFlags = (Bool,Bool,Bool)
 
 bindST :: IOGame t s u v a -> (a -> IOGame t s u v b) -> IOGame t s u v b
 bindST (IOG x) f =
-   IOG (\s -> ( x s >>= \(s',v) -> let IOG g = f v in g s'))
+   IOG (x >=> (\ (s', v) -> let IOG g = f v in g s'))
 
 unitST :: a -> IOGame t s u v a
 unitST v = IOG (\s -> return (s,v))
@@ -167,16 +167,16 @@ instance MonadFail (IOGame t s u v) where
   fail s = liftIOtoIOGame (fail s)
 
 runIOGame :: IOGame t s u v a -> Game t s u v -> IO (Game t s u v,a)  -- (a,Game t s u v) the state tuple
-runIOGame (IOG f) g = f g
+runIOGame (IOG f) = f
 
 runIOGameM :: IOGame t s u v a -> Game t s u v -> IO ()
-runIOGameM x g = runIOGame x g >> return ()
-                 
+runIOGameM x g = void (runIOGame x g)
+
 liftIOtoIOGame      :: IO a -> IOGame t s u v a
 liftIOtoIOGame p    =
      IOG $ \s -> (do y <- p
                      return (s,y))
-                     
+
 liftIOtoIOGame'     :: (a -> IO ()) -> a -> IOGame t s u v ()
 liftIOtoIOGame' p q =
      IOG $ \s -> (do p q
@@ -187,68 +187,68 @@ liftIOtoIOGame' p q =
 ----------------------------------
 
 getMap :: IOGame t s u v (GameMap v)
-getMap = IOG ( \game -> (readIORef (gameMap game) >>= \gm -> if (isMultiMap gm)
-                                                                then (return (game,getCurrentMap gm))
-                                                                else (return (game,gm)) ))
+getMap = IOG ( \game -> readIORef (gameMap game) >>= \gm -> if isMultiMap gm
+                                                                then return (game,getCurrentMap gm)
+                                                                else return (game,gm))
 
 getRealMap :: IOGame t s u v (GameMap v)
-getRealMap = IOG ( \game -> (readIORef (gameMap game) >>= \gm -> (return (game,gm)) ))
+getRealMap = IOG ( \game -> readIORef (gameMap game) >>= \gm -> return (game,gm))
 
 setRealMap :: GameMap v -> IOGame t s u v ()
-setRealMap m = IOG ( \game -> (writeIORef (gameMap game) m >> return (game,()) ))
+setRealMap m = IOG ( \game -> writeIORef (gameMap game) m >> return (game,()))
 
 
 getGameState :: IOGame t s u v u
-getGameState = IOG ( \game -> (readIORef (gameState game) >>= \gs -> return (game,gs) ))
+getGameState = IOG ( \game -> readIORef (gameState game) >>= \gs -> return (game,gs))
 
 setGameState :: u -> IOGame t s u v ()
-setGameState s = IOG ( \game -> (writeIORef (gameState game) s >> return (game,()) ))
+setGameState s = IOG ( \game -> writeIORef (gameState game) s >> return (game,()))
 
 getTextList :: IOGame t s u v [Text]
-getTextList = IOG ( \game -> (readIORef (textList game) >>= \tl -> return (game,tl) ))
+getTextList = IOG ( \game -> readIORef (textList game) >>= \tl -> return (game,tl))
 
 setTextList :: [Text] -> IOGame t s u v ()
-setTextList t = IOG ( \game -> (writeIORef (textList game) t >> return (game,()) ))
+setTextList t = IOG ( \game -> writeIORef (textList game) t >> return (game,()))
 
 getGameFlags :: IOGame t s u v GameFlags
-getGameFlags = IOG ( \game -> (readIORef (gameFlags game) >>= \gf -> return (game,gf) ))
+getGameFlags = IOG ( \game -> readIORef (gameFlags game) >>= \gf -> return (game,gf))
 
 setGameFlags :: GameFlags -> IOGame t s u v ()
-setGameFlags f = IOG ( \game -> (writeIORef (gameFlags game) f >> return (game,()) ))
+setGameFlags f = IOG ( \game -> writeIORef (gameFlags game) f >> return (game,()))
 
-getObjectManagers :: IOGame t s u v [(ObjectManager s)]
-getObjectManagers = IOG ( \game -> (readIORef (objManagers game) >>= \om -> return (game,om) ))
+getObjectManagers :: IOGame t s u v [ObjectManager s]
+getObjectManagers = IOG ( \game -> readIORef (objManagers game) >>= \om -> return (game,om))
 
-setObjectManagers :: [(ObjectManager s)] -> IOGame t s u v ()
-setObjectManagers o = IOG ( \game -> (writeIORef (objManagers game) o >> return (game,()) ))
-                                                   
+setObjectManagers :: [ObjectManager s] -> IOGame t s u v ()
+setObjectManagers o = IOG ( \game -> writeIORef (objManagers game) o >> return (game,()))
+
 getQuadric :: IOGame t s u v QuadricPrimitive
 getQuadric = IOG ( \game -> return (game,quadricObj game) )
 
 getPictureList :: IOGame t s u v [TextureObject]
-getPictureList = IOG ( \game -> (readIORef (pictureList game) >>= \pl -> return (game,pl) ))
+getPictureList = IOG ( \game -> readIORef (pictureList game) >>= \pl -> return (game,pl))
 
 getWindowConfig :: IOGame t s u v WindowConfig
-getWindowConfig = IOG ( \game -> (readIORef (windowConfig game) >>= \wc -> return (game,wc) ))
+getWindowConfig = IOG ( \game -> readIORef (windowConfig game) >>= \wc -> return (game,wc))
 
 getGameAttribute :: IOGame t s u v t
-getGameAttribute = IOG ( \game -> (readIORef (gameAttribute game) >>= \ga -> return (game,ga) ))
+getGameAttribute = IOG ( \game -> readIORef (gameAttribute game) >>= \ga -> return (game,ga))
 
 setGameAttribute :: t -> IOGame t s u v ()
-setGameAttribute ga = IOG ( \game -> (writeIORef (gameAttribute game) ga >> return (game,()) ))
+setGameAttribute ga = IOG ( \game -> writeIORef (gameAttribute game) ga >> return (game,()))
 
 -- internal use only
 getFpsInfo :: IOGame t s u v (Int,Int,Float)
-getFpsInfo = IOG ( \game -> (readIORef (fpsInfo game) >>= \fpsi -> return (game,fpsi) ))
+getFpsInfo = IOG ( \game -> readIORef (fpsInfo game) >>= \fpsi -> return (game,fpsi))
 
 -- internal use only
 setFpsInfo :: (Int,Int,Float) -> IOGame t s u v ()
-setFpsInfo f = IOG ( \game -> (writeIORef (fpsInfo game) f >> return (game,()) ))
-                                                   
+setFpsInfo f = IOG ( \game -> writeIORef (fpsInfo game) f >> return (game,()))
+
 ----------------------------------
 -- initialization of the game
 ----------------------------------
-createGame :: GameMap v -> [(ObjectManager s)] -> WindowConfig -> u -> t -> FilePictureList -> IO (Game t s u v)
+createGame :: GameMap v -> [ObjectManager s] -> WindowConfig -> u -> t -> FilePictureList -> IO (Game t s u v)
 createGame gMap objectManagers winConf gState gAttrib filePicList = do
         gM <- newIORef gMap
         gS <- newIORef gState
@@ -298,13 +298,13 @@ drawMap = do
 getTileFromWindowPosition :: (GLdouble,GLdouble) -> IOGame t s u v (Tile v)
 getTileFromWindowPosition (preX,preY) = do
        m <- getMap
-       if (isTileMap m)
+       if isTileMap m
             then let (tileXsize,tileYsize) = getTileMapTileSize m
                      (scrollX,scrollY) = getTileMapScroll m
                      (x,y) = (preX + scrollX,preY + scrollY)
                      (sX,sY) = getTileMapSize m
-                 in if (x >= sX || y >= sY)
-                        then error ("Game.getTileFromWindowPosition error: pixel " ++ (show (x,y)) ++ " out of map range!")
+                 in if x >= sX || y >= sY
+                        then error ("Game.getTileFromWindowPosition error: pixel " ++ show (x,y) ++ " out of map range!")
                         else getTileFromIndex (fromEnum (y/tileXsize),fromEnum (x/tileYsize)) -- (x,y) window orientation is different than index (x,y)!
             else error "Game.getTileFromWindowPosition error: game map is not a tile map!"
 
@@ -312,12 +312,12 @@ getTileFromWindowPosition (preX,preY) = do
 getTileFromIndex :: (Int,Int) -> IOGame t s u v (Tile v)
 getTileFromIndex (x,y) = do
         m <- getMap
-        if (isTileMap m)
+        if isTileMap m
             then let matrix = getTileMapTileMatrix m
                      (mapX,mapY) = matrixSize matrix
-                 in if (mapX >= x && mapY >= y && x >= 0 && y >= 0)
-                        then return ( (matrix !! (mapX - x)) !! y)
-                        else error ("Game.getTileFromIndex error: tile index " ++ (show (x,y)) ++ " out of map range!")
+                 in if mapX >= x && mapY >= y && x >= 0 && y >= 0
+                        then return ( matrix !! (mapX - x) !! y)
+                        else error ("Game.getTileFromIndex error: tile index " ++ show (x,y) ++ " out of map range!")
             else error "Game.getTileFromIndex error: game map is not a tile map!"
 
 -- | paint the whole screen with a specified RGB color
@@ -328,9 +328,9 @@ clearScreen r g b = liftIOtoIOGame $ clearGameScreen r g b
 setCurrentMapIndex :: Int -> IOGame t s u v ()
 setCurrentMapIndex i = do
         m <- getRealMap
-        if (isMultiMap m)
-                then (setRealMap (updateCurrentIndex m i))
-                else (error "Game.setCurrentMapIndex error: you are not working with MultiMaps!")
+        if isMultiMap m
+                then setRealMap (updateCurrentIndex m i)
+                else error "Game.setCurrentMapIndex error: you are not working with MultiMaps!"
 
 ----------------------------------
 -- flags routines
@@ -399,9 +399,8 @@ moveAllObjects = do
     setObjectManagers newManagers
 
 -- | destroys objects from the game
-destroyObjects :: [(GameObject s)] -> IOGame t s u v ()
-destroyObjects [] = return ()
-destroyObjects (o:os) = destroyObject o >> destroyObjects os
+destroyObjects :: [GameObject s] -> IOGame t s u v ()
+destroyObjects = foldr ((>>) . destroyObject) (return ())
 
 -- | destroys an object from the game
 destroyObject :: GameObject s -> IOGame t s u v ()
@@ -413,21 +412,21 @@ destroyObject obj = do
     setObjectManagers newManagers
 
 -- | returns the list of all objects from the group whose name is given
-getObjectsFromGroup :: String -> IOGame t s u v [(GameObject s)]
+getObjectsFromGroup :: String -> IOGame t s u v [GameObject s]
 getObjectsFromGroup mngName = do
         mng <- findObjectManager mngName
         return (getObjectManagerObjects mng)
 
 -- | adds an object to a previously created group
-addObjectsToGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
+addObjectsToGroup :: [GameObject s] -> String -> IOGame t s u v ()
 addObjectsToGroup objs managerName = do
         -- manager <- findObjectManager managerName
         managers <- getObjectManagers
-        let newManagers = addObjectsToManager objs managerName managers 
+        let newManagers = addObjectsToManager objs managerName managers
         setObjectManagers newManagers
 
 -- | adds an object to a new group
-addObjectsToNewGroup :: [(GameObject s)] -> String -> IOGame t s u v ()
+addObjectsToNewGroup :: [GameObject s] -> String -> IOGame t s u v ()
 addObjectsToNewGroup objs newMngName = do
         let newManager = objectGroup newMngName objs
         managers <- getObjectManagers
@@ -435,10 +434,8 @@ addObjectsToNewGroup objs newMngName = do
 
 -- | returns an object manager of the game, given its name (internal use)
 findObjectManager :: String -> IOGame t s u v (ObjectManager s)
-findObjectManager mngName = do
-    objectManagers <- getObjectManagers
-    return (searchObjectManager mngName objectManagers)
-    
+findObjectManager mngName = searchObjectManager mngName <$> getObjectManagers
+
 -- | returns an object of the game, given its name and is object manager name
 findObject :: String -> String -> IOGame t s u v (GameObject s)
 findObject objName mngName = do
@@ -509,7 +506,7 @@ setObjectSpeed speed obj = replaceObject obj (updateObjectSpeed speed)
 setObjectCurrentPicture :: Int -> GameObject s -> IOGame t s u v ()
 setObjectCurrentPicture n obj = do
         picList <- getPictureList
-        replaceObject obj (updateObjectPicture n ((length picList) - 1))
+        replaceObject obj (updateObjectPicture n (length picList - 1))
 
 -- | changes the attribute of an object, given its new attribute
 setObjectAttribute :: s -> GameObject s -> IOGame t s u v ()
@@ -541,197 +538,197 @@ objectTopMapCollision :: GameObject s -> IOGame t s u v Bool
 objectTopMapCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do m <- getMap
                 (_,pY) <- getObjectPosition o
                 (_,sY) <- getObjectSize o
                 let (_,mY) = getMapSize m
-                return (pY + (sY/2) > (realToFrac mY))
+                return (pY + sY/2 > realToFrac mY)
 
 -- | checks the collision between an object and the top of the map in the next game cicle
 objectTopMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectTopMapFutureCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do m <- getMap
                 (_,pY) <- getObjectPosition o
                 (_,vY) <- getObjectSpeed o
                 (_,sY) <- getObjectSize o
                 let (_,mY) = getMapSize m
-                return (pY + (sY/2) + vY > (realToFrac mY))
+                return (pY + sY/2 + vY > realToFrac mY)
 
 -- | checks the collision between an object and the bottom of the map
 objectBottomMapCollision :: GameObject s -> IOGame t s u v Bool
 objectBottomMapCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do (_,pY) <- getObjectPosition o
                 (_,sY) <- getObjectSize o
-                return (pY - (sY/2) < 0)
+                return (pY - sY/2 < 0)
 
 -- | checks the collision between an object and the bottom of the map in the next game cicle
 objectBottomMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectBottomMapFutureCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do (_,pY) <- getObjectPosition o
                 (_,sY) <- getObjectSize o
                 (_,vY) <- getObjectSpeed o
-                return (pY - (sY/2) + vY < 0)
+                return (pY - sY/2 + vY < 0)
 
 -- | checks the collision between an object and the right side of the map
 objectRightMapCollision :: GameObject s -> IOGame t s u v Bool
 objectRightMapCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do m <- getMap
                 (pX,_) <- getObjectPosition o
                 (sX,_) <- getObjectSize o
                 let (mX,_) = getMapSize m
-                return (pX + (sX/2) > (realToFrac mX))
+                return (pX + sX/2 > realToFrac mX)
 
 -- | checks the collision between an object and the right side of the map in the next game cicle
 objectRightMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectRightMapFutureCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do m <- getMap
                 (pX,_) <- getObjectPosition o
                 (sX,_) <- getObjectSize o
                 (vX,_) <- getObjectSpeed o
                 let (mX,_) = getMapSize m
-                return (pX + (sX/2) + vX > (realToFrac mX))
+                return (pX + sX/2 + vX > realToFrac mX)
 
 -- | checks the collision between an object and the left side of the map
 objectLeftMapCollision :: GameObject s -> IOGame t s u v Bool
 objectLeftMapCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do (pX,_) <- getObjectPosition o
                 (sX,_) <- getObjectSize o
-                return (pX - (sX/2) < 0)
+                return (pX - sX/2 < 0)
 
 -- | checks the collision between an object and the left side of the map in the next game cicle
 objectLeftMapFutureCollision :: GameObject s -> IOGame t s u v Bool
 objectLeftMapFutureCollision o = do
     asleep <- getObjectAsleep o
     if asleep
-        then (return False)
+        then return False
         else do (pX,_) <- getObjectPosition o
                 (sX,_) <- getObjectSize o
                 (vX,_) <- getObjectSpeed o
-                return (pX - (sX/2) + vX < 0)
+                return (pX - sX/2 + vX < 0)
 
 -- | checks the collision between two objects
 objectsCollision :: GameObject s -> GameObject s -> IOGame t s u v Bool
 objectsCollision o1 o2 = do
     asleep1 <- getObjectAsleep o1
     asleep2 <- getObjectAsleep o2
-    if (asleep1 || asleep2)
-                then (return False)
+    if asleep1 || asleep2
+                then return False
                 else  do (p1X,p1Y) <- getObjectPosition o1
                          (p2X,p2Y) <- getObjectPosition o2
                          (s1X,s1Y) <- getObjectSize o1
                          (s2X,s2Y) <- getObjectSize o2
-        
-                         let aX1 = p1X - (s1X/2)
-                             aX2 = p1X + (s1X/2)
-                             aY1 = p1Y - (s1Y/2)
-                             aY2 = p1Y + (s1Y/2)
-        
-                             bX1 = p2X - (s2X/2)
-                             bX2 = p2X + (s2X/2)
-                             bY1 = p2Y - (s2Y/2)
-                             bY2 = p2Y + (s2Y/2)
-                              
-                         return ((bX1 < aX2) && (aX1 < bX2) && (bY1 < aY2) && (aY1 < bY2))
+
+                         let aX1 = p1X - s1X/2
+                             aX2 = p1X + s1X/2
+                             aY1 = p1Y - s1Y/2
+                             aY2 = p1Y + s1Y/2
+
+                             bX1 = p2X - s2X/2
+                             bX2 = p2X + s2X/2
+                             bY1 = p2Y - s2Y/2
+                             bY2 = p2Y + s2Y/2
+
+                         return (bX1 < aX2 && aX1 < bX2 && bY1 < aY2 && aY1 < bY2)
 
 -- | checks the collision between two objects in the next game cicle
 objectsFutureCollision :: GameObject s -> GameObject s -> IOGame t s u v Bool
 objectsFutureCollision o1 o2 = do
     asleep1 <- getObjectAsleep o1
     asleep2 <- getObjectAsleep o2
-    if (asleep1 || asleep2)
-                then (return False)
+    if asleep1 || asleep2
+                then return False
                 else do (p1X,p1Y) <- getObjectPosition o1
                         (p2X,p2Y) <- getObjectPosition o2
                         (v1X,v1Y) <- getObjectSpeed o1
                         (v2X,v2Y) <- getObjectSpeed o2
                         (s1X,s1Y) <- getObjectSize o1
                         (s2X,s2Y) <- getObjectSize o2
-        
-                        let aX1 = p1X - (s1X/2) + v1X
-                            aX2 = p1X + (s1X/2) + v1X
-                            aY1 = p1Y - (s1Y/2) + v1Y
-                            aY2 = p1Y + (s1Y/2) + v1Y
 
-                            bX1 = p2X - (s2X/2) + v2X
-                            bX2 = p2X + (s2X/2) + v2X
-                            bY1 = p2Y - (s2Y/2) + v2Y
-                            bY2 = p2Y + (s2Y/2) + v2Y
-                        return ((bX1 < aX2) && (aX1 < bX2) && (bY1 < aY2) && (aY1 < bY2))
+                        let aX1 = p1X - s1X/2 + v1X
+                            aX2 = p1X + s1X/2 + v1X
+                            aY1 = p1Y - s1Y/2 + v1Y
+                            aY2 = p1Y + s1Y/2 + v1Y
 
-objectListObjectCollision :: [(GameObject s)] -> GameObject s -> IOGame t s u v Bool
+                            bX1 = p2X - s2X/2 + v2X
+                            bX2 = p2X + s2X/2 + v2X
+                            bY1 = p2Y - s2Y/2 + v2Y
+                            bY2 = p2Y + s2Y/2 + v2Y
+                        return (bX1 < aX2 && aX1 < bX2 && bY1 < aY2 && aY1 < bY2)
+
+objectListObjectCollision :: [GameObject s] -> GameObject s -> IOGame t s u v Bool
 objectListObjectCollision [] _ = return False
 objectListObjectCollision (a:as) b = do
         col <- objectsCollision a b
         if col
-                then (return True)
-                else (objectListObjectCollision as b)
+                then return True
+                else objectListObjectCollision as b
 
-objectListObjectFutureCollision :: [(GameObject s)] -> GameObject s -> IOGame t s u v Bool
+objectListObjectFutureCollision :: [GameObject s] -> GameObject s -> IOGame t s u v Bool
 objectListObjectFutureCollision [] _ = return False
 objectListObjectFutureCollision (a:as) b = do
         col <- objectsFutureCollision a b
         if col
-                then (return True)
-                else (objectListObjectFutureCollision as b)
+                then return True
+                else objectListObjectFutureCollision as b
 
 pointsObjectCollision :: GLdouble -> GLdouble -> GLdouble -> GLdouble -> GameObject s -> IOGame t s u v Bool
 pointsObjectCollision p1X p1Y s1X s1Y o2 = do
         asleep <- getObjectAsleep o2
         if asleep
-                then (return False)
+                then return False
                 else do (p2X,p2Y) <- getObjectPosition o2
                         (s2X,s2Y) <- getObjectSize o2
 
-                        let aX1 = p1X - (s1X/2)
-                            aX2 = p1X + (s1X/2)
-                            aY1 = p1Y - (s1Y/2)
-                            aY2 = p1Y + (s1Y/2)
-        
-                            bX1 = p2X - (s2X/2)
-                            bX2 = p2X + (s2X/2)
-                            bY1 = p2Y - (s2Y/2)
-                            bY2 = p2Y + (s2Y/2)
-                        return ((bX1 < aX2) && (aX1 < bX2) && (bY1 < aY2) && (aY1 < bY2))
-                         
-pointsObjectListCollision :: GLdouble -> GLdouble -> GLdouble -> GLdouble -> [(GameObject s)] -> IOGame t s u v Bool
+                        let aX1 = p1X - s1X/2
+                            aX2 = p1X + s1X/2
+                            aY1 = p1Y - s1Y/2
+                            aY2 = p1Y + s1Y/2
+
+                            bX1 = p2X - s2X/2
+                            bX2 = p2X + s2X/2
+                            bY1 = p2Y - s2Y/2
+                            bY2 = p2Y + s2Y/2
+                        return (bX1 < aX2 && aX1 < bX2 && bY1 < aY2 && aY1 < bY2)
+
+pointsObjectListCollision :: GLdouble -> GLdouble -> GLdouble -> GLdouble -> [GameObject s] -> IOGame t s u v Bool
 pointsObjectListCollision _ _ _ _ [] = return False
 pointsObjectListCollision p1X p1Y s1X s1Y (o:os) = do
         col <- pointsObjectCollision p1X p1Y s1X s1Y o
         if col
-                then (return True)
-                else (pointsObjectListCollision p1X p1Y s1X s1Y os)
+                then return True
+                else pointsObjectListCollision p1X p1Y s1X s1Y os
 
 -----------------------------------------------
 --              TEXT ROUTINES                --
 -----------------------------------------------
 -- | prints a string in the prompt
 printOnPrompt :: Show a => a -> IOGame t s u v ()
-printOnPrompt a = liftIOtoIOGame' print a
+printOnPrompt = liftIOtoIOGame' print
 
 -- | prints a string in the current window
 printOnScreen :: String -> BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf -> IOGame t s u v ()
 printOnScreen text font pos r g b = do
         t <- getTextList
-        setTextList ([(text,font,pos,r,g,b)] ++ t)
+        setTextList ((text,font,pos,r,g,b) : t)
 
 -- | internal use of the engine
 printText :: IOGame t s u v ()
@@ -761,12 +758,12 @@ showFPS :: BitmapFont -> (GLdouble,GLdouble) -> GLclampf -> GLclampf -> GLclampf
 showFPS font pos r g b = do
         (framei,timebasei,fps) <- getFpsInfo
         timei <- getElapsedTime
-        let frame = (toEnum (framei + 1)) :: Float
-            timebase = (toEnum timebasei) :: Float
-            time = (toEnum timei) :: Float
-        if (timei - timebasei > 1000)
-                then setFpsInfo (0,timei,(frame*(toEnum 1000)/(time-timebase)))
-                else setFpsInfo ((framei + 1),timebasei,fps)
+        let frame = toEnum (framei + 1) :: Float
+            timebase = toEnum timebasei :: Float
+            time = toEnum timei :: Float
+        if timei - timebasei > 1000
+                then setFpsInfo (0,timei,frame*toEnum 1000/(time-timebase))
+                else setFpsInfo (framei + 1,timebasei,fps)
         printOnScreen (printf "%.1f" fps) font pos r g b
 
 -- | get the elapsed time of the game
@@ -778,14 +775,16 @@ wait :: Int -> IOGame t s u v ()
 wait delay = do
         printText                                   -- force text messages to be printed (is not working properly!)
         (framei,timebasei,fps) <- getFpsInfo
-        setFpsInfo (framei,(timebasei + delay),fps) -- helps FPS info to be displayed correctly (if requested)
+        setFpsInfo (framei,timebasei + delay,fps) -- helps FPS info to be displayed correctly (if requested)
         startTime <- getElapsedTime
-        
+
         waitAux delay startTime
 
 waitAux :: Int -> Int -> IOGame t s u v ()
 waitAux delay startTime = do
         presentTime <- getElapsedTime
-        if (presentTime - startTime > delay)
+        if presentTime - startTime > delay
                 then return ()
                 else waitAux delay startTime
+
+
