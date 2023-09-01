@@ -1,5 +1,5 @@
 name:           FunGEn
-version:        1.1.1
+version:        1.2
 synopsis:       A lightweight, cross-platform, OpenGL-based game engine.
 description:
     FunGEn (Functional Game Engine) is a BSD-licensed, cross-platform,
@@ -110,7 +110,7 @@ executable fungen-hello
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.1.1.*
+      FunGEn ==1.2
     , GLUT
     , OpenGL
     , base
@@ -125,7 +125,7 @@ executable fungen-pong
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.1.1.*
+      FunGEn ==1.2
     , GLUT
     , OpenGL
     , base
@@ -140,7 +140,7 @@ executable fungen-worms
       examples
   ghc-options: -W
   build-depends:
-      FunGEn ==1.1.1.*
+      FunGEn ==1.2
     , GLUT
     , OpenGL
     , base
