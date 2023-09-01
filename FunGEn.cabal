@@ -38,7 +38,8 @@ maintainer:     Simon Michael <simon@joyful.com>
 copyright:      (C) 2002 Andre Furtado <awbf@cin.ufpe.br>
 license:        BSD3
 license-file:   LICENSE
-tested-with:    GHC==8.0.2, GHC==8.2.2, GHC==8.4.4, GHC==8.6.5, GHC==8.8.4, GHC==8.10.2
+-- tested-with:    GHC==8.0, GHC==8.2, GHC==8.4, GHC==8.6, GHC==8.8  -- not tested since 1.1.1
+tested-with:    GHC==8.10, GHC==9.0, GHC==9.2, GHC==9.4.6, GHC==9.6.2
 build-type:     Simple
 cabal-version:  >= 1.10
 
