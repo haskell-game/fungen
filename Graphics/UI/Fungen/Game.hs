@@ -166,12 +166,11 @@ instance Functor (IOGame t s u v) where
   fmap = liftM
 
 instance Applicative (IOGame t s u v) where
-  pure  = return
+  pure  = unitST
   (<*>) = ap
 
 instance Monad (IOGame t s u v) where
   (>>=) = bindST
-  return = unitST
 
 instance MonadFail (IOGame t s u v) where
   fail s = liftIOtoIOGame (fail s)
