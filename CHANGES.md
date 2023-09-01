@@ -1,3 +1,10 @@
+## 1.2 2023-09-01
+
+* fix warnings
+* convert to unix line endings
+* test up to GHC 9.6
+* require GHC >= 8.10
+
 ## 1.1.1 2020-10-18
 
 * restore support for GHC 8.0 - 8.6, fix hackage haddock docs
